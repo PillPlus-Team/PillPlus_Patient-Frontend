@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { LoginPage } from './pages'
+import { LoginPage, HomePage } from './pages'
 
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/login" component={LoginPage} />
-        <Route/>
+        <Route exact path="/home" component={HomePage} />
         <Route/>
         <Route/>
         <Route/>
@@ -17,7 +17,7 @@ const App = () => {
         {/* others routes*/}
 
 
-        <Redirect to="/login" />
+        <Redirect to="/home" />
       </Switch>
     </Router>
       

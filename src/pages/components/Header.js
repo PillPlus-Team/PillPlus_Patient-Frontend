@@ -1,8 +1,8 @@
-const Header = () => {
+const Header = ({title, className}) => {
     return (
-        <div>
-            <h1 className="flex flex-col w-full h-screen p-16 justify-center items-center text-6xl font-bold text-blue-500"> PILLPLUS+ </h1>
-        </div>
+        
+        <h1 className={`${className} text-4xl sm:text-5xl font-bold text-blue-500`}>{title}</h1>
+        
     )
 }
 

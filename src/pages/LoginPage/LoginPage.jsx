@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
+import Button from '../components/Button'
 
 const LoginPage = () => {
     //Thai National ID 13 numbers
@@ -52,13 +53,12 @@ const LoginPage = () => {
                         required
                     />
                     
-                    <button
-                        className="mt-6 self-stretch p-2 bg-blue-500 text-white rounded-lg  hover:bg-blue-800 active:bg-blue-500 focus:outline-none"
-                        type="submit"
-                    >
-                        เข้าสู่ระบบ
-                    </button>
-
+                    <Button
+                        title='เข้าสู่ระบบ'
+                        type='summit'
+                        className='mt-6 self-stretch'
+                    />
+                        
                 </form>
             </div>
         </div>
