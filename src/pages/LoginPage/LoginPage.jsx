@@ -43,7 +43,7 @@ const LoginPage = () => {
                         className="mt-4 self-stretch p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
                         id="input-password"
                         name="password"
-                        type="password"
+                        type="text"
                         value={password}
                         
                         onChange={(event) => {

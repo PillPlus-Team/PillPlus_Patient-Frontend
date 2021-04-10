@@ -2,22 +2,25 @@ import Button from '../../components/Button'
 
 const Location = ({location}) => {
     return (
-        <div className='flex flex-row flex-wrap justify-center items-center bg-white p-5 m-5 w-16/12 h-auto'>
-            <div className='flex flex-col mx-5'>
+        <div className='flex flex-row flex-wrap items-center justify-center bg-white p-5 m-2 w-10/12 sm:max-w-screen-sm h-auto md:h-28 '>
+            <div className='flex flex-col w-80 mx-2 flex-grow'>
                 <h2 className='text-xl'>{location.title}</h2>
                 <h3 className='text-gray-400'>{location.description}</h3>
             </div>
             
-            <div>
-                <h3 className={
-                        `${location.status ?'bg-green-100 text-green-500':'bg-red-200 text-red-500'} 
-                            mx-5 min-w-max p-3 w-40 text-center`}
-                > 
-                    {location.status ?'สามารถไปรับยาได้':'ไม่สามารถไปรับยาได้'}
-                </h3>
-            </div>
             
-            <Button title='map'/>
+            <h3 className={
+                    `${location.status ?'bg-green-100 text-green-500':'bg-red-200 text-red-500'} 
+                        p-3 mx-2 mt-3 md:mt-0 w-40 text-center flex-grow`}
+            > 
+                {location.status ?'สามารถไปรับยาได้':'ไม่สามารถไปรับยาได้'}
+            </h3>
+            
+            
+            <Button 
+                title='map'
+                className='p-3 mx-2  mt-3 md:mt-0 px-5 flex-grow'
+            />
             
         </div>
     )
