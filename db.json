@@ -1,0 +1,57 @@
+{
+  "patients": [
+    {
+      "id": "1234567890123",
+      "serialNumber": "BC7040201",
+      "name": "สิรวิชญ์",
+      "surname": "สุขวัฒนาวิทย์"
+    },
+    {
+      "id": "2345678901231",
+      "serialNumber": "BC8040201",
+      "name": "ภูมิภัทร",
+      "surname": "เชื้อลื้อ"
+    }
+  ],
+
+  "locations": [
+        
+      {
+          "id": 1,
+          "title": "phamarcy 1",
+          "description": "jaroenkung road soi 5 moo 6 l a d g r a b a n g bkk 1000220",
+          "status": true
+      }, 
+      {
+          "id": 2,
+          "title": "phamarcy 2",
+          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk",
+          "status": "true"
+      },
+      {
+          "id": 3,
+          "title": "phamarcy 3",
+          "description": "jaroenkung road soi 5 moo 6" ,
+          "status": false
+      },
+      {
+          "id": 4,
+          "title": "phamarcy 4",
+          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk asdasdasd",
+          "status": false
+      },
+      {
+          "id": 5,
+          "title": "phamarcy 5",
+          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk a xxxxxxxxxxxxx",
+          "status": true
+      },
+      {
+          "id": 6,
+          "title": "phamarcy 6",
+          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk a xxasssxxxx",
+          "status": true
+      }
+
+  ]
+}

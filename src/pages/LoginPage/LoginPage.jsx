@@ -1,12 +1,18 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
+import { useState, useEffect } from 'react';
+import {  useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
 import Button from '../components/Button'
 
 const LoginPage = () => {
+
+    const history = useHistory()
+
     //Thai National ID 13 numbers
     const [username, setUsername] = useState('')
     //Bill Serial Numbers 
     const [password, setPassword] = useState('')
+
+    const [error, setError] = useState(false) // default is false
+
 
     const submitHandler = async (event) => {
         event.preventDefault();
@@ -18,18 +24,42 @@ const LoginPage = () => {
         */
     }
 
+    // Not used now... 
+    /*
+    const [patients, setPatients] = useState([])  // for all patients in database 
+    const [profile, setProfile] = useState()      // the login selected one (only 1) 
+    
+  
+    useEffect(() => {
+        const fetchPatients = async () => {
+            const res = await fetch('http://localhost:5000/patients')
+            const data = await res.json()
+  
+            console.log(data)
+        }
+  
+        fetchPatients()
+    },[])
+    */
+
     return (
         
         <div className="flex justify-center items-center w-screen h-screen">
             <div className="flex flex-col justify-center items-center w-11/12 py-8 sm:py-16 sm:max-w-lg  bg-white rounded-lg shadow-md">
                 <form className="flex flex-col items-center w-9/12" onSubmit={submitHandler} autoComplete="off">
                     
-                    <p className="text-3xl text-center">ยินดีต้อนรับเข้าสู่ PILLPLUS+</p>
+                    <p className="text-3xl text-center mt-5 mb-2">ยินดีต้อนรับเข้าสู่ PILLPLUS+</p>
+
+                    {error ? 
+                    <div className="flex flex-row flex-wrap justify-center h-11 sm:h-7 text-red-600" >
+                        <h2> ไม่พบข้อมูลในระบบทะเบียน </h2>
+                        <h2> กรุณาตรวจสอบอีกครั้ง </h2>
+                    </div> : <div className="h-11 sm:h-7" ></div> }
 
                     <input
-                        className="mt-6 self-stretch p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
-                        id="input-username"
-                        name="username"
+                        className="mt-1 self-stretch p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                        //id="input-username"
+                        //name="username"
                         type="text"
                         value={username}
 
@@ -41,8 +71,8 @@ const LoginPage = () => {
                     />
                     <input
                         className="mt-4 self-stretch p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
-                        id="input-password"
-                        name="password"
+                        //id="input-password"
+                        //name="password"
                         type="text"
                         value={password}
                         
@@ -57,8 +87,10 @@ const LoginPage = () => {
                         title='เข้าสู่ระบบ'
                         type='summit'
                         className='mt-6 self-stretch'
+                        onClick={() => history.push('/login')}  //bypass shortcut
                     />
-                        
+
+                    
                 </form>
             </div>
         </div>
