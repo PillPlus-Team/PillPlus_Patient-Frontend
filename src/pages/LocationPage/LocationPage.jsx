@@ -48,6 +48,8 @@ const LocationPage = () => {
 
     //************** FOR ALL LOCATIONS END **************
 
+    const [filter, setFilter] = useState("")
+
     return (
         <div className='flex flex-col justify-start items-center w-screen h-full'>
             <Header 
@@ -78,10 +80,17 @@ const LocationPage = () => {
             
             <FilterBar 
                 className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
-                description = 'ค้นหา ... ชื่อร้าน, ที่อยู่'
+                description = 'ค้นหา ...' // ชื่อร้าน, ที่อยู่
+                onChange={(event) => {
+                    setFilter(event.target.value)
+                }}
+                value={filter}
             />
         
-            <LocationList locationList={locationList}/>
+            <LocationList 
+                locationList={locationList}
+                filter={filter}
+            />
             
             {render &&
             <div className='flex flex-row justify-center w-10/12 h-full mb-8'>

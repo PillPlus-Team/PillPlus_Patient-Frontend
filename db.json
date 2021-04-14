@@ -18,38 +18,38 @@
         
       {
           "id": 1,
-          "title": "phamarcy 1",
-          "description": "jaroenkung road soi 5 moo 6 l a d g r a b a n g bkk 1000220",
+          "title": "ร้านยา ทวีศักดิ์เภสัช",
+          "description": "27/53 หมู่ 1 ซอย สุขุมวิท 77, ถนนสุขุมวิท, แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร, 10520",
           "status": true
       }, 
       {
           "id": 2,
-          "title": "phamarcy 2",
-          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk",
+          "title": "ร้าน ท่าม่วงเภสัช",
+          "description": "576/3 หมู่2, ตำบลท่าม่วง อำเภอท่าม่วง จังหวัดกาญจนบุรี, 71110",
           "status": "true"
       },
       {
           "id": 3,
-          "title": "phamarcy 3",
-          "description": "jaroenkung road soi 5 moo 6" ,
+          "title": "วีรเวทเภสัช ร้านขายยา",
+          "description": "428 หมู่ 2 แสงชูโต, ตำบลท่าม่วง อำเภอท่าม่วง กาญจนบุรี, 71110" ,
           "status": false
       },
       {
           "id": 4,
-          "title": "phamarcy 4",
-          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk asdasdasd",
+          "title": "เมืองยาฟาร์มาซี ร้านขายยา",
+          "description": "61/4, สละชีพ, ตำบลเกาะหลัก อำเภอเมืองประจวบคีรีขันธ์ ประจวบคีรีขันธ์, 77000",
           "status": false
       },
       {
           "id": 5,
-          "title": "phamarcy 5",
-          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk a xxxxxxxxxxxxx",
+          "title": "ร้านขายยาสมพงษ์เภสัช @ ร่มเกล้า 54",
+          "description": "27 ซอยร่มเกล้า 54, ถนนร่มเกล้า, แขวงคลองสามประเวศ เขตลาดกระบัง กรุงเทพมหานคร, 10520",
           "status": true
       },
       {
           "id": 6,
-          "title": "phamarcy 6",
-          "description": "jaroenkung road soi 5 moo 6 ladgrabang bkk a xxasssxxxx",
+          "title": "ร้านขายยา ไปรยาเภสัช",
+          "description": "1209, ถนนลาดกระบัง, แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร, 10520",
           "status": true
       }
 

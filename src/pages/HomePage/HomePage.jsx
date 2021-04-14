@@ -50,7 +50,7 @@ const HomePage = () => {
 
             
             {/*We need Map feature here*/}
-            <GrMap className='bg-white  w-5/12 max-w-max h-full'/>
+            <GrMap className='bg-white  w-5/12 max-w-md h-full'/>
            
 
 

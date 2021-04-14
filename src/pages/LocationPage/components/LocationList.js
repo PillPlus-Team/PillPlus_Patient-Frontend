@@ -1,15 +1,26 @@
 
 import Location from './Location'
 
-const LocationList = ({locationList,}) => {
+const LocationList = ({locationList, filter}) => {
+    
+    const lowerCaseFilter = filter.toLowerCase()
+    
     return (
         <>
-            {locationList.map((location) => (
-                <Location 
-                    key={location.id} 
-                    location={location} 
-                />
-            ))}
+            {locationList
+                .filter( (location) => (
+                    filter == "" || 
+                    location.title.toLowerCase().includes(lowerCaseFilter) || 
+                    location.description.toLowerCase().includes(lowerCaseFilter)
+                ))
+
+                .map( (location) => (
+                    <Location 
+                        key={location.id} 
+                        location={location} 
+                    />
+                ))
+            }
         </>
     )
 }

@@ -2,7 +2,7 @@ import Button from '../../components/Button'
 
 const Location = ({location}) => {
     return (
-        <div className='flex flex-row flex-wrap items-center justify-center bg-white p-5 m-2 w-10/12 sm:max-w-screen-sm h-auto md:h-28 '>
+        <div className='flex flex-row flex-wrap items-center justify-center bg-white p-5 m-2 w-10/12 sm:max-w-screen-sm h-auto md:h-32 '>
             <div className='flex flex-col w-80 mx-2 flex-grow'>
                 <h2 className='text-xl'>{location.title}</h2>
                 <h3 className='text-gray-400'>{location.description}</h3>
