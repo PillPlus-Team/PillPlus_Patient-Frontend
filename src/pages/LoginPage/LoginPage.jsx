@@ -87,7 +87,7 @@ const LoginPage = () => {
                         title='เข้าสู่ระบบ'
                         type='summit'
                         className='mt-6 self-stretch'
-                        onClick={() => history.push('/login')}  //bypass shortcut
+                        onClick={() => history.push('/home')}  //bypass shortcut
                     />
 
                     

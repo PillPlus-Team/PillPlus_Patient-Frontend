@@ -2,13 +2,17 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
+import { GrMap } from 'react-icons/gr'
 
 const HomePage = () => {
 
+    //************** FOR PATIENT USER START **************
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
+    
+    const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
-    // fetch (only 1)
+    //get patient user profile data 
     useEffect(() => {
         const fetchProfile = async (id) => {
             const res = await fetch(`http://localhost:5000/patients/${id}`)
@@ -17,13 +21,13 @@ const HomePage = () => {
             setProfile(data)
         }
 
-        fetchProfile("1234567890123") // set manually 
-    },[])
+        fetchProfile("1234567890123") // set manually from mockup
+    },[])   
 
-    const [isAuth, setIsAuth] = useState(true)  
+    //************** FOR PATIENT USER END **************
 
     return (
-        <div className='flex flex-col justify-start items-center w-screen h-screen'>
+        <div className='flex flex-col justify-start items-center w-screen h-full'>
             <Header 
                 title='PILLPLUS+'
                 className='py-8'
@@ -38,9 +42,21 @@ const HomePage = () => {
 
             <h1 className='text-lg sm:text-2xl pb-4 text-gray-600'> สถานที่รับยา</h1>
             
+
+
+
+
+
+
+            
             {/*We need Map feature here*/}
-            <img className='w-9/12 sm:max-w-screen-md' src="https://miro.medium.com/max/4064/1*qYUvh-EtES8dtgKiBRiLsA.png" alt="map feature"/>
+            <GrMap className='bg-white  w-5/12 max-w-max h-full'/>
            
+
+
+
+
+
             <Button 
                 title='เปลี่ยนสถานที่'
                 className='mt-6 w-6/12 sm: max-w-xs'
