@@ -1,24 +1,28 @@
+import { useState } from 'react';
 
 import Location from './Location'
 
 const LocationList = ({locationList, filter, access}) => {
     
     const lowerCaseFilter = filter.toLowerCase()
+
+    const passRequirement = (location) => (
+        (
+            filter === "" || 
+            location.title.toLowerCase().includes(lowerCaseFilter) || 
+            location.description.toLowerCase().includes(lowerCaseFilter) 
+        )   
+        &&  
+        (
+            (location.status === access) || !access  //check box filter
+        )
+    )
     
     return (
         <>
             {locationList
                 .filter( (location) => (
-                    (
-                        filter === "" || 
-                        location.title.toLowerCase().includes(lowerCaseFilter) || 
-                        location.description.toLowerCase().includes(lowerCaseFilter) 
-                    )   
-                    &&  
-                    (
-                        (location.status === access) || !access  //check box filter
-                    )
-                        
+                    passRequirement(location)
                 ))
 
                 .map( (location) => (
@@ -27,6 +31,7 @@ const LocationList = ({locationList, filter, access}) => {
                         location={location} 
                     />
                 ))
+ 
             }
         </>
     )

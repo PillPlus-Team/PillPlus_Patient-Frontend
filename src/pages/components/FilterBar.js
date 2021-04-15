@@ -15,7 +15,7 @@ const FilterBar = ({className, description, onChange, onCheck, value, access}) =
                 />
             </div>
             <label 
-                for="access" 
+                htmlFor="access" 
                 className='ml-2 text-white'
             > 
                 สถานที่รับยาได้
@@ -27,7 +27,6 @@ const FilterBar = ({className, description, onChange, onCheck, value, access}) =
                 name='access'
                 onChange={onCheck}
                 checked={access}
-                defaultChecked
             />
         </div>
     )

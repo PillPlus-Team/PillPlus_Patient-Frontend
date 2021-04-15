@@ -48,6 +48,7 @@ const LocationPage = () => {
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
+    const [select, setSelect] = useState(false)
 
     //************** FOR ALL LOCATIONS END **************
     
@@ -63,9 +64,12 @@ const LocationPage = () => {
                     setIsAuth(false)
                     history.push('/login')
                 }}
+                onBackpage= {() => {
+                    history.push('/home')
+                }}
             />
 
-            <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เลือกสถานที่รับยา</h1>
+            <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เปลี่ยนสถานที่รับยา</h1>
 
 
 
@@ -101,17 +105,13 @@ const LocationPage = () => {
             
             {render &&
             <div className='flex flex-row justify-center w-10/12 h-full mb-8'>
-                <Button 
-                    title='ย้อนกลับ'
-                    className='mt-6 w-32 h-11 mx-2 sm:mx-3'
-                    onClick={()=> history.push('/home')}
-                />
 
                 {/*may delete in the future... wait for google map*/}
                 <Button 
                     title='ยืนยัน'
-                    className='mt-6 w-32 h-11 mx-2 sm:mx-3 '
+                    className={`mt-6 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 ${!select ? "pointer-events-none":" " }`}
                     onClick={()=> history.push('/home')}
+                    disabled={!select} // make it true for default (disable = true at first time)
                 />
             </div>
             }

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import { GrMap } from 'react-icons/gr'
+import Location from '../LocationPage/components/Location'
 
 const HomePage = () => {
 
@@ -20,7 +21,7 @@ const HomePage = () => {
 
             setProfile(data)
         }
-
+        
         fetchProfile("1234567890123") // set manually from mockup
     },[])   
 
@@ -40,15 +41,17 @@ const HomePage = () => {
             />
 
 
-            <h1 className='text-lg sm:text-2xl pb-4 text-gray-600'> สถานที่รับยา</h1>
+            <h1 className='text-lg sm:text-2xl text-gray-600'> สถานที่รับยา</h1>
             
+            {/* fix tomorrow */}
+            {/* profile !== {} &&
+                <div className='flex flex-col justify-center items-center m-4 p-4 rounded-xl bg-white'>
+                    <h1 className='text-lg sm:text-2xl p-2 text-gray-800'>ชื่อร้าน : {profile.location.title}</h1>
+                    <h1 className='text-md sm:text-lg p-2 text-gray-500'>{profile.location.description}</h1>
+                </div>
+            */}
 
 
-
-
-
-
-            
             {/*We need Map feature here*/}
             <GrMap className='bg-white  w-5/12 max-w-md h-full'/>
            
@@ -58,7 +61,7 @@ const HomePage = () => {
 
 
             <Button 
-                title='เปลี่ยนสถานที่'
+                title='เปลี่ยนสถานที่รับยา'
                 className='mt-6 w-6/12 sm: max-w-xs'
                 onClick={()=> history.push('/location')}
             />
