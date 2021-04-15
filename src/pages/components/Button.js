@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 const Button = ({title, onClick, type, className}) => {
 
     return (

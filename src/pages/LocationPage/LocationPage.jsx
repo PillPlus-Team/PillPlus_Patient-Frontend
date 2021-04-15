@@ -46,9 +46,11 @@ const LocationPage = () => {
         fetchLocations()
     },[])
 
-    //************** FOR ALL LOCATIONS END **************
+    const [filter, setFilter] = useState("")    //filter string
+    const [access, setAccess] = useState(true) //checkbox
 
-    const [filter, setFilter] = useState("")
+    //************** FOR ALL LOCATIONS END **************
+    
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-full'>
@@ -80,16 +82,21 @@ const LocationPage = () => {
             
             <FilterBar 
                 className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
-                description = 'ค้นหา ...' // ชื่อร้าน, ที่อยู่
+                description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
                 onChange={(event) => {
-                    setFilter(event.target.value)
+                    setFilter(event.target.value) //change filter string
                 }}
-                value={filter}
+                onCheck={() => {
+                    setAccess(!access)  //change checkbox
+                }}
+                value={filter}  //filter string
+                access={access} //checkbox
             />
         
             <LocationList 
                 locationList={locationList}
-                filter={filter}
+                filter={filter} //filter string
+                access={access} //checkbox
             />
             
             {render &&

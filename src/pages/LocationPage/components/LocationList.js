@@ -1,7 +1,7 @@
 
 import Location from './Location'
 
-const LocationList = ({locationList, filter}) => {
+const LocationList = ({locationList, filter, access}) => {
     
     const lowerCaseFilter = filter.toLowerCase()
     
@@ -9,9 +9,16 @@ const LocationList = ({locationList, filter}) => {
         <>
             {locationList
                 .filter( (location) => (
-                    filter == "" || 
-                    location.title.toLowerCase().includes(lowerCaseFilter) || 
-                    location.description.toLowerCase().includes(lowerCaseFilter)
+                    (
+                        filter === "" || 
+                        location.title.toLowerCase().includes(lowerCaseFilter) || 
+                        location.description.toLowerCase().includes(lowerCaseFilter) 
+                    )   
+                    &&  
+                    (
+                        (location.status === access) || !access  //check box filter
+                    )
+                        
                 ))
 
                 .map( (location) => (
