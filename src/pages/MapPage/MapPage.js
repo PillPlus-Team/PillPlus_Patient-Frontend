@@ -48,7 +48,16 @@ export default function MapPage() {
         center={center}
         options={options}
       >
-        <Marker position={center} />
+        <Marker
+          position={center}
+          icon={{
+            url:
+              "https://www.flaticon.com/svg/vstatic/svg/1529/1529662.svg?token=exp=1618780506~hmac=cd25690fe612c30e05806c1be94c1bfb",
+            scaledSize: new window.google.maps.Size(20, 20),
+            origin: new window.google.maps.Point(0, 0),
+            anchor: new window.google.maps.Point(15, 15),
+          }}
+        />
       </GoogleMap>
     </div>
   );
