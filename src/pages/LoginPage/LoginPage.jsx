@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import {  useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
 import Button from '../components/Button'
 
 const LoginPage = () => {
@@ -7,11 +7,11 @@ const LoginPage = () => {
     const history = useHistory()
 
     //Thai National ID 13 numbers
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState('')    // use can change variable name if you want...
     //Bill Serial Numbers 
     const [password, setPassword] = useState('')
 
-    const [error, setError] = useState(false) // default is false
+    const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
 
 
     const submitHandler = async (event) => {
@@ -24,24 +24,6 @@ const LoginPage = () => {
         */
     }
 
-    // Not used now... 
-    /*
-    const [patients, setPatients] = useState([])  // for all patients in database 
-    const [profile, setProfile] = useState()      // the login selected one (only 1) 
-    
-  
-    useEffect(() => {
-        const fetchPatients = async () => {
-            const res = await fetch('http://localhost:5000/patients')
-            const data = await res.json()
-  
-            console.log(data)
-        }
-  
-        fetchPatients()
-    },[])
-    */
-
     return (
         
         <div className="flex justify-center items-center w-screen h-screen">
@@ -50,7 +32,7 @@ const LoginPage = () => {
                     
                     <p className="text-3xl text-center mt-5 mb-2">ยินดีต้อนรับเข้าสู่ PILLPLUS+</p>
 
-                    {error ? 
+                    {error ?  // error display here  
                     <div className="flex flex-row flex-wrap justify-center h-11 sm:h-7 text-red-600" >
                         <h2> ไม่พบข้อมูลในระบบทะเบียน </h2>
                         <h2> กรุณาตรวจสอบอีกครั้ง </h2>

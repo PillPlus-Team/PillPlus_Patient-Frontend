@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import Location from './Location'
 
 const LocationList = ({locationList, filter, access}) => {

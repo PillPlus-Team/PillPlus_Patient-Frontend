@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
-import { GrMap } from 'react-icons/gr'
-import Location from '../LocationPage/components/Location'
+import SelectLocation from './components/SelectLocation'
 
 const HomePage = () => {
 
     //************** FOR PATIENT USER START **************
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
+    const [selectLocation, setSelectLocation] = useState({})
     
     const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
@@ -20,12 +20,17 @@ const HomePage = () => {
             const data = await res.json()
 
             setProfile(data)
+            setSelectLocation(data.location)
+            setRender(true)
         }
         
         fetchProfile("1234567890123") // set manually from mockup
     },[])   
 
     //************** FOR PATIENT USER END **************
+
+    const [render, setRender] = useState(false) // check if list already load and display bottom part (2 buttons) 
+    // don't make it load before locations
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-full'>
@@ -43,33 +48,42 @@ const HomePage = () => {
 
             <h1 className='text-lg sm:text-2xl text-gray-600'> สถานที่รับยา</h1>
             
-            {/* fix tomorrow */}
-            {/* profile !== {} &&
-                <div className='flex flex-col justify-center items-center m-4 p-4 rounded-xl bg-white'>
-                    <h1 className='text-lg sm:text-2xl p-2 text-gray-800'>ชื่อร้าน : {profile.location.title}</h1>
-                    <h1 className='text-md sm:text-lg p-2 text-gray-500'>{profile.location.description}</h1>
-                </div>
-            */}
 
 
+
+            {/*We need Map feature here*/}        
+            {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
-            <GrMap className='bg-white  w-5/12 max-w-md h-full'/>
-           
+            <h1 className='text-lg py-40'> insert map here </h1>
+            {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
+            {/*We need Map feature here*/}    
+            {/*We need Map feature here*/}   
+            {/*We need Map feature here*/}   
 
 
 
+            {render && 
+                <SelectLocation 
+                    title={selectLocation.title}
+                    description={selectLocation.description}
+                /> 
+            }
 
-
-            <Button 
+            {render && 
+                <Button 
                 title='เปลี่ยนสถานที่รับยา'
                 className='mt-6 w-6/12 sm: max-w-xs'
                 onClick={()=> history.push('/location')}
-            />
-            <Button 
+                /> 
+            }
+        
+            {render &&
+                <Button 
                 title='ดูรายการยา'
                 className='mt-4 w-6/12 sm: max-w-xs'
-                onClick={()=> history.push('/druglist')}
-            />
+                onClick={()=> history.push('/pill')}
+                />
+            }
   
         </div>
     )

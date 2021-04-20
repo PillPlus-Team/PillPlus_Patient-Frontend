@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import LocationList from './components/LocationList'
-import FilterBar from '../components/FilterBar'
+import FilterBarLocation from './components/FilterBarLocation'
 
 
 
@@ -61,8 +61,8 @@ const LocationPage = () => {
                 name= {profile.name}
                 surname= {profile.surname}
                 onClick={() => {
-                    setIsAuth(false)
-                    history.push('/login')
+                    setIsAuth(false)        //logout 
+                    history.push('/login')  
                 }}
                 onBackpage= {() => {
                     history.push('/home')
@@ -74,17 +74,18 @@ const LocationPage = () => {
 
 
 
-
-
+            {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
-
-
-
+            {/*We need Map feature here*/}
+            <h1 className='text-lg py-40'> insert map here </h1>
+            {/*We need Map feature here*/}        
+            {/*We need Map feature here*/}    
+            {/*We need Map feature here*/}
 
 
 
             
-            <FilterBar 
+            <FilterBarLocation 
                 className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
                 description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
                 onChange={(event) => {
