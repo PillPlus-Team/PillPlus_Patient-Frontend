@@ -13,7 +13,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import usePlaceAutocomplete, {
+import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
@@ -64,6 +64,7 @@ export default function MapPage() {
       </h1>
 
       <Locate panTo={panTo} />
+      <Search panTo={panTo} />
 
       <GoogleMap
         id="map"
