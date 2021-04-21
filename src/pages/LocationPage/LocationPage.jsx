@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import LocationList from './components/LocationList'
-import FilterBar from '../components/FilterBar'
+import FilterBarLocation from './components/FilterBarLocation'
 
 
 
@@ -48,6 +48,7 @@ const LocationPage = () => {
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
+    const [select, setSelect] = useState(false)
 
     //************** FOR ALL LOCATIONS END **************
     
@@ -60,27 +61,31 @@ const LocationPage = () => {
                 name= {profile.name}
                 surname= {profile.surname}
                 onClick={() => {
-                    setIsAuth(false)
-                    history.push('/login')
+                    setIsAuth(false)        //logout 
+                    history.push('/login')  
+                }}
+                onBackpage= {() => {
+                    history.push('/home')
                 }}
             />
 
-            <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เลือกสถานที่รับยา</h1>
+            <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เปลี่ยนสถานที่รับยา</h1>
 
 
 
 
-
-
+            {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
-
-
-
+            {/*We need Map feature here*/}
+            <h1 className='text-lg py-40'> insert map here </h1>
+            {/*We need Map feature here*/}        
+            {/*We need Map feature here*/}    
+            {/*We need Map feature here*/}
 
 
 
             
-            <FilterBar 
+            <FilterBarLocation 
                 className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
                 description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
                 onChange={(event) => {
@@ -101,17 +106,13 @@ const LocationPage = () => {
             
             {render &&
             <div className='flex flex-row justify-center w-10/12 h-full mb-8'>
-                <Button 
-                    title='ย้อนกลับ'
-                    className='mt-6 w-32 h-11 mx-2 sm:mx-3'
-                    onClick={()=> history.push('/home')}
-                />
 
                 {/*may delete in the future... wait for google map*/}
                 <Button 
                     title='ยืนยัน'
-                    className='mt-6 w-32 h-11 mx-2 sm:mx-3 '
+                    className={`mt-6 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 ${!select ? "pointer-events-none":" " }`}
                     onClick={()=> history.push('/home')}
+                    disabled={!select} // make it true for default (disable = true at first time)
                 />
             </div>
             }
