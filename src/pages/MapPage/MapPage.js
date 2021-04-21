@@ -32,11 +32,11 @@ const center = {
 };
 const options = {
   styles: mapStyle,
-  disableDefaultUI: true,
+  // disableDefaultUI: true,
   //   zoomControl: true,
 };
 
-export default function MapPage() {
+export default function MapPage(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -70,12 +70,12 @@ export default function MapPage() {
         id="map"
         mapContainerStyle={mapContainerStyle}
         zoom={8}
-        center={center}
+        center={props.center}
         options={options}
         onLoad={onMapLoad}
       >
         <Marker
-          position={center}
+          position={props.center}
           icon={{
             url:
               "https://www.flaticon.com/svg/vstatic/svg/1529/1529662.svg?token=exp=1618780506~hmac=cd25690fe612c30e05806c1be94c1bfb",
@@ -89,7 +89,7 @@ export default function MapPage() {
         />
         {showInfo ? (
           <InfoWindow
-            position={center}
+            position={props.center}
             onCloseClick={() => {
               setShowInfo(false);
             }}
@@ -122,7 +122,7 @@ function Locate({ panTo }) {
       }}
     >
       <img
-        src="https://www.flaticon.com/svg/vstatic/svg/143/143960.svg?token=exp=1618948688~hmac=cc9a1a93ce04a03634b5b75b58b4d2d4"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Circle-icons-gps.svg/1024px-Circle-icons-gps.svg.png"
         alt="locate me"
       />
     </button>
@@ -183,3 +183,7 @@ function Search({ panTo }) {
     </div>
   );
 }
+
+MapPage.defaultProps = {
+  center: center,
+};
