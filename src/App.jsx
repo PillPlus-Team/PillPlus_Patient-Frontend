@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { LoginPage, HomePage, LocationPage, MapPage, PillPage} from './pages'
+import { LoginPage, HomePage, PillStorePage, MapPage, PillPage} from './pages'
 
 const App = () => {
 
@@ -9,7 +9,7 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/home" component={HomePage} />
-        <Route exact path="/location" component={LocationPage} />
+        <Route exact path="/pillstore" component={PillStorePage} />
         <Route exact path="/map" component={MapPage} />
         <Route exact path="/pill" component={PillPage} />
 

@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
-import LocationList from './components/LocationList'
-import FilterBarLocation from './components/FilterBarLocation'
+import PillStoreList from './components/PillStoreList'
+import FilterBarPillStore from './components/FilterBarPillStore'
 
 
 
-const LocationPage = () => {
+const PillStorePage = () => {
 
     //************** FOR PATIENT USER START **************
     const history = useHistory()
@@ -18,28 +18,28 @@ const LocationPage = () => {
     //get patient user profile data 
     useEffect(() => {
         const fetchProfile = async (id) => {
-            const res = await fetch(`http://localhost:5000/patients/${id}`)
+            const res = await fetch(`http://localhost:5000/receipts/${id}`)
             const data = await res.json()
 
             setProfile(data)
         }
 
-        fetchProfile("1234567890123") // set manually from mockup
+        fetchProfile("1101402227500") // set manually from mockup
     },[])   
 
     //************** FOR PATIENT USER END **************
 
     //************** FOR ALL LOCATIONS START **************
-    const [locationList, setLocationList] = useState([])
+    const [pillStoreList, setPillStoreList] = useState([])
     const [render, setRender] = useState(false) // check if list already load and display bottom part (2 buttons) 
                                                 // don't make it load before locations
   
     useEffect(() => {
         const fetchLocations = async () => {
-            const res = await fetch('http://localhost:5000/locations')
+            const res = await fetch('http://localhost:5000/pillStores')
             const data = await res.json()
   
-            setLocationList(data)
+            setPillStoreList(data)
             setRender(true)
         }
   
@@ -59,7 +59,6 @@ const LocationPage = () => {
                 title='PILLPLUS+'
                 className='py-8'
                 name= {profile.name}
-                surname= {profile.surname}
                 onClick={() => {
                     setIsAuth(false)        //logout 
                     history.push('/login')  
@@ -85,7 +84,7 @@ const LocationPage = () => {
 
 
             
-            <FilterBarLocation 
+            <FilterBarPillStore 
                 className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
                 description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
                 onChange={(event) => {
@@ -98,8 +97,8 @@ const LocationPage = () => {
                 access={access} //checkbox
             />
         
-            <LocationList 
-                locationList={locationList}
+            <PillStoreList 
+                pillStoreList={pillStoreList}
                 filter={filter} //filter string
                 access={access} //checkbox
             />
@@ -122,4 +121,4 @@ const LocationPage = () => {
     )
 }
 
-export default LocationPage
+export default PillStorePage

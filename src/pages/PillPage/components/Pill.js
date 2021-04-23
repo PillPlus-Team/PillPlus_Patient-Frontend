@@ -6,7 +6,7 @@ const Pill = ({pill}) => {
             
             {/* let me learn grid for 1 day and i will be back */}
 
-            <h1 className='text-xl '>{pill.title}</h1>
+            <h1 className='text-xl '>{pill.name}</h1>
             <h1 className='text-gray-400 line-clamp-3 sm:line-clamp-2 '>{pill.description}</h1>
             <h1 className='text-xl '>{pill.amount + " "}{pill.unit}</h1>
             

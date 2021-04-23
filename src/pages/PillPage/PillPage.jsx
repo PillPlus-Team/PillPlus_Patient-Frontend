@@ -20,14 +20,14 @@ const PillPage = () => {
     //get patient user profile data 
     useEffect(() => {
         const fetchProfile = async (id) => {
-            const res = await fetch(`http://localhost:5000/patients/${id}`)
+            const res = await fetch(`http://localhost:5000/receipts/${id}`)
             const data = await res.json()
 
             setProfile(data)
             setPillList(data.pills)
         }
 
-        fetchProfile("1234567890123") // set manually from mockup
+        fetchProfile("1101402227500") // set manually from mockup
 
     },[])   
 

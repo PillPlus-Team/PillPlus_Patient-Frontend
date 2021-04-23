@@ -4137,6 +4137,11 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+combobox@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/combobox/-/combobox-1.0.1.tgz#c2ad131af5207704b9c6d1dfeabc7777c377fe83"
+  integrity sha1-wq0TGvUgdwS5xtHf6rx3d8N3/oM=
+
 commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
