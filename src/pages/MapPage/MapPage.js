@@ -64,7 +64,7 @@ export default function MapPage(props) {
       </h1>
 
       <Locate panTo={panTo} />
-      <Search panTo={panTo} />
+      {/* <Search panTo={panTo} /> */}
 
       <GoogleMap
         id="map"
@@ -142,8 +142,6 @@ function Search({ panTo }) {
       radius: 100 * 1000,
     },
   });
-
-  // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
 
   const handleInput = (e) => {
     setValue(e.target.value);

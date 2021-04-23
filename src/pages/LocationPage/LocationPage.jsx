@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Button from '../components/Button'
 import LocationList from './components/LocationList'
 import FilterBarLocation from './components/FilterBarLocation'
+import MapPage from '../MapPage/MapPage';
 
 
 
@@ -70,14 +71,15 @@ const LocationPage = () => {
             />
 
             <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เปลี่ยนสถานที่รับยา</h1>
-
+            <br />
 
 
 
             {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
-            <h1 className='text-lg py-40'> insert map here </h1>
+            {/* <h1 className='text-lg py-40'> insert map here </h1> */}
+            <MapPage />
             {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}

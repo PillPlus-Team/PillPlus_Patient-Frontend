@@ -1,6 +1,6 @@
 .mapText {
     position: absolute;
-    top: 4rem;
+    top: 17rem;
     left: 3.5rem;
     color: #495965;
     z-index: 10;
@@ -9,7 +9,7 @@
 }
 .locate {
     position: absolute;
-    bottom: 2rem;
+    bottom: -11rem;
     left: 1.5rem;
     background: none;
     border: none;
@@ -22,7 +22,7 @@
 
 .search {
     position: absolute;
-    top: 1rem;
+    top: 14rem;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;

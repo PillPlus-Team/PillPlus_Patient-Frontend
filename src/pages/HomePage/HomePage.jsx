@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import SelectLocation from './components/SelectLocation'
+import MapPage from '../MapPage/MapPage'
 
 const HomePage = () => {
 
@@ -47,14 +48,15 @@ const HomePage = () => {
 
 
             <h1 className='text-lg sm:text-2xl text-gray-600'> สถานที่รับยา</h1>
-            
+            <br />
 
 
 
             {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
-            <h1 className='text-lg py-40'> insert map here </h1>
+            {/* <h1 className='text-lg py-40'> insert map here </h1> */}
+            <MapPage />
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}   
