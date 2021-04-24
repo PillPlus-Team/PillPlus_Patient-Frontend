@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -63,23 +63,27 @@ export default function MapPage(props) {
         </span>
       </h1>
 
-      <Locate panTo={panTo} />
       {/* <Search panTo={panTo} /> */}
 
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
+        zoom={14}
         center={props.center}
         options={options}
         onLoad={onMapLoad}
+        onClick={() => {
+          console.log(props.center);
+        }}
       >
+        <Locate panTo={panTo} />
         <Marker
+          key="1"
           position={props.center}
           icon={{
             url:
-              "https://www.flaticon.com/svg/vstatic/svg/1529/1529662.svg?token=exp=1618780506~hmac=cd25690fe612c30e05806c1be94c1bfb",
-            scaledSize: new window.google.maps.Size(20, 20),
+              "https://cdn1.iconfinder.com/data/icons/drugs-24/64/dispensary-drugstore-medication-pharmacy-512.png",
+            scaledSize: new window.google.maps.Size(40, 40),
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(15, 15),
           }}
@@ -106,26 +110,45 @@ export default function MapPage(props) {
 }
 
 function Locate({ panTo }) {
+  const [myLocation, setMyLocation] = useState(null);
   return (
-    <button
-      className="locate"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          () => null
-        );
-      }}
-    >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Circle-icons-gps.svg/1024px-Circle-icons-gps.svg.png"
-        alt="locate me"
+    <div>
+      <button
+        className="locate"
+        onClick={() => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const latlng = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+              setMyLocation(latlng);
+              panTo({
+                lat: latlng.lat,
+                lng: latlng.lng,
+              });
+            },
+            () => null
+          );
+        }}
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Circle-icons-gps.svg/1024px-Circle-icons-gps.svg.png"
+          alt="locate me"
+        />
+      </button>
+      <Marker
+        key="2"
+        position={myLocation}
+        icon={{
+          url:
+            "https://cdn1.iconfinder.com/data/icons/drugs-24/64/dispensary-drugstore-medication-pharmacy-512.png",
+          scaledSize: new window.google.maps.Size(40, 40),
+          origin: new window.google.maps.Point(0, 0),
+          anchor: new window.google.maps.Point(15, 15),
+        }}
       />
-    </button>
+    </div>
   );
 }
 

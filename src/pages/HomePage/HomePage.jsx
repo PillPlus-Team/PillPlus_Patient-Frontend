@@ -56,7 +56,7 @@ const HomePage = () => {
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
-            <MapPage />
+            <MapPage center={selectLocation.coordinate} />
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}   
