@@ -2,7 +2,7 @@ import ButtonHeader from '../components/ButtonHeader'
 import { FaChevronLeft } from 'react-icons/fa'
 import { useLocation } from 'react-router-dom'
 
-const Header = ({name, surname, title, className, onClick, onBackpage}) => {
+const Header = ({name, title, className, onClick, onBackpage}) => {
 
     const location = useLocation()
     const isHomePath = location.pathname === '/home'
@@ -27,7 +27,7 @@ const Header = ({name, surname, title, className, onClick, onBackpage}) => {
                 
                 <div className="flex flex-row justify-end items-center ">
                     <h1 className='px-0 sm:px-2 bg-blue-500 text-white rounded-lg mr-0 sm:mr-2 lg:mr-4'>
-                        คุณ {name} {surname}
+                        {name}
                     </h1>
                     <ButtonHeader 
                         title= 'ออกจากระบบ'

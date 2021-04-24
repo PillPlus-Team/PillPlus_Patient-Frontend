@@ -2,30 +2,30 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
-import SelectLocation from './components/SelectLocation'
 import MapPage from '../MapPage/MapPage'
+import SelectPillStore from './components/SelectPillStore'
 
 const HomePage = () => {
 
     //************** FOR PATIENT USER START **************
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
-    const [selectLocation, setSelectLocation] = useState({})
+    const [selectPillStore, setSelectPillStore] = useState({})
     
     const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
-    //get patient user profile data 
+    //get patient receipts user profile data 
     useEffect(() => {
         const fetchProfile = async (id) => {
-            const res = await fetch(`http://localhost:5000/patients/${id}`)
+            const res = await fetch(`http://localhost:5000/receipts/${id}`)
             const data = await res.json()
 
             setProfile(data)
-            setSelectLocation(data.location)
+            setSelectPillStore(data.pillStore)
             setRender(true)
         }
         
-        fetchProfile("1234567890123") // set manually from mockup
+        fetchProfile("1101402227500") // set manually from mockup
     },[])   
 
     //************** FOR PATIENT USER END **************
@@ -39,7 +39,6 @@ const HomePage = () => {
                 title='PILLPLUS+'
                 className='py-8'
                 name= {profile.name}
-                surname= {profile.surname}
                 onClick={() => {
                     setIsAuth(false)
                     history.push('/login')
@@ -56,7 +55,7 @@ const HomePage = () => {
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
-            <MapPage center={selectLocation.coordinate} />
+            <MapPage center={selectPillStore.coordinate} />
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}   
@@ -65,9 +64,9 @@ const HomePage = () => {
 
 
             {render && 
-                <SelectLocation 
-                    title={selectLocation.title}
-                    description={selectLocation.description}
+                <SelectPillStore 
+                    pharmacy={selectPillStore.pharmacy}
+                    location={selectPillStore.location}
                 /> 
             }
 
@@ -75,7 +74,7 @@ const HomePage = () => {
                 <Button 
                 title='เปลี่ยนสถานที่รับยา'
                 className='mt-6 w-6/12 sm: max-w-xs'
-                onClick={()=> history.push('/location')}
+                onClick={()=> history.push('/pillstore')}
                 /> 
             }
         

@@ -1,6 +1,6 @@
 import { IoSearchSharp } from 'react-icons/io5'
 
-const FilterBarLocation = ({className, description, onChange, onCheck, value, access}) => {
+const FilterBarPillStore = ({className, description, onChange, onCheck, value, access}) => {
     return (
         <div className={`${className} flex flex-row justify-center items-center h-full bg-blue-500 rounded-xl ring-2 ring-blue-500`}>
             <div className={`flex-grow flex flex-row rounded-xl ring-2 ring-gray-200 focus-within:ring-gray-400`}>
@@ -32,4 +32,4 @@ const FilterBarLocation = ({className, description, onChange, onCheck, value, ac
     )
 }
 
-export default FilterBarLocation
+export default FilterBarPillStore
