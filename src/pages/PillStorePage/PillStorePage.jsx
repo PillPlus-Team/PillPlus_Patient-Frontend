@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage';
 import PillStoreList from './components/PillStoreList'
 import FilterBarPillStore from './components/FilterBarPillStore'
-
+import mapContext from '../components/mapContext'
 
 const PillStorePage = () => {
 
     //************** FOR PATIENT USER START **************
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
+    const [selectMap, setSelectMap] = useState({})
     
     const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
@@ -22,6 +23,7 @@ const PillStorePage = () => {
             const data = await res.json()
 
             setProfile(data)
+            setSelectMap(data.pillStore)
         }
 
         fetchProfile("1101402227500") // set manually from mockup
@@ -77,7 +79,7 @@ const PillStorePage = () => {
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
-            <MapPage />
+            <MapPage center={selectMap.coordinate} />
             {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
@@ -97,13 +99,13 @@ const PillStorePage = () => {
                 value={filter}  //filter string
                 access={access} //checkbox
             />
-        
+        <mapContext.Provider value={{setSelectMap}}>
             <PillStoreList 
                 pillStoreList={pillStoreList}
                 filter={filter} //filter string
                 access={access} //checkbox
             />
-            
+        </mapContext.Provider>
             {render &&
             <div className='flex flex-row justify-center w-10/12 h-full mb-8'>
 

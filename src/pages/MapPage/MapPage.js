@@ -72,9 +72,6 @@ export default function MapPage(props) {
         center={props.center}
         options={options}
         onLoad={onMapLoad}
-        onClick={() => {
-          console.log(props.center);
-        }}
       >
         <Locate panTo={panTo} />
         <Marker
