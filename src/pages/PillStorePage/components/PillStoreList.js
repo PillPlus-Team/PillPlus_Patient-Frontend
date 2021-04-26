@@ -1,9 +1,7 @@
 import PillStore from "./PillStore";
-import { useState } from "react";
 
 const PillStoreList = ({ pillStoreList, filter, access, onChange }) => {
   const lowerCaseFilter = filter.toLowerCase();
-  const [selectLocation, setSelectLocation] = useState({});
 
   const passRequirement = (pillStore) =>
     (filter === "" ||

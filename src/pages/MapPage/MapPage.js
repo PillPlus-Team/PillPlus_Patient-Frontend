@@ -7,17 +7,6 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
 
 import mapStyle from "./Style/mapStyle";
 import "./Style/map.css";
@@ -26,10 +15,6 @@ const libraries = ["places"];
 const mapContainerStyle = {
   width: "92vw",
   height: "60vh",
-};
-const center = {
-  lat: 13.756331,
-  lng: 100.501762,
 };
 const options = {
   styles: mapStyle,
@@ -62,8 +47,6 @@ export default function MapPage(props) {
           💊
         </span>
       </h1>
-
-      {/* <Search panTo={panTo} /> */}
 
       <GoogleMap
         id="map"
@@ -163,60 +146,3 @@ function Locate({ panTo }) {
     </div>
   );
 }
-
-function Search({ panTo }) {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => 43.6532, lng: () => -79.3832 },
-      radius: 100 * 1000,
-    },
-  });
-
-  const handleInput = (e) => {
-    setValue(e.target.value);
-  };
-
-  const handleSelect = async (address) => {
-    setValue(address, false);
-    clearSuggestions();
-
-    try {
-      const results = await getGeocode({ address });
-      const { lat, lng } = await getLatLng(results[0]);
-      panTo({ lat, lng });
-    } catch (error) {
-      console.log("😱 Error: ", error);
-    }
-  };
-
-  return (
-    <div className="search">
-      <Combobox onSelect={handleSelect}>
-        <ComboboxInput
-          value={value}
-          onChange={handleInput}
-          disabled={!ready}
-          placeholder="Search your location"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === "OK" &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-  );
-}
-
-MapPage.defaultProps = {
-  center: center,
-};
