@@ -4,13 +4,14 @@ import Header from '../components/Header'
 import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage'
 import SelectPillStore from './components/SelectPillStore'
+import mapContext from '../components/mapContext';
 
 const HomePage = () => {
 
     //************** FOR PATIENT USER START **************
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
-    const [selectPillStore, setSelectPillStore] = useState({})
+    const [selectedPillStore, setSelectedPillStore] = useState({})
     
     const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
@@ -21,7 +22,7 @@ const HomePage = () => {
             const data = await res.json()
 
             setProfile(data)
-            setSelectPillStore(data.pillStore)
+            setSelectedPillStore(data.pillStore)
             setRender(true)
         }
         
@@ -55,7 +56,9 @@ const HomePage = () => {
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
-            <MapPage center={selectPillStore.coordinate} />
+            <mapContext.Provider value={{selectedPillStore}}>
+            <MapPage center={selectedPillStore.coordinate} />
+            </mapContext.Provider>
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}   
@@ -65,8 +68,8 @@ const HomePage = () => {
 
             {render && 
                 <SelectPillStore 
-                    pharmacy={selectPillStore.pharmacy}
-                    location={selectPillStore.location}
+                    pharmacy={selectedPillStore.pharmacy}
+                    location={selectedPillStore.location}
                 /> 
             }
 

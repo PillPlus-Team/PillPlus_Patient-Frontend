@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
@@ -12,7 +12,7 @@ const PillStorePage = () => {
     //************** FOR PATIENT USER START **************
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
-    const [selectMap, setSelectMap] = useState({})
+    const [selectedPillStore, setSelectedPillStore] = useState({})
     
     const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
@@ -23,7 +23,7 @@ const PillStorePage = () => {
             const data = await res.json()
 
             setProfile(data)
-            setSelectMap(data.pillStore)
+            setSelectedPillStore(data.pillStore)
         }
 
         fetchProfile("1101402227500") // set manually from mockup
@@ -79,7 +79,9 @@ const PillStorePage = () => {
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
-            <MapPage center={selectMap.coordinate} />
+            <mapContext.Provider value={{selectedPillStore}}>
+            <MapPage center={selectedPillStore.coordinate} />
+            </mapContext.Provider>
             {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    
             {/*We need Map feature here*/}
@@ -99,7 +101,7 @@ const PillStorePage = () => {
                 value={filter}  //filter string
                 access={access} //checkbox
             />
-        <mapContext.Provider value={{setSelect,setSelectMap}}>
+        <mapContext.Provider value={{setSelect,setSelectedPillStore}}>
             <PillStoreList 
                 pillStoreList={pillStoreList}
                 filter={filter} //filter string

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import mapContext from "../components/mapContext";
+
 import {
   GoogleMap,
   useLoadScript,
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
 import {
   Combobox,
   ComboboxInput,
@@ -23,8 +24,8 @@ import "./Style/map.css";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: "100vw",
-  height: "100vh",
+  width: "92vw",
+  height: "500px",
 };
 const center = {
   lat: 13.756331,
@@ -32,8 +33,6 @@ const center = {
 };
 const options = {
   styles: mapStyle,
-  // disableDefaultUI: true,
-  //   zoomControl: true,
 };
 
 export default function MapPage(props) {
@@ -50,6 +49,7 @@ export default function MapPage(props) {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
   }, []);
+  const { selectedPillStore } = useContext(mapContext);
 
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
@@ -96,8 +96,8 @@ export default function MapPage(props) {
             }}
           >
             <div>
-              <h2>Name</h2>
-              <p>info</p>
+              <h2>{selectedPillStore.pharmacy}</h2>
+              <p>{selectedPillStore.location}</p>
             </div>
           </InfoWindow>
         ) : null}
