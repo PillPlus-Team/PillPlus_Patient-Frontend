@@ -108,6 +108,7 @@ export default function MapPage(props) {
 
 function Locate({ panTo }) {
   const [myLocation, setMyLocation] = useState(null);
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <div>
       <button
@@ -143,7 +144,22 @@ function Locate({ panTo }) {
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(15, 15),
         }}
+        onClick={() => {
+          setShowInfo(true);
+        }}
       />
+      {showInfo ? (
+        <InfoWindow
+          position={myLocation}
+          onCloseClick={() => {
+            setShowInfo(false);
+          }}
+        >
+          <div>
+            <h2>Your location</h2>
+          </div>
+        </InfoWindow>
+      ) : null}
     </div>
   );
 }
