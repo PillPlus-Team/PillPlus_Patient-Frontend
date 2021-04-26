@@ -3,12 +3,13 @@ import mapContext from "../../components/mapContext";
 import React from "react";
 
 const PillStore = ({ pillStore }) => {
-  const { setSelectMap } = React.useContext(mapContext);
+  const { setSelect, setSelectMap } = React.useContext(mapContext);
 
   return (
     <button
       onClick={() => {
         setSelectMap(pillStore);
+        setSelect(true);
       }}
       className="group flex flex-row flex-wrap items-center justify-center bg-white hover:bg-gray-100 focus:bg-blue-500 focus:outline-none p-5 m-1 w-10/12 sm:max-w-screen-sm h-auto  rounded-lg ring-2 ring-gray-300 "
     >

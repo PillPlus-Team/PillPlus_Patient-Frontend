@@ -99,7 +99,7 @@ const PillStorePage = () => {
                 value={filter}  //filter string
                 access={access} //checkbox
             />
-        <mapContext.Provider value={{setSelectMap}}>
+        <mapContext.Provider value={{setSelect,setSelectMap}}>
             <PillStoreList 
                 pillStoreList={pillStoreList}
                 filter={filter} //filter string
@@ -112,7 +112,7 @@ const PillStorePage = () => {
                 {/*may delete in the future... wait for google map*/}
                 <Button 
                     title='ยืนยัน'
-                    className={`mt-6 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 ${!select ? "pointer-events-none":" " }`}
+                    className={`mt-6 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 {!select ? "pointer-events-none":" " }`}
                     onClick={()=> history.push('/home')}
                     disabled={!select} // make it true for default (disable = true at first time)
                 />
