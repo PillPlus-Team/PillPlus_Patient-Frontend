@@ -25,7 +25,7 @@ import "./Style/map.css";
 const libraries = ["places"];
 const mapContainerStyle = {
   width: "92vw",
-  height: "500px",
+  height: "60vh",
 };
 const center = {
   lat: 13.756331,
