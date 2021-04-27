@@ -80,7 +80,7 @@ const PillStorePage = () => {
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
             <mapContext.Provider value={{selectedPillStore}}>
-            <MapPage center={selectedPillStore.coordinate} />
+            <MapPage myPillStore={selectedPillStore} />
             </mapContext.Provider>
             {/*We need Map feature here*/}        
             {/*We need Map feature here*/}    

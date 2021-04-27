@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import mapContext from "../components/mapContext";
 
 import {
@@ -11,6 +11,7 @@ import {
 import mapStyle from "./Style/mapStyle";
 import "./Style/map.css";
 
+//------------map style--------------------
 const libraries = ["places"];
 const mapContainerStyle = {
   width: "92vw",
@@ -20,22 +21,41 @@ const options = {
   styles: mapStyle,
 };
 
-export default function MapPage(props) {
+export default function MapPage() {
+  //--------------map load-------------------
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const [showInfo, setShowInfo] = useState(false);
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
   }, []);
+
+  //--------for function focus center---------
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
   }, []);
-  const { selectedPillStore } = useContext(mapContext);
 
+  //---------attibute------------
+  const { selectedPillStore } = useContext(mapContext);
+  const [selected, setSelected] = useState(null);
+  const [pillStoreList, setPillStoreList] = useState([]);
+
+  //---------fetch data----------
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const res = await fetch("http://localhost:5000/pillStores");
+      const data = await res.json();
+
+      setPillStoreList(data);
+    };
+
+    fetchLocations();
+  }, []);
+
+  //-------check loading-----------
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
 
@@ -52,14 +72,34 @@ export default function MapPage(props) {
         id="map"
         mapContainerStyle={mapContainerStyle}
         zoom={14}
-        center={props.center}
+        center={selectedPillStore.coordinate}
         options={options}
         onLoad={onMapLoad}
       >
         <Locate panTo={panTo} />
+
+        {pillStoreList.map(
+          (pillStore) =>
+            pillStore != selectedPillStore && (
+              <Marker
+                key={pillStore.id}
+                position={pillStore.coordinate}
+                icon={{
+                  url:
+                    "https://cdn1.iconfinder.com/data/icons/drugs-24/64/dispensary-drugstore-medication-pharmacy-512.png",
+                  scaledSize: new window.google.maps.Size(40, 40),
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                }}
+                onClick={() => {
+                  setSelected(pillStore);
+                }}
+              />
+            )
+        )}
         <Marker
           key="1"
-          position={props.center}
+          position={selectedPillStore.coordinate}
           icon={{
             url:
               "https://cdn1.iconfinder.com/data/icons/drugs-24/64/dispensary-drugstore-medication-pharmacy-512.png",
@@ -68,19 +108,19 @@ export default function MapPage(props) {
             anchor: new window.google.maps.Point(15, 15),
           }}
           onClick={() => {
-            setShowInfo(true);
+            setSelected(selectedPillStore);
           }}
         />
-        {showInfo ? (
+        {selected ? (
           <InfoWindow
-            position={props.center}
+            position={selected.coordinate}
             onCloseClick={() => {
-              setShowInfo(false);
+              setSelected(null);
             }}
           >
             <div>
-              <h2>{selectedPillStore.pharmacy}</h2>
-              <p>{selectedPillStore.location}</p>
+              <h2>{selected.pharmacy}</h2>
+              <p>{selected.location}</p>
             </div>
           </InfoWindow>
         ) : null}

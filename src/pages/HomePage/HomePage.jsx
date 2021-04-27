@@ -57,7 +57,7 @@ const HomePage = () => {
             {/*We need Map feature here*/}
             {/* <h1 className='text-lg py-40'> insert map here </h1> */}
             <mapContext.Provider value={{selectedPillStore}}>
-            <MapPage center={selectedPillStore.coordinate} />
+            <MapPage myPillStore={selectedPillStore} />
             </mapContext.Provider>
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
             {/*We need Map feature here*/}    
