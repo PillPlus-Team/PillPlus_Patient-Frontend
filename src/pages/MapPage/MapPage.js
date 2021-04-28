@@ -73,13 +73,13 @@ export default function MapPage() {
 
         {pillStoreList.map(
           (pillStore) =>
-            pillStore.id != selectedPillStore.id && (
+            pillStore.id != selectedPillStore.id &&
+            (pillStore.status ? (
               <Marker
                 key={pillStore.id}
                 position={pillStore.coordinate}
                 icon={{
-                  url:
-                    "https://cdn1.iconfinder.com/data/icons/drugs-24/64/dispensary-drugstore-medication-pharmacy-512.png",
+                  url: "../img/PillPlusPinPrototypeBlueV2.png",
                   scaledSize: new window.google.maps.Size(40, 40),
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
@@ -89,14 +89,28 @@ export default function MapPage() {
                   setSelected(pillStore);
                 }}
               />
-            )
+            ) : (
+              <Marker
+                key={pillStore.id}
+                position={pillStore.coordinate}
+                icon={{
+                  url: "../img/PillPlusRed.png",
+                  scaledSize: new window.google.maps.Size(40, 40),
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                }}
+                onClick={() => {
+                  console.log(selectedPillStore.coordinate);
+                  setSelected(pillStore);
+                }}
+              />
+            ))
         )}
         <Marker
           key={selectedPillStore.id}
           position={selectedPillStore.coordinate}
           icon={{
-            url:
-              "https://cdn.iconscout.com/icon/premium/png-256-thumb/drugstore-1649923-1403952.png",
+            url: "../img/PillPlusGreen.png",
             scaledSize: new window.google.maps.Size(40, 40),
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(15, 15),

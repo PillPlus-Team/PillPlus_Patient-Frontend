@@ -138,7 +138,7 @@
           "location": "576/3 หมู่2, ตำบลท่าม่วง อำเภอท่าม่วง จังหวัดกาญจนบุรี, 71110",
           "email": "raweeroj@gmail.com",
           "phone": "0892220002",
-          "status": "true",
+          "status": true,
           "coordinate": {
             "lat": 14.004000,
             "lng": 99.549469
