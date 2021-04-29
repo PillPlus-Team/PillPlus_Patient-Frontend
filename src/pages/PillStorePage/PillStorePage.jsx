@@ -72,22 +72,10 @@ const PillStorePage = () => {
 
             <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เปลี่ยนสถานที่รับยา</h1>
             <br />
-
-
-
-            {/*We need Map feature here*/}        
-            {/*We need Map feature here*/}    
-            {/*We need Map feature here*/}
-            {/* <h1 className='text-lg py-40'> insert map here </h1> */}
+            
             <mapContext.Provider value={{selectedPillStore}}>
-            <MapPage />
+                <MapPage />
             </mapContext.Provider>
-            {/*We need Map feature here*/}        
-            {/*We need Map feature here*/}    
-            {/*We need Map feature here*/}
-
-
-
             
             <FilterBarPillStore 
                 className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
@@ -101,13 +89,15 @@ const PillStorePage = () => {
                 value={filter}  //filter string
                 access={access} //checkbox
             />
-        <mapContext.Provider value={{setSelect,setSelectedPillStore}}>
-            <PillStoreList 
-                pillStoreList={pillStoreList}
-                filter={filter} //filter string
-                access={access} //checkbox
-            />
-        </mapContext.Provider>
+            
+            <mapContext.Provider value={{setSelect,setSelectedPillStore}}>
+                <PillStoreList 
+                    pillStoreList={pillStoreList}
+                    filter={filter} //filter string
+                    access={access} //checkbox
+                />
+            </mapContext.Provider>
+        
             {render &&
             <div className='flex flex-row justify-center w-10/12 h-full mb-8'>
 

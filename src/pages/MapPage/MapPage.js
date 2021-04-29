@@ -1,14 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import mapContext from "../components/mapContext";
 
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 
-import mapStyle from "./Style/mapStyle";
+import mapStyle from "./Style/mapStyle.js";
 import "./Style/map.css";
 
 //------------map style--------------------
@@ -16,6 +11,7 @@ const libraries = ["places"];
 const mapContainerStyle = {
   width: "92vw",
   height: "60vh",
+  maxWidth: "650px"
 };
 const options = {
   styles: mapStyle,
