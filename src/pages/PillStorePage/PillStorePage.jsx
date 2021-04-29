@@ -56,10 +56,10 @@ const PillStorePage = () => {
     
 
     return (
-        <div className='flex flex-col justify-start items-center h-full'>
+        <div className='flex flex-col justify-start items-center w-full h-full'>
             <Header 
                 title='PILLPLUS+'
-                className='py-8'
+                className='py-2 sm:py-4'
                 name= {profile.name}
                 onClick={() => {
                     setIsAuth(false)        //logout 
@@ -69,49 +69,50 @@ const PillStorePage = () => {
                     history.push('/home')
                 }}
             />
+            
+            <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full'>
 
-            <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> เปลี่ยนสถานที่รับยา</h1>
-            <br />
-            
-            <mapContext.Provider value={{selectedPillStore}}>
-                <MapPage />
-            </mapContext.Provider>
-            
-            <FilterBarPillStore 
-                className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
-                description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
-                onChange={(event) => {
-                    setFilter(event.target.value) //change filter string
-                }}
-                onCheck={() => {
-                    setAccess(!access)  //change checkbox
-                }}
-                value={filter}  //filter string
-                access={access} //checkbox
-            />
-            
-            <mapContext.Provider value={{setSelect,setSelectedPillStore}}>
-                <PillStoreList 
-                    pillStoreList={pillStoreList}
-                    filter={filter} //filter string
-                    access={access} //checkbox
-                />
-            </mapContext.Provider>
-        
-            {render &&
-            <div className='flex flex-row justify-center w-10/12 h-full mb-8'>
+                <div className='my-2  xl:ml-14 flex flex-col justify-center items-center'>
+                    
+                    <mapContext.Provider value={{selectedPillStore}}>
+                        <MapPage />
+                    </mapContext.Provider>
+                </div>
 
-                {/*may delete in the future... wait for google map*/}
-                <Button 
-                    title='ยืนยัน'
-                    className={`mt-6 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 {!select ? "pointer-events-none":" " }`}
-                    onClick={()=> history.push('/home')}
-                    disabled={!select} // make it true for default (disable = true at first time)
-                />
+                <div className='flex flex-col justify-start items-center w-full '>
+                <h1 className='mb-3 text-gray-800 text-lg  sm:text-2xl'>เปลี่ยนสถานที่รับยา</h1>
+                    <FilterBarPillStore 
+                        className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
+                        description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
+                        onChange={(event) => {
+                            setFilter(event.target.value) //change filter string
+                        }}
+                        onCheck={() => {
+                            setAccess(!access)  //change checkbox
+                        }}
+                        value={filter}  //filter string
+                        access={access} //checkbox
+                    />
+                    
+                    <mapContext.Provider value={{setSelect,setSelectedPillStore}}>
+                        <PillStoreList 
+                            pillStoreList={pillStoreList}
+                            filter={filter} //filter string
+                            access={access} //checkbox
+                        />
+                    </mapContext.Provider>
+                
+                    {render &&
+                        <Button 
+                            title='ยืนยัน'
+                            className={`mt-2 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 {!select ? "pointer-events-none":" " }`}
+                            onClick={()=> history.push('/home')}
+                            disabled={!select} // make it true for default (disable = true at first time)
+                        />
+                    }
+
+                </div>
             </div>
-            }
-
-  
         </div>
     )
 }

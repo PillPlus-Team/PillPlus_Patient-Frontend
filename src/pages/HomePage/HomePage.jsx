@@ -38,7 +38,7 @@ const HomePage = () => {
         <div className='flex flex-col justify-start items-center h-full'>
             <Header 
                 title='PILLPLUS+'
-                className=' py-2 sm:py-4'
+                className='py-2 sm:py-4'
                 name= {profile.name}
                 onClick={() => {
                     setIsAuth(false)
@@ -46,7 +46,7 @@ const HomePage = () => {
                 }}
             />
 
-            <h1 className='w-11/12 max-w-3xl mb-3 text-gray-800 text-lg sm:text-2xl text-center'> 
+            <h1 className='mb-3 text-gray-800 text-lg sm:text-2xl text-center'> 
                 สถานที่รับยา
             </h1>
             
