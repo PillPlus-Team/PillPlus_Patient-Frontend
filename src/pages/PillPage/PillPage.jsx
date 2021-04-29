@@ -20,7 +20,7 @@ const PillPage = () => {
     //get patient user profile data 
     useEffect(() => {
         const fetchProfile = async (id) => {
-            const res = await fetch(`http://localhost:5000/receipts/${id}`)
+            const res = await fetch(`http://localhost:5500/receipts/${id}`)
             const data = await res.json()
 
             setProfile(data)
