@@ -35,10 +35,10 @@ const HomePage = () => {
     // don't make it load before locations
 
     return (
-        <div className='flex flex-col justify-start items-center w-screen h-full'>
+        <div className='flex flex-col justify-start items-center h-full'>
             <Header 
                 title='PILLPLUS+'
-                className='py-8'
+                className='py-2 sm:py-4'
                 name= {profile.name}
                 onClick={() => {
                     setIsAuth(false)
@@ -46,25 +46,14 @@ const HomePage = () => {
                 }}
             />
 
-
-            <h1 className='text-lg sm:text-2xl text-gray-600'> สถานที่รับยา</h1>
-            <br />
-
-
-
-            {/*We need Map feature here*/}        
-            {/*We need Map feature here*/}    
-            {/*We need Map feature here*/}
-            {/* <h1 className='text-lg py-40'> insert map here </h1> */}
+            <h1 className='mb-3 text-gray-800 text-lg sm:text-2xl text-center'> 
+                สถานที่รับยา
+            </h1>
+            
             <mapContext.Provider value={{selectedPillStore}}>
-            <MapPage />
+                <MapPage />
             </mapContext.Provider>
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
-            {/*We need Map feature here*/}    
-            {/*We need Map feature here*/}   
-            {/*We need Map feature here*/}   
-
-
 
             {render && 
                 <SelectPillStore 
@@ -76,7 +65,7 @@ const HomePage = () => {
             {render && 
                 <Button 
                 title='เปลี่ยนสถานที่รับยา'
-                className='mt-6 w-6/12 sm: max-w-xs'
+                className='mt-6 w-6/12 sm: max-w-xs '
                 onClick={()=> history.push('/pillstore')}
                 /> 
             }
@@ -84,7 +73,7 @@ const HomePage = () => {
             {render &&
                 <Button 
                 title='ดูรายการยา'
-                className='mt-4 w-6/12 sm: max-w-xs'
+                className='mt-4 w-6/12 sm: max-w-xs '
                 onClick={()=> history.push('/pill')}
                 />
             }

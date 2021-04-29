@@ -1,21 +1,30 @@
 import React, { useState, useContext, useEffect } from "react";
 import mapContext from "../components/mapContext";
 
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 
-import mapStyle from "./Style/mapStyle";
+import mapStyle from "./Style/mapStyle.js";
 import "./Style/map.css";
+
+import { useLocation } from 'react-router-dom'
 
 //------------map style--------------------
 const libraries = ["places"];
-const mapContainerStyle = {
-  width: "92vw",
-  height: "60vh",
+const mapContainerStyle_Home = {
+  width: "91.6vw",
+  height: "52vh",
+  maxWidth: "1024px",
+  borderRadius: "0.5rem 0.5rem 0rem 0rem",
+  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
+
+};
+const mapContainerStyle_PillStore = {
+  width: "91.6vw",
+  height: "70vh",
+  maxWidth: "1024px",
+  borderRadius: "0.5rem 0.5rem 0rem 0rem",
+  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
+
 };
 const options = {
   styles: mapStyle,
@@ -55,15 +64,21 @@ export default function MapPage() {
     fetchLocations();
   }, []);
 
+  //----------check path------------
+  const location = useLocation()
+  const isHomePath = location.pathname === '/home'
+
   //-------check loading-----------
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
+
+
 
   return (
     <div>
       <GoogleMap
         id="map"
-        mapContainerStyle={mapContainerStyle}
+        mapContainerStyle={isHomePath? mapContainerStyle_Home: mapContainerStyle_PillStore}
         zoom={14}
         center={selectedPillStore.coordinate}
         options={options}
