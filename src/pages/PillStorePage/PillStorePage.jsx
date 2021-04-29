@@ -56,7 +56,7 @@ const PillStorePage = () => {
     
 
     return (
-        <div className='flex flex-col justify-start items-center w-screen h-full'>
+        <div className='flex flex-col justify-start items-center h-full'>
             <Header 
                 title='PILLPLUS+'
                 className='py-8'
