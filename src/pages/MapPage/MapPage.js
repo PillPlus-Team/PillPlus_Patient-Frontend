@@ -79,7 +79,7 @@ export default function MapPage() {
                 key={pillStore.id}
                 position={pillStore.coordinate}
                 icon={{
-                  url: "https://i.imgur.com/Ist6wBW.png",
+                  url: "https://i.imgur.com/Ist6wBW.png", // blue
                   scaledSize: new window.google.maps.Size(40, 40),
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
@@ -94,7 +94,7 @@ export default function MapPage() {
                 key={pillStore.id}
                 position={pillStore.coordinate}
                 icon={{
-                  url: "https://i.imgur.com/v4dw84y.png",
+                  url: "https://i.imgur.com/v4dw84y.png", //red 
                   scaledSize: new window.google.maps.Size(40, 40),
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
@@ -110,7 +110,7 @@ export default function MapPage() {
           key={selectedPillStore.id}
           position={selectedPillStore.coordinate}
           icon={{
-            url: "https://i.imgur.com/NG55sdr.png",
+            url: "https://i.imgur.com/Ei2X1hR.png", //green
             scaledSize: new window.google.maps.Size(40, 40),
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(15, 15),
