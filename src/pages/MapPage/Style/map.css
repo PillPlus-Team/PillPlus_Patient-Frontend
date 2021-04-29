@@ -1,0 +1,44 @@
+.mapText {
+    position: absolute;
+    top: 17rem;
+    left: 3.5rem;
+    color: #495965;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+}
+.locate {
+    position: absolute;
+    bottom: 2rem;
+    left: 1.5rem;
+    background: none;
+    border: none;
+    z-index: 10;
+}
+.locate img {
+    width: 30px;
+    cursor: pointer;
+  }
+
+.search {
+    position: absolute;
+    top: 14rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    z-index: 10;
+  }
+
+.search input {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    width: 100%;
+  }
+
+.mapStyle {
+  margin: auto;
+  width: 80%;
+  border: 3px solid black;
+  padding: 10px
+}

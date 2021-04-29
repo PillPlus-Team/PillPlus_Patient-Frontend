@@ -5,7 +5,14 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ['disabled'],
+      backgroundColor: ['group-focus'],
+      textColor: ['group-focus']
+    }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp')
+
+  ],
 }
