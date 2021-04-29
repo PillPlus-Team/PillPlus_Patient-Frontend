@@ -55,7 +55,7 @@ export default function MapPage() {
   //---------fetch data----------
   useEffect(() => {
     const fetchLocations = async () => {
-      const res = await fetch("http://localhost:5000/pillStores");
+      const res = await fetch("http://localhost:5500/pillStores");
       const data = await res.json();
 
       setPillStoreList(data);
@@ -88,7 +88,7 @@ export default function MapPage() {
 
         {pillStoreList.map(
           (pillStore) =>
-            pillStore.id != selectedPillStore.id &&
+            pillStore.id !== selectedPillStore.id &&
             (pillStore.status ? (
               <Marker
                 key={pillStore.id}
