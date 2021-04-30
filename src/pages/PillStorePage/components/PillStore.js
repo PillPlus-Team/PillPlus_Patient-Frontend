@@ -1,9 +1,9 @@
 import Button from "../../components/Button";
-import mapContext from "../../components/mapContext";
+import MapContext from "../../components/MapContext";
 import React, { useContext } from "react";
 
 const PillStore = ({ pillStore }) => {
-  const { setSelect, setSelectedPillStore } = useContext(mapContext);
+  const { setSelect, setSelectedPillStore } = useContext(MapContext);
 
   return (
     <button
