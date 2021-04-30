@@ -56,7 +56,7 @@ const PillStorePage = () => {
     
 
     return (
-        <div className='flex flex-col justify-start items-center w-full h-full'>
+        <div className='flex flex-col justify-start items-center w-screen h-screen'>
             <Header 
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
@@ -69,43 +69,50 @@ const PillStorePage = () => {
                     history.push('/home')
                 }}
             />
+            <h1 className='mb-3 text-gray-800 text-lg sm:text-2xl inline-block sm:hidden'>เปลี่ยนสถานที่รับยา</h1>
             
-            <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full'>
+            <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full h-full'>
 
-                <div className='my-2  xl:ml-14 flex flex-col justify-center items-center'>
-                    
+
                     <MapContext.Provider value={{selectedPillStore}}>
                         <MapPage />
                     </MapContext.Provider>
-                </div>
+    
+  
+                {/* large filter and pillStoreList and done button*/}
+                <div className='flex flex-col justify-start items-center w-10/12 sm:p-5 h-92 sm:h-full '>
 
-                <div className='flex flex-col justify-start items-center w-full '>
-                <h1 className='mb-3 text-gray-800 text-lg  sm:text-2xl'>เปลี่ยนสถานที่รับยา</h1>
-                    <FilterBarPillStore 
-                        className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
-                        description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
-                        onChange={(event) => {
-                            setFilter(event.target.value) //change filter string
-                        }}
-                        onCheck={() => {
-                            setAccess(!access)  //change checkbox
-                        }}
-                        value={filter}  //filter string
-                        access={access} //checkbox
-                    />
+                    <h1 className='my-2 text-gray-800 text-lg sm:text-2xl hidden sm:inline-block'>เปลี่ยนสถานที่รับยา</h1>
                     
-                    <MapContext.Provider value={{setSelect,setSelectedPillStore}}>
-                        <PillStoreList 
-                            pillStoreList={pillStoreList}
-                            filter={filter} //filter string
+                    {render &&
+                        <FilterBarPillStore 
+                            className = 'mt-1 sm:mt-0 my-0.5 w-995/1000 z-40'
+                            description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
+                            onChange={(event) => {
+                                setFilter(event.target.value) //change filter string
+                            }}
+                            onCheck={() => {
+                                setAccess(!access)  //change checkbox
+                            }}
+                            value={filter}  //filter string
                             access={access} //checkbox
                         />
+                    }
+                    
+                    <MapContext.Provider value={{setSelect,setSelectedPillStore}}>
+                        <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-128 border-2 border-gray-300 border-l-0 border-r-0 bg-gray-200 z-30 ">
+                            <PillStoreList 
+                                pillStoreList={pillStoreList}
+                                filter={filter} //filter string
+                                access={access} //checkbox
+                            />
+                        </div>
                     </MapContext.Provider>
                 
                     {render &&
                         <Button 
                             title='ยืนยัน'
-                            className={`mt-2 w-32 sm:w-48 h-11 mx-2 sm:mx-3 disabled:opacity-50 {!select ? "pointer-events-none":" " }`}
+                            className={`rounded-t-none rounded-sm mb-4 sm:mb-0 w-full h-11 disabled:opacity-50 ${!select ? "pointer-events-none":" " }`}
                             onClick={()=> history.push('/home')}
                             disabled={!select} // make it true for default (disable = true at first time)
                         />

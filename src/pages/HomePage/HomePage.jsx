@@ -35,7 +35,7 @@ const HomePage = () => {
     // don't make it load before locations
 
     return (
-        <div className='flex flex-col justify-start items-center h-full'>
+        <div className='flex flex-col justify-start items-center w-screen h-screen'>
             <Header 
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
@@ -65,7 +65,7 @@ const HomePage = () => {
             {render && 
                 <Button 
                 title='เปลี่ยนสถานที่รับยา'
-                className='mt-6 w-6/12 sm: max-w-xs '
+                className='my-2 mt-5 w-6/12 sm: max-w-xs '
                 onClick={()=> history.push('/pillstore')}
                 /> 
             }
@@ -73,7 +73,7 @@ const HomePage = () => {
             {render &&
                 <Button 
                 title='ดูรายการยา'
-                className='mt-4 w-6/12 sm: max-w-xs '
+                className='my-2 mb-4 w-6/12 sm: max-w-xs '
                 onClick={()=> history.push('/pill')}
                 />
             }
