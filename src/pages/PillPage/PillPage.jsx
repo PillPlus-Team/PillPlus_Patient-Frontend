@@ -1,38 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import FilterBarPill from './components/FilterBarPill'
 import PillList from './components/PillList'
-
+import UserContext from '../components/UserContext'
 
 
 const PillPage = () => {
 
-    //************** FOR PATIENT USER START **************
     const history = useHistory()
-    const [profile, setProfile] = useState({})      // the login selected one (only 1) 
+    const {user, pillList, setIsAuth} = useContext(UserContext);
     
-    const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
-    
-
-    const [pillList, setPillList] = useState([])
-
-    //get patient user profile data 
-    useEffect(() => {
-        const fetchProfile = async (id) => {
-            const res = await fetch(`http://localhost:5500/receipts/${id}`)
-            const data = await res.json()
-
-            setProfile(data)
-            setPillList(data.pills)
-        }
-
-        fetchProfile("1101402227500") // set manually from mockup
-
-    },[])   
-
-    //************** FOR PATIENT USER END **************
-
     const [filter, setFilter] = useState("")    //filter string
 
     return (
@@ -40,8 +18,8 @@ const PillPage = () => {
             <Header 
                 title='PILLPLUS+'
                 className='py-8'
-                name= {profile.name}
-                surname= {profile.surname}
+                name= {user.name}
+                surname= {user.surname}
                 onClick={() => {
                     setIsAuth(false)        //logout 
                     history.push('/login')

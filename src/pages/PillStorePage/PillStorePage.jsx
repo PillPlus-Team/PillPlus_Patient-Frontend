@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
@@ -6,36 +6,18 @@ import MapPage from '../MapPage/MapPage';
 import PillStoreList from './components/PillStoreList'
 import FilterBarPillStore from './components/FilterBarPillStore'
 import MapContext from '../components/MapContext'
+import UserContext from '../components/UserContext'
 
 const PillStorePage = () => {
 
-    //************** FOR PATIENT USER START **************
-    const history = useHistory()
-    const [profile, setProfile] = useState({})      // the login selected one (only 1) 
-    const [selectedPillStore, setSelectedPillStore] = useState({})
-    
-    const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
+    const history = useHistory() 
+    const {user, selectedPillStore, setSelectedPillStore, setIsAuth} = useContext(UserContext);
 
-    //get patient user profile data 
-    useEffect(() => {
-        const fetchProfile = async (id) => {
-            const res = await fetch(`http://localhost:5500/receipts/${id}`)
-            const data = await res.json()
-
-            setProfile(data)
-            setSelectedPillStore(data.pillStore)
-        }
-
-        fetchProfile("1101402227500") // set manually from mockup
-    },[])   
-
-    //************** FOR PATIENT USER END **************
-
-    //************** FOR ALL LOCATIONS START **************
+    //for fetch locations
     const [pillStoreList, setPillStoreList] = useState([])
     const [render, setRender] = useState(false) // check if list already load and display bottom part (2 buttons) 
                                                 // don't make it load before locations
-  
+    //get all pillStores locations 
     useEffect(() => {
         const fetchLocations = async () => {
             const res = await fetch('http://localhost:5500/pillStores')
@@ -60,7 +42,7 @@ const PillStorePage = () => {
             <Header 
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
-                name= {profile.name}
+                name= {user.name}
                 onClick={() => {
                     setIsAuth(false)        //logout 
                     history.push('/login')  
