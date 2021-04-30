@@ -12,6 +12,8 @@ const HomePage = () => {
     const history = useHistory()
     const [profile, setProfile] = useState({})      // the login selected one (only 1) 
     const [selectedPillStore, setSelectedPillStore] = useState({})
+    const [center, setCenter] = useState({"lat": 15.039960,
+    "lng": 100.178123})
     
     const [isAuth, setIsAuth] = useState(true)  // Authentication mockup
 
@@ -23,6 +25,7 @@ const HomePage = () => {
 
             setProfile(data)
             setSelectedPillStore(data.pillStore)
+            setCenter(data.pillStore.coordinate)
             setRender(true)
         }
         
@@ -50,9 +53,9 @@ const HomePage = () => {
                 สถานที่รับยา
             </h1>
             
-            <MapContext.Provider value={{selectedPillStore}}>
+            <MapContext.Provider value={{selectedPillStore, center, setCenter}}>
                 <MapPage />
-            </MapContext.Provider>
+            
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
 
             {render && 
@@ -61,6 +64,7 @@ const HomePage = () => {
                     location={selectedPillStore.location}
                 /> 
             }
+            </MapContext.Provider>
 
             {render && 
                 <Button 
