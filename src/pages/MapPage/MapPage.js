@@ -8,6 +8,18 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+
 import mapStyle from "./Style/mapStyle";
 import "./Style/map.css";
 
@@ -85,7 +97,6 @@ export default function MapPage() {
                   anchor: new window.google.maps.Point(15, 15),
                 }}
                 onClick={() => {
-                  console.log(selectedPillStore.coordinate);
                   setSelected(pillStore);
                 }}
               />
