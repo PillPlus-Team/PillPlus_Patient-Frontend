@@ -31,20 +31,18 @@ const App = () => {
   },[])
 
   return (
+    
     <Router>
+      <UserContext.Provider value={passValue}>
       {/* 
       {user?       
         <Switch>
         {/* pass in user and setUser to all pages * /}
-        <UserContext.provider value={passValue}>
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/pillstore" component={PillStorePage} />
           <Route exact path="/pill" component={PillPage} />
-        </UserContext.provider>
           <Redirect to="/home" />
-
         </Switch>
-
       : 
         <Switch>
           <Route exact path="/login" component={LoginPage} />
@@ -52,24 +50,19 @@ const App = () => {
         </Switch>
       }
       */}
-      
-      <Switch>
+        <Switch>
+          
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/home" component={HomePage} />
+            <Route exact path="/pillstore" component={PillStorePage} />
+            <Route exact path="/pill" component={PillPage} />
+            <Redirect to="/login"/>
 
-          <Route exact path="/login" component={LoginPage} />
-        <UserContext.Provider value={passValue}>
-          <Route exact path="/home" component={HomePage} />
-          <Route exact path="/pillstore" component={PillStorePage} />
-          <Route exact path="/pill" component={PillPage} />
-        </UserContext.Provider>
+        </Switch>
 
-          <Redirect to="/login" />
-     
-      </Switch>
-
-
+      </UserContext.Provider>
     </Router>
     
- 
   );
 };
 
