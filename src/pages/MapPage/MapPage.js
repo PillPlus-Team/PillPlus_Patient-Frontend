@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import mapContext from "../components/mapContext";
+import mapContext from "../components/MapContext";
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 
@@ -10,22 +10,22 @@ import { useLocation } from 'react-router-dom'
 
 //------------map style--------------------
 const libraries = ["places"];
-const mapContainerStyle_Home = {
-  width: "91.6vw",
-  height: "52vh",
-  maxWidth: "1024px",
-  borderRadius: "0.5rem 0.5rem 0rem 0rem",
-  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
+// const mapContainerStyle_Home = {
+//   width: "91.6vw",
+//   height: "52vh",
+//   maxWidth: "1024px",
+//   borderRadius: "0.5rem 0.5rem 0rem 0rem",
+//   boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
 
-};
-const mapContainerStyle_PillStore = {
-  width: "91.6vw",
-  height: "70vh",
-  maxWidth: "1024px",
-  borderRadius: "0.5rem 0.5rem 0rem 0rem",
-  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
+// };
+// const mapContainerStyle_PillStore = {
+//   width: "50vw",
+//   height: "70vh",
+//   maxWidth: "1024px",
+//   borderRadius: "0.5rem 0.5rem 0rem 0rem",
+//   boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
 
-};
+// };
 const options = {
   styles: mapStyle,
 };
@@ -75,10 +75,11 @@ export default function MapPage() {
 
 
   return (
-    <div>
+    <>
       <GoogleMap
         id="map"
-        mapContainerStyle={isHomePath? mapContainerStyle_Home: mapContainerStyle_PillStore}
+        mapContainerClassName={isHomePath? "w-11/12 h-full max-h-124 max-w-5xl rounded-b-none rounded-xl"
+                              : "w-10/12 sm:w-full h-96 sm:h-full sm:max-h-148 sm:ml-12 sm:mt-16 rounded-md"}
         zoom={14}
         center={selectedPillStore.coordinate}
         options={options}
@@ -148,7 +149,7 @@ export default function MapPage() {
           </InfoWindow>
         ) : null}
       </GoogleMap>
-    </div>
+    </>
   );
 }
 
