@@ -5,7 +5,7 @@ import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage';
 import PillStoreList from './components/PillStoreList'
 import FilterBarPillStore from './components/FilterBarPillStore'
-import mapContext from '../components/mapContext'
+import MapContext from '../components/MapContext'
 
 const PillStorePage = () => {
 
@@ -74,9 +74,9 @@ const PillStorePage = () => {
 
                 <div className='my-2  xl:ml-14 flex flex-col justify-center items-center'>
                     
-                    <mapContext.Provider value={{selectedPillStore}}>
+                    <MapContext.Provider value={{selectedPillStore}}>
                         <MapPage />
-                    </mapContext.Provider>
+                    </MapContext.Provider>
                 </div>
 
                 <div className='flex flex-col justify-start items-center w-full '>
@@ -94,13 +94,13 @@ const PillStorePage = () => {
                         access={access} //checkbox
                     />
                     
-                    <mapContext.Provider value={{setSelect,setSelectedPillStore}}>
+                    <MapContext.Provider value={{setSelect,setSelectedPillStore}}>
                         <PillStoreList 
                             pillStoreList={pillStoreList}
                             filter={filter} //filter string
                             access={access} //checkbox
                         />
-                    </mapContext.Provider>
+                    </MapContext.Provider>
                 
                     {render &&
                         <Button 

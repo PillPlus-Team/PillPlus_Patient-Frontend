@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage'
 import SelectPillStore from './components/SelectPillStore'
-import mapContext from '../components/mapContext';
+import MapContext from '../components/MapContext';
 
 const HomePage = () => {
 
@@ -50,9 +50,9 @@ const HomePage = () => {
                 สถานที่รับยา
             </h1>
             
-            <mapContext.Provider value={{selectedPillStore}}>
+            <MapContext.Provider value={{selectedPillStore}}>
                 <MapPage />
-            </mapContext.Provider>
+            </MapContext.Provider>
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
 
             {render && 

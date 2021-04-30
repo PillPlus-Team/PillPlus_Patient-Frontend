@@ -1,12 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
-import mapContext from "../components/mapContext";
+import MapContext from "../components/MapContext";
 
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 
 import mapStyle from "./Style/mapStyle.js";
 import "./Style/map.css";
 
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 //------------map style--------------------
 const libraries = ["places"];
@@ -15,16 +20,14 @@ const mapContainerStyle_Home = {
   height: "52vh",
   maxWidth: "1024px",
   borderRadius: "0.5rem 0.5rem 0rem 0rem",
-  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
-
+  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)",
 };
 const mapContainerStyle_PillStore = {
   width: "91.6vw",
   height: "70vh",
   maxWidth: "1024px",
   borderRadius: "0.5rem 0.5rem 0rem 0rem",
-  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
-
+  boxShadow: "5px 10px 10px rgba(0,0,0,0.1)",
 };
 const options = {
   styles: mapStyle,
@@ -48,7 +51,7 @@ export default function MapPage() {
   }, []);
 
   //---------attibute------------
-  const { selectedPillStore } = useContext(mapContext);
+  const { selectedPillStore } = useContext(MapContext);
   const [selected, setSelected] = useState(null);
   const [pillStoreList, setPillStoreList] = useState([]);
 
@@ -65,26 +68,31 @@ export default function MapPage() {
   }, []);
 
   //----------check path------------
-  const location = useLocation()
-  const isHomePath = location.pathname === '/home'
+  const location = useLocation();
+  const isHomePath = location.pathname === "/home";
 
   //-------check loading-----------
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
 
-
-
   return (
     <div>
       <GoogleMap
         id="map"
-        mapContainerStyle={isHomePath? mapContainerStyle_Home: mapContainerStyle_PillStore}
+        mapContainerStyle={
+          isHomePath ? mapContainerStyle_Home : mapContainerStyle_PillStore
+        }
         zoom={14}
         center={selectedPillStore.coordinate}
         options={options}
         onLoad={onMapLoad}
+        onClick={() => {
+          setSelected(null);
+        }}
       >
-        <Locate panTo={panTo} />
+        <MapContext.Provider value={{ setSelected }}>
+          <Locate panTo={panTo} />
+        </MapContext.Provider>
 
         {pillStoreList.map(
           (pillStore) =>
@@ -100,7 +108,6 @@ export default function MapPage() {
                   anchor: new window.google.maps.Point(15, 15),
                 }}
                 onClick={() => {
-                  console.log(selectedPillStore.coordinate);
                   setSelected(pillStore);
                 }}
               />
@@ -109,13 +116,12 @@ export default function MapPage() {
                 key={pillStore.id}
                 position={pillStore.coordinate}
                 icon={{
-                  url: "https://i.imgur.com/v4dw84y.png", //red 
+                  url: "https://i.imgur.com/v4dw84y.png", //red
                   scaledSize: new window.google.maps.Size(40, 40),
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
                 }}
                 onClick={() => {
-                  console.log(selectedPillStore.coordinate);
                   setSelected(pillStore);
                 }}
               />
@@ -155,6 +161,7 @@ export default function MapPage() {
 function Locate({ panTo }) {
   const [myLocation, setMyLocation] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
+  const { setSelected } = useContext(MapContext);
   return (
     <div>
       <button
@@ -176,36 +183,24 @@ function Locate({ panTo }) {
           );
         }}
       >
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Circle-icons-gps.svg/1024px-Circle-icons-gps.svg.png"
-          alt="locate me"
-        />
+        <img src="https://i.imgur.com/KOzXDzt.png" alt="locate me" />
       </button>
       <Marker
         key="2"
         position={myLocation}
         icon={{
-          url: "https://webstockreview.net/images/gps-clipart-gps-icon-19.png",
           scaledSize: new window.google.maps.Size(30, 40),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(15, 15),
         }}
         onClick={() => {
-          setShowInfo(true);
+          setSelected({
+            coordinate: myLocation,
+            pharmacy: "Your location",
+            location: null,
+          });
         }}
       />
-      {showInfo ? (
-        <InfoWindow
-          position={myLocation}
-          onCloseClick={() => {
-            setShowInfo(false);
-          }}
-        >
-          <div>
-            <h2>Your location</h2>
-          </div>
-        </InfoWindow>
-      ) : null}
     </div>
   );
 }
