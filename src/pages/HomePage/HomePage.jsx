@@ -32,9 +32,8 @@ const HomePage = () => {
             </h1>
             
             <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect}}>
+                
                 <MapPage />
-            
-            {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
 
             {render && 
                 <SelectPillStore 
@@ -42,6 +41,7 @@ const HomePage = () => {
                     location={selectedPillStore.location}
                 /> 
             }
+
             </MapContext.Provider>
 
             {render && 
