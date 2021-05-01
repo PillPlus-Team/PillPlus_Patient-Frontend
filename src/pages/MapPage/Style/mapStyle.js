@@ -1,4 +1,4 @@
-export default [
+export let mapStyle = [
   {
     featureType: "landscape",
     elementType: "geometry",

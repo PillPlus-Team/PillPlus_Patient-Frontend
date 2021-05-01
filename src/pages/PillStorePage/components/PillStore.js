@@ -12,14 +12,12 @@ const PillStore = ({ pillStore }) => {
       onClick={() => {
         setSelectedPillStore(pillStore);
         setIsSelect(true);
-        {
-          center !== pillStore.coordinate
-            ? setCenter(pillStore.coordinate)
-            : setCenter({
-                lat: pillStore.coordinate.lat + 0.000001,
-                lng: pillStore.coordinate.lng + 0.000001,
-              });
-        }
+        center !== pillStore.coordinate
+          ? setCenter(pillStore.coordinate)
+          : setCenter({
+              lat: pillStore.coordinate.lat + 0.000001,
+              lng: pillStore.coordinate.lng + 0.000001,
+            });
       }}
       className="group flex flex-row flex-wrap lg:flex-nowrap items-center justify-center bg-white hover:bg-gray-200 focus:bg-blue-500 focus:outline-none outline-none p-5 w-full h-full ring-2 ring-gray-200 focus:ring-blue-500 duration-300"
     >

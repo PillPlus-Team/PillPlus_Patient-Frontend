@@ -36,10 +36,7 @@ const HomePage = () => {
                 <MapPage />
 
             {render && 
-                <SelectPillStore 
-                    pharmacy={selectedPillStore.pharmacy}
-                    location={selectedPillStore.location}
-                /> 
+                <SelectPillStore /> 
             }
 
             </MapContext.Provider>
