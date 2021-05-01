@@ -11,43 +11,18 @@ import UserContext from '../components/UserContext'
 const PillStorePage = () => {
 
     const history = useHistory() 
-    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_PILLSTORES} = useContext(UserContext);
+    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_PILLSTORES,pillStoreList, setPillStoreList, render} = useContext(UserContext);
 
     //for fetch locations
-    const [pillStoreList, setPillStoreList] = useState([])
-    const [render, setRender] = useState(false) // check if list already load and display bottom part (2 buttons) 
+    
+     // check if list already load and display bottom part (2 buttons) 
                                                 // don't make it load before locations
     //get all pillStores locations 
-    useEffect(() => {
-        const fetchLocations = async (prescriptionID) => {
-            const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
-                method: 'GET',
-                mode: 'cors',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            
-            if (res.status === 200){
-                const data = await res.json()
-                setPillStoreList(data)
-                setRender(true)
-                console.log({PillStores : data})
-            }else{
-                console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
-            }
-
-        }
-  
-        fetchLocations(user.prescriptionID)
-    },[API_KEY, API_PILLSTORES, user.prescriptionID])
-
+    
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
 
     //************** FOR ALL LOCATIONS END **************
-    
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
@@ -68,7 +43,7 @@ const PillStorePage = () => {
             <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full h-full'>
 
 
-                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect, setSelectedPillStore, access}}>
+                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect, setSelectedPillStore, access, pillStoreList}}>
                         <MapPage />
                     </MapContext.Provider>
     
