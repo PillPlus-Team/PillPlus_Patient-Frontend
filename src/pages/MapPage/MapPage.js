@@ -60,9 +60,9 @@ export default function MapPage() {
     setIsSelect,
     setSelectedPillStore,
     access,
+    pillStoreList,
   } = useContext(MapContext);
   const [selected, setSelected] = useState(null);
-  const [pillStoreList, setPillStoreList] = useState([]);
   const onMapClick = useCallback(
     (event) => {
       setSelected(null);
@@ -75,23 +75,11 @@ export default function MapPage() {
     [setCenter, setIsSelect]
   );
 
-  //---------fetch data----------
-  useEffect(() => {
-    const fetchLocations = async () => {
-      const res = await fetch("http://localhost:5500/pillStores");
-      const data = await res.json();
-
-      setPillStoreList(data);
-    };
-
-    fetchLocations();
-  }, []);
-
   //----------check path------------
   const location = useLocation();
   const isHomePath = location.pathname === "/home";
 
-  //-------check loading-----------
+  //--------check loading-----------
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
 
@@ -117,10 +105,10 @@ export default function MapPage() {
         {pillStoreList.map((pillStore) =>
           isHomePath
             ? //--------For HomePage--------------
-              pillStore.id !== selectedPillStore.id &&
+              pillStore.ID !== selectedPillStore.ID &&
               (pillStore.status ? (
                 <Marker
-                  key={pillStore.id}
+                  key={pillStore.ID}
                   position={pillStore.coordinate}
                   icon={{
                     url: "https://i.imgur.com/Ist6wBW.png", // blue
@@ -138,7 +126,7 @@ export default function MapPage() {
                 />
               ) : (
                 <Marker
-                  key={pillStore.id}
+                  key={pillStore.ID}
                   position={pillStore.coordinate}
                   icon={{
                     url: "https://i.imgur.com/v4dw84y.png", //red
@@ -152,10 +140,10 @@ export default function MapPage() {
                 />
               ))
             : //----------For PillStorePage--------------------
-              pillStore.id !== selectedPillStore.id &&
+              pillStore.ID !== selectedPillStore.ID &&
               (pillStore.status ? (
                 <Marker
-                  key={pillStore.id}
+                  key={pillStore.ID}
                   position={pillStore.coordinate}
                   icon={{
                     url: "https://i.imgur.com/Ist6wBW.png", // blue
@@ -174,7 +162,7 @@ export default function MapPage() {
               ) : (
                 !access && (
                   <Marker
-                    key={pillStore.id}
+                    key={pillStore.ID}
                     position={pillStore.coordinate}
                     icon={{
                       url: "https://i.imgur.com/v4dw84y.png", //red
@@ -191,7 +179,7 @@ export default function MapPage() {
         )}
         <Marker
           //---------------Selected PillStore--------------
-          key={selectedPillStore.id}
+          key={selectedPillStore.ID}
           position={selectedPillStore.coordinate}
           icon={{
             url: "https://i.imgur.com/Ei2X1hR.png", //green

@@ -10,7 +10,7 @@ import UserContext from '../components/UserContext'
 const HomePage = () => {
 
     const history = useHistory()
-    const {user, selectedPillStore, setIsAuth, center, setCenter, setIsSelect} = useContext(UserContext);
+    const {user, selectedPillStore, setIsAuth, center, setCenter, setIsSelect, pillStoreList} = useContext(UserContext);
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
@@ -28,7 +28,7 @@ const HomePage = () => {
                 สถานที่รับยา
             </h1>
             
-            <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect}}>
+            <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect,pillStoreList}}>
                 <MapPage />
                 <SelectPillStore /> 
             </MapContext.Provider>
