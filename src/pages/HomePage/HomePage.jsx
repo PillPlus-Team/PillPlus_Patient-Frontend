@@ -10,7 +10,7 @@ import UserContext from '../components/UserContext'
 const HomePage = () => {
 
     const history = useHistory()
-    const {user, selectedPillStore, setIsAuth} = useContext(UserContext);
+    const {user, selectedPillStore, setIsAuth, center, setCenter, setIsSelect} = useContext(UserContext);
 
     const [render, setRender] = useState(true) // check if list already load and display bottom part (2 buttons) 
                                                 // don't make it load before locations
@@ -31,9 +31,9 @@ const HomePage = () => {
                 สถานที่รับยา
             </h1>
             
-            <MapContext.Provider value={{selectedPillStore}}>
+            <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect}}>
                 <MapPage />
-            </MapContext.Provider>
+            
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
 
             {render && 
@@ -42,6 +42,7 @@ const HomePage = () => {
                     location={selectedPillStore.location}
                 /> 
             }
+            </MapContext.Provider>
 
             {render && 
                 <Button 

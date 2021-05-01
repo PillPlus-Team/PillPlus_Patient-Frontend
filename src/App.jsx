@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { useState, useMemo, useEffect } from 'react'
 import { LoginPage, HomePage, PillStorePage, PillPage} from './pages'
 import UserContext from './pages/components/UserContext'
+import MapContext from './pages/components/MapContext';
 
 const App = () => {
 
@@ -10,10 +11,13 @@ const App = () => {
   const [pillList, setPillList] = useState([])
   const [selectedPillStore, setSelectedPillStore] = useState({})
   const [isAuth, setIsAuth] = useState(false)  // Authentication mockup
+  const [center, setCenter] = useState({"lat": 15.039960,
+    "lng": 100.178123})
+  const [isSelect, setIsSelect] = useState(false)
 
   // aware of unnecessary change
-  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth}), 
-                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth]) //( (valueHere), [if here has changed.. it gonna change valueHere])
+  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect}), 
+                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect]) //( (valueHere), [if here has changed.. it gonna change valueHere])
 
   //get patient receipts user profile data 
     useEffect(() => {
@@ -24,6 +28,7 @@ const App = () => {
           setUser(data)
           setPillList(data.pills)
           setSelectedPillStore(data.pillStore)
+          setCenter(data.pillStore.coordinate)
       }
 
       fetchUser("1101402227500") // set manually from mockup

@@ -11,7 +11,7 @@ import UserContext from '../components/UserContext'
 const PillStorePage = () => {
 
     const history = useHistory() 
-    const {user, selectedPillStore, setSelectedPillStore, setIsAuth} = useContext(UserContext);
+    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect} = useContext(UserContext);
 
     //for fetch locations
     const [pillStoreList, setPillStoreList] = useState([])
@@ -32,7 +32,6 @@ const PillStorePage = () => {
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
-    const [select, setSelect] = useState(false)
 
     //************** FOR ALL LOCATIONS END **************
     
@@ -56,7 +55,7 @@ const PillStorePage = () => {
             <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full h-full'>
 
 
-                    <MapContext.Provider value={{selectedPillStore}}>
+                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect}}>
                         <MapPage />
                     </MapContext.Provider>
     
@@ -81,7 +80,7 @@ const PillStorePage = () => {
                         />
                     }
                     
-                    <MapContext.Provider value={{setSelect,setSelectedPillStore}}>
+                    <MapContext.Provider value={{setIsSelect,setSelectedPillStore,setCenter,center}}>
                         <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-128 border-2 border-gray-300 border-l-0 border-r-0 bg-gray-200 z-30 ">
                             <PillStoreList 
                                 pillStoreList={pillStoreList}
@@ -94,9 +93,9 @@ const PillStorePage = () => {
                     {render &&
                         <Button 
                             title='ยืนยัน'
-                            className={`rounded-t-none rounded-sm mb-4 sm:mb-0 w-full h-11 disabled:opacity-50 ${!select ? "pointer-events-none":" " }`}
+                            className={`rounded-t-none rounded-sm mb-4 sm:mb-0 w-full h-11 disabled:opacity-50 ${!isSelect ? "pointer-events-none":" " }`}
                             onClick={()=> history.push('/home')}
-                            disabled={!select} // make it true for default (disable = true at first time)
+                            disabled={!isSelect} // make it true for default (disable = true at first time)
                         />
                     }
 

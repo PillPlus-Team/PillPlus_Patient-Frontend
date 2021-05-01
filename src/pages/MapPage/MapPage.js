@@ -53,9 +53,19 @@ export default function MapPage() {
   }, []);
 
   //---------attibute------------
-  const { selectedPillStore } = useContext(MapContext);
+  const { selectedPillStore, center, setCenter, setIsSelect } = useContext(
+    MapContext
+  );
   const [selected, setSelected] = useState(null);
   const [pillStoreList, setPillStoreList] = useState([]);
+  const onMapClick = React.useCallback((event) => {
+    setSelected(null);
+    setIsSelect(false);
+    setCenter({
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    });
+  });
 
   //---------fetch data----------
   useEffect(() => {
@@ -81,17 +91,18 @@ export default function MapPage() {
     <>
       <GoogleMap
         id="map"
-        mapContainerClassName={isHomePath? "w-11/12 h-full max-h-124 max-w-5xl rounded-b-none rounded-xl"
-                              : "w-10/12 sm:w-full h-96 sm:h-full sm:max-h-148 sm:ml-12 sm:mt-16 rounded-md"}
+        mapContainerClassName={
+          isHomePath
+            ? "w-11/12 h-full max-h-124 max-w-5xl rounded-b-none rounded-xl"
+            : "w-10/12 sm:w-full h-96 sm:h-full sm:max-h-148 sm:ml-12 sm:mt-16 rounded-md"
+        }
         zoom={14}
-        center={selectedPillStore.coordinate}
+        center={center}
         options={options}
         onLoad={onMapLoad}
-        onClick={() => {
-          setSelected(null);
-        }}
+        onClick={onMapClick}
       >
-        <MapContext.Provider value={{ setSelected }}>
+        <MapContext.Provider value={{ setSelected, setCenter }}>
           <Locate panTo={panTo} />
         </MapContext.Provider>
 
@@ -161,8 +172,7 @@ export default function MapPage() {
 
 function Locate({ panTo }) {
   const [myLocation, setMyLocation] = useState(null);
-  const [showInfo, setShowInfo] = useState(false);
-  const { setSelected } = useContext(MapContext);
+  const { setSelected, setCenter } = useContext(MapContext);
   return (
     <div>
       <button
@@ -175,6 +185,7 @@ function Locate({ panTo }) {
                 lng: position.coords.longitude,
               };
               setMyLocation(latlng);
+              setCenter(latlng);
               panTo({
                 lat: latlng.lat,
                 lng: latlng.lng,
@@ -189,11 +200,6 @@ function Locate({ panTo }) {
       <Marker
         key="2"
         position={myLocation}
-        icon={{
-          scaledSize: new window.google.maps.Size(30, 40),
-          origin: new window.google.maps.Point(0, 0),
-          anchor: new window.google.maps.Point(15, 15),
-        }}
         onClick={() => {
           setSelected({
             coordinate: myLocation,
