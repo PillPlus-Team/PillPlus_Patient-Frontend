@@ -11,7 +11,7 @@ import UserContext from '../components/UserContext'
 const PillStorePage = () => {
 
     const history = useHistory() 
-    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect} = useContext(UserContext);
+    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_PILLSTORES} = useContext(UserContext);
 
     //for fetch locations
     const [pillStoreList, setPillStoreList] = useState([])
@@ -19,16 +19,29 @@ const PillStorePage = () => {
                                                 // don't make it load before locations
     //get all pillStores locations 
     useEffect(() => {
-        const fetchLocations = async () => {
-            const res = await fetch('http://localhost:5500/pillStores')
-            const data = await res.json()
-  
-            setPillStoreList(data)
-            setRender(true)
+        const fetchLocations = async (prescriptionID) => {
+            const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            
+            if (res.status === 200){
+                const data = await res.json()
+                setPillStoreList(data)
+                setRender(true)
+                console.log({PillStores : data})
+            }else{
+                console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
+            }
+
         }
   
-        fetchLocations()
-    },[])
+        fetchLocations(user.prescriptionID)
+    },[API_KEY, API_PILLSTORES, user.prescriptionID])
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox

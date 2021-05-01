@@ -7,10 +7,10 @@ const LoginPage = () => {
 
     const history = useHistory()
 
-    const [nationalId, setNationalId] = useState('1341501382234')    //Thai National ID 13 numbers   
-    const [serialNumber, setSerialNumber] = useState('60897f8a8b363a87b6fec87d')    //Bill Serial Numbers 
+    const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
+    const [serialNumber, setSerialNumber] = useState('608d6dfd49214f8256c26efb')    //Bill Serial Numbers 
 
-    const {setUser, setIsAuth, API_KEY, API_AUTH} = useContext(UserContext)
+    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, API_KEY, API_AUTH} = useContext(UserContext)
 
     const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
 
@@ -39,6 +39,10 @@ const LoginPage = () => {
             if (res.status === 200){
                 const data = await res.json()
                 setUser(data)
+                setPillList(data.pills)
+                setSelectedPillStore(data.pillStore)
+                setCenter(data.pillStore.coordinate)
+
                 setIsAuth(true)
                 history.push('/home')
                 console.log(data)
