@@ -31,15 +31,6 @@ const PillPage = () => {
 
             <h1 className='text-lg sm:text-2xl mb-2 text-gray-600'> รายการยา</h1>
             
-            <FilterBarPill 
-                className = 'my-2 w-10/12 sm:max-w-screen-sm h-full '
-                description = 'ค้นหา...' // ชื่อร้าน, ที่อยู่
-                onChange={(event) => {
-                    setFilter(event.target.value) //change filter string
-                }}
-                value={filter}  //filter string
-            />
-
             <PillList 
                 pillList={pillList}
                 filter={filter}
