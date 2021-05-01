@@ -1,27 +1,58 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
 import Button from '../components/Button'
+import UserContext from '../components/UserContext'
 
 const LoginPage = () => {
 
     const history = useHistory()
 
-    //Thai National ID 13 numbers
-    const [username, setUsername] = useState('')    // use can change variable name if you want...
-    //Bill Serial Numbers 
-    const [password, setPassword] = useState('')
+    const [nationalId, setNationalId] = useState('')    //Thai National ID 13 numbers   
+    const [serialNumber, setSerialNumber] = useState('')    //Bill Serial Numbers 
+
+    const {setUser, setIsAuth, API_KEY, API_AUTH} = useContext(UserContext)
 
     const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
-
 
     const submitHandler = async (event) => {
         event.preventDefault();
 
         //For Debug
-        console.log({ username, password });
-        /*
-            Logic here!
-        */
+        console.log({ identificationNumber: nationalId, _id: serialNumber });
+        console.log(API_KEY + API_AUTH)
+
+        //get patient receipts user profile data 
+        const fetchUser = async (nationalId, serialNumber) => {
+            const res = await fetch(API_KEY + API_AUTH, {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    identificationNumber: nationalId,
+                    _id: serialNumber,
+                }),
+            });
+
+            if (res.status == 200){
+                const data = await res.json()
+                setUser(data)
+                setIsAuth(true)
+                history.push('/home')
+                console.log("Login... Go to HomePage")
+
+            } else {
+                setError(true)
+                console.log("ERROR:" + res.status)
+                
+                //history.push('/home') // THIS IS BY PASS
+            }
+
+        }
+        fetchUser(nationalId, serialNumber) // set manually from mockup
+
     }
 
     return (
@@ -38,28 +69,24 @@ const LoginPage = () => {
                         <h2> กรุณาตรวจสอบอีกครั้ง </h2>
                     </div> : <div className="h-11 sm:h-7" ></div> }
 
+                    {/* National ID  */}
                     <input
                         className="mt-1 self-stretch p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
-                        //id="input-username"
-                        //name="username"
                         type="text"
-                        value={username}
-
+                        value={nationalId}
                         onChange={(event) => {
-                            setUsername(event.target.value);
+                            setNationalId(event.target.value);
                         }}
                         placeholder="เลขบัตรประชาชน 13 หลัก"
                         required
                     />
+                    {/* Serial Number  */}
                     <input
                         className="mt-4 self-stretch p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
-                        //id="input-password"
-                        //name="password"
                         type="text"
-                        value={password}
-                        
+                        value={serialNumber}
                         onChange={(event) => {
-                            setPassword(event.target.value);
+                            setSerialNumber(event.target.value);
                         }}
                         placeholder="หมายเลขใบสั่งยา"
                         required
@@ -69,7 +96,7 @@ const LoginPage = () => {
                         title='เข้าสู่ระบบ'
                         type='summit'
                         className='mt-6 self-stretch'
-                        onClick={() => history.push('/home')}  //bypass shortcut
+                        //onClick={() => history.push('/home')}  //bypass shortcut
                     />
 
                     
