@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { useState, useMemo, useEffect } from 'react'
 import { LoginPage, HomePage, PillStorePage, PillPage} from './pages'
 import UserContext from './pages/components/UserContext'
-import MapContext from './pages/components/MapContext';
 
 const App = () => {
 

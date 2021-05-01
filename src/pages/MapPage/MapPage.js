@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import MapContext from "../components/MapContext";
 
 import {
@@ -8,7 +8,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 
-import mapStyle from "./Style/mapStyle.js";
+import { mapStyle } from "./Style/mapStyle.js";
 import "./Style/map.css";
 
 import { useLocation } from "react-router-dom";
@@ -39,33 +39,41 @@ export default function MapPage() {
   //--------------map load-------------------
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries,
+    libraries: libraries,
   });
   const mapRef = React.useRef();
-  const onMapLoad = React.useCallback((map) => {
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
   //--------for function focus center---------
-  const panTo = React.useCallback(({ lat, lng }) => {
+  const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
   }, []);
 
   //---------attibute------------
-  const { selectedPillStore, center, setCenter, setIsSelect } = useContext(
-    MapContext
-  );
+  const {
+    selectedPillStore,
+    center,
+    setCenter,
+    setIsSelect,
+    setSelectedPillStore,
+    access,
+  } = useContext(MapContext);
   const [selected, setSelected] = useState(null);
   const [pillStoreList, setPillStoreList] = useState([]);
-  const onMapClick = React.useCallback((event) => {
-    setSelected(null);
-    setIsSelect(false);
-    setCenter({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    });
-  });
+  const onMapClick = useCallback(
+    (event) => {
+      setSelected(null);
+      setIsSelect(false);
+      setCenter({
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      });
+    },
+    [setCenter, setIsSelect]
+  );
 
   //---------fetch data----------
   useEffect(() => {
@@ -106,40 +114,83 @@ export default function MapPage() {
           <Locate panTo={panTo} />
         </MapContext.Provider>
 
-        {pillStoreList.map(
-          (pillStore) =>
-            pillStore.id !== selectedPillStore.id &&
-            (pillStore.status ? (
-              <Marker
-                key={pillStore.id}
-                position={pillStore.coordinate}
-                icon={{
-                  url: "https://i.imgur.com/Ist6wBW.png", // blue
-                  scaledSize: new window.google.maps.Size(40, 40),
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                }}
-                onClick={() => {
-                  setSelected(pillStore);
-                }}
-              />
-            ) : (
-              <Marker
-                key={pillStore.id}
-                position={pillStore.coordinate}
-                icon={{
-                  url: "https://i.imgur.com/v4dw84y.png", //red
-                  scaledSize: new window.google.maps.Size(40, 40),
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                }}
-                onClick={() => {
-                  setSelected(pillStore);
-                }}
-              />
-            ))
+        {pillStoreList.map((pillStore) =>
+          isHomePath
+            ? //--------For HomePage--------------
+              pillStore.id !== selectedPillStore.id &&
+              (pillStore.status ? (
+                <Marker
+                  key={pillStore.id}
+                  position={pillStore.coordinate}
+                  icon={{
+                    url: "https://i.imgur.com/Ist6wBW.png", // blue
+                    scaledSize: new window.google.maps.Size(40, 40),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                  }}
+                  onClick={() => {
+                    setSelected(pillStore);
+                    if (!isHomePath) {
+                      setSelectedPillStore(pillStore);
+                      setIsSelect(true);
+                    }
+                  }}
+                />
+              ) : (
+                <Marker
+                  key={pillStore.id}
+                  position={pillStore.coordinate}
+                  icon={{
+                    url: "https://i.imgur.com/v4dw84y.png", //red
+                    scaledSize: new window.google.maps.Size(40, 40),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                  }}
+                  onClick={() => {
+                    setSelected(pillStore);
+                  }}
+                />
+              ))
+            : //----------For PillStorePage--------------------
+              pillStore.id !== selectedPillStore.id &&
+              (pillStore.status ? (
+                <Marker
+                  key={pillStore.id}
+                  position={pillStore.coordinate}
+                  icon={{
+                    url: "https://i.imgur.com/Ist6wBW.png", // blue
+                    scaledSize: new window.google.maps.Size(40, 40),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                  }}
+                  onClick={() => {
+                    setSelected(pillStore);
+                    if (!isHomePath) {
+                      setSelectedPillStore(pillStore);
+                      setIsSelect(true);
+                    }
+                  }}
+                />
+              ) : (
+                !access && (
+                  <Marker
+                    key={pillStore.id}
+                    position={pillStore.coordinate}
+                    icon={{
+                      url: "https://i.imgur.com/v4dw84y.png", //red
+                      scaledSize: new window.google.maps.Size(40, 40),
+                      origin: new window.google.maps.Point(0, 0),
+                      anchor: new window.google.maps.Point(15, 15),
+                    }}
+                    onClick={() => {
+                      setSelected(pillStore);
+                    }}
+                  />
+                )
+              ))
         )}
         <Marker
+          //---------------Selected PillStore--------------
           key={selectedPillStore.id}
           position={selectedPillStore.coordinate}
           icon={{
@@ -170,6 +221,7 @@ export default function MapPage() {
   );
 }
 
+//---------------------Find My Location-------------------
 function Locate({ panTo }) {
   const [myLocation, setMyLocation] = useState(null);
   const { setSelected, setCenter } = useContext(MapContext);

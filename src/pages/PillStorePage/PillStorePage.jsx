@@ -55,7 +55,7 @@ const PillStorePage = () => {
             <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full h-full'>
 
 
-                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect}}>
+                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect, setSelectedPillStore, access}}>
                         <MapPage />
                     </MapContext.Provider>
     

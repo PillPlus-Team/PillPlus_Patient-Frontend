@@ -37,10 +37,7 @@ const HomePage = () => {
             {/* don't delete this line : just keep it for decoration when you put your map already: w-5/12 max-w-md h-full */}
 
             {render && 
-                <SelectPillStore 
-                    pharmacy={selectedPillStore.pharmacy}
-                    location={selectedPillStore.location}
-                /> 
+                <SelectPillStore /> 
             }
             </MapContext.Provider>
 
