@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
-import FilterBarPill from './components/FilterBarPill'
 import PillList from './components/PillList'
 import UserContext from '../components/UserContext'
 
