@@ -14,9 +14,12 @@ const PillStoreList = ({ pillStoreList, filter, access, onChange }) => {
       {pillStoreList
         .filter((pillStore) => passRequirement(pillStore))
 
-        .map((pillStore) => (
-          <PillStore key={pillStore.id} pillStore={pillStore} />
-        ))}
+        .map((pillStore) => {
+          //Debug
+          //console.log(pillStore.ID)
+          return <PillStore key={pillStore.ID} pillStore={pillStore} />
+        })
+      }
     </>
   );
 };
