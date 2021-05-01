@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
 import Button from '../components/Button'
 import UserContext from '../components/UserContext'
@@ -7,8 +7,8 @@ const LoginPage = () => {
 
     const history = useHistory()
 
-    const [nationalId, setNationalId] = useState('')    //Thai National ID 13 numbers   
-    const [serialNumber, setSerialNumber] = useState('')    //Bill Serial Numbers 
+    const [nationalId, setNationalId] = useState('1341501382234')    //Thai National ID 13 numbers   
+    const [serialNumber, setSerialNumber] = useState('60897f8a8b363a87b6fec87d')    //Bill Serial Numbers 
 
     const {setUser, setIsAuth, API_KEY, API_AUTH} = useContext(UserContext)
 
@@ -18,8 +18,8 @@ const LoginPage = () => {
         event.preventDefault();
 
         //For Debug
-        console.log({ identificationNumber: nationalId, _id: serialNumber });
-        console.log(API_KEY + API_AUTH)
+        //console.log({ identificationNumber: nationalId, _id: serialNumber });
+        //console.log(API_KEY + API_AUTH)
 
         //get patient receipts user profile data 
         const fetchUser = async (nationalId, serialNumber) => {
@@ -36,11 +36,12 @@ const LoginPage = () => {
                 }),
             });
 
-            if (res.status == 200){
+            if (res.status === 200){
                 const data = await res.json()
                 setUser(data)
                 setIsAuth(true)
                 history.push('/home')
+                console.log(data)
                 console.log("Login... Go to HomePage")
 
             } else {

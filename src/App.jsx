@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { LoginPage, HomePage, PillStorePage, PillPage} from './pages'
 import UserContext from './pages/components/UserContext'
 
@@ -20,23 +20,23 @@ const App = () => {
 
   // aware of unnecessary change
   const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES}), 
-                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect]) //( (valueHere), [if here has changed.. it gonna change valueHere])
+                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES]) //( (valueHere), [if here has changed.. it gonna change valueHere])
 
   //get patient receipts user profile data  // NEED TO DELETE THIS SOON ... 
-    useEffect(() => {
-      const fetchUser = async (id) => {
-          const res = await fetch(`http://localhost:5500/receipts/${id}`)
-          const data = await res.json()
+  //   useEffect(() => {
+  //     const fetchUser = async (id) => {
+  //         const res = await fetch(`http://localhost:5500/receipts/${id}`)
+  //         const data = await res.json()
 
-          setUser(data)
-          setPillList(data.pills)
-          setSelectedPillStore(data.pillStore)
-          setCenter(data.pillStore.coordinate)
-      }
+  //         setUser(data)
+  //         setPillList(data.pills)
+  //         setSelectedPillStore(data.pillStore)
+  //         setCenter(data.pillStore.coordinate)
+  //     }
 
-      fetchUser("1101402227500") // set manually from mockup
+  //     fetchUser("1101402227500") // set manually from mockup
 
-  },[])
+  // },[])
 
   return (
     
