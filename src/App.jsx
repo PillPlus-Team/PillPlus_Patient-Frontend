@@ -31,6 +31,7 @@ const App = () => {
   // Refresh page (At first time of press Refreshing in anypage or run the first time when login)
   useEffect(() => {
 
+    // Other Functions 
     const fetchUser = async (nationalId, serialNumber) => {
         const res = await fetch(API_KEY + API_AUTH, {
             method: 'POST',
@@ -58,13 +59,13 @@ const App = () => {
             if (!(isHomePath || isPillStorePath)){
               setRender(true)
             }
-            return data.prescriptionID // if error delete this line
+            console.log("Fetch User Completed")
+            return data.prescriptionID
         } else {
             console.log("ERROR:" + res.status + " Refreshing Page...")
             //history.push('/home') // THIS IS BY PASS : PROCEED WITH CAUTION
         }
     }
-  
      // get locations data
     const fetchLocations = async (prescriptionID) => {
         const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
@@ -80,12 +81,15 @@ const App = () => {
             const data = await res.json()
             setPillStoreList(data)
             setRender(true)
-            //console.log({PillStores : data})
+            console.log({PillStores : data})
+            console.log("Fetch Location Completed")
         }else{
             console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
         }
     
     } 
+
+    // Begin useEffect Function 
 
     var localNationalId = localStorage.getItem("nationalId")
     var localSerialNumber = localStorage.getItem("serialNumber")
@@ -100,11 +104,14 @@ const App = () => {
       console.log("localNationalId is "+  localNationalId)
       console.log("localSerialNumber is "+ localSerialNumber)
       console.log({ identificationNumber: localNationalId, _id: localSerialNumber });
-      let x = fetchUser(localNationalId, localSerialNumber)
-      
-      if (isHomePath || isPillStorePath){
-        fetchLocations(x) // if error use user.prescriptionID instead of x
-      }
+      fetchUser(localNationalId, localSerialNumber)
+      .then((prescriptionID) => {
+          console.log(prescriptionID)
+          if (isHomePath || isPillStorePath){
+            fetchLocations(prescriptionID) // if error use user.prescriptionID instead of x
+          }
+      })
+
     }
     else{
       console.log("Not Found localStorage")
