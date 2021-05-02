@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
@@ -11,7 +11,7 @@ import UserContext from '../components/UserContext'
 const PillStorePage = () => {
 
     const history = useHistory() 
-    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_PILLSTORES,pillStoreList, setPillStoreList, render} = useContext(UserContext);
+    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, pillStoreList, render} = useContext(UserContext);
 
     //for fetch locations
     
