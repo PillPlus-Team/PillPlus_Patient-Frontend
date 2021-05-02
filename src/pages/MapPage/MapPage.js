@@ -89,8 +89,8 @@ export default function MapPage() {
         id="map"
         mapContainerClassName={
           isHomePath
-            ? "w-11/12 h-full max-h-124 max-w-5xl rounded-b-none rounded-xl"
-            : "w-10/12 sm:w-full h-96 sm:h-full sm:max-h-148 sm:ml-12 sm:mt-16 rounded-md"
+            ? "w-11/12 h-full max-h-124 max-w-5xl rounded-b-none rounded-xl filter drop-shadow-md"
+            : "w-10/12 sm:w-full h-92 sm:h-full sm:max-h-148 sm:ml-12 sm:mt-16 rounded-md"
         }
         zoom={14}
         center={center}

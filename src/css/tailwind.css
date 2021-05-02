@@ -2,7 +2,7 @@
 
 @tailwind base;
 body {
-    @apply bg-blue-200;
+    @apply bg-gradient-to-b from-blue-300 to-blue-400;
     font-family: 'Kanit', sans-serif;
 }
 

@@ -24,7 +24,7 @@ const HomePage = () => {
                 }}
             />
 
-            <h1 className='mb-3 text-gray-800 text-lg sm:text-2xl text-center'> 
+            <h1 className='mb-3 text-gray-900 text-lg sm:text-2xl text-center'> 
                 สถานที่รับยา
             </h1>
             
@@ -35,14 +35,14 @@ const HomePage = () => {
              
             <Button 
             title='เปลี่ยนสถานที่รับยา'
-            className='my-2 mt-5 w-6/12 sm: max-w-xs '
+            className='my-2 mt-5 w-6/12 sm:w-64 '
             onClick={()=> history.push('/pillstore')}
             /> 
         
             <Button 
-            title='ดูรายการยา'
-            className='my-2 mb-4 w-6/12 sm: max-w-xs '
-            onClick={()=> history.push('/pill')}
+            title='ใบเสร็จออนไลน์'
+            className='my-2 mb-4 w-6/12 sm:w-64 '
+            onClick={()=> history.push('/receipt')}
             />
   
         </div>

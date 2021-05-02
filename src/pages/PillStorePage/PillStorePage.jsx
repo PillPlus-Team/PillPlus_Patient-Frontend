@@ -38,9 +38,9 @@ const PillStorePage = () => {
                     history.push('/home')
                 }}
             />
-            <h1 className='mb-3 text-gray-800 text-lg sm:text-2xl inline-block sm:hidden'>เปลี่ยนสถานที่รับยา</h1>
+            <h1 className='mb-3 text-gray-900 text-lg sm:text-2xl inline-block sm:hidden'>เปลี่ยนสถานที่รับยา</h1>
             
-            <div className='flex flex-col xl:flex-row justify-center items-center xl:items-start w-full h-full'>
+            <div className='flex flex-col xl:flex-row justify-start items-center xl:items-start w-full h-full'>
 
 
                     <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect, setSelectedPillStore, access, pillStoreList}}>
@@ -48,8 +48,8 @@ const PillStorePage = () => {
                     </MapContext.Provider>
     
   
-                {/* large filter and pillStoreList and done button*/}
-                <div className='flex flex-col justify-start items-center w-10/12 sm:p-5 h-92 sm:h-full '>
+                {/* large filter and pillStoreList and done button */} 
+                <div className='flex flex-col justify-start items-center w-10/12 sm:p-5 mt-2 sm:mt-0 sm:h-full '> 
 
                     <h1 className='my-2 text-gray-800 text-lg sm:text-2xl hidden sm:inline-block'>เปลี่ยนสถานที่รับยา</h1>
                     
@@ -69,7 +69,7 @@ const PillStorePage = () => {
                     }
                     
                     <MapContext.Provider value={{setIsSelect,setSelectedPillStore,setCenter,center}}>
-                        <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-128 border-2 border-gray-300 border-l-0 border-r-0 bg-gray-200 z-30 ">
+                        <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-44 sm:max-h-128 divide-y border-l-0 border-r-0 bg-gray-200 z-30 ">
                             <PillStoreList 
                                 pillStoreList={pillStoreList}
                                 filter={filter} //filter string
@@ -81,7 +81,7 @@ const PillStorePage = () => {
                     {render &&
                         <Button 
                             title='ยืนยัน'
-                            className={`rounded-t-none rounded-sm mb-4 sm:mb-0 w-full h-11 disabled:opacity-50 ${!isSelect ? "pointer-events-none":" " }`}
+                            className={`rounded-t-none rounded-sm  w-full h-11 disabled:opacity-50 ${!isSelect ? "pointer-events-none":" " }`}
                             onClick={()=> history.push('/home')}
                             disabled={!isSelect} // make it true for default (disable = true at first time)
                         />
