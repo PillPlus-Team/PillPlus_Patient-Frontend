@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import MapContext from "../components/MapContext";
 
 import {
@@ -15,22 +15,6 @@ import { useLocation } from "react-router-dom";
 
 //------------map style--------------------
 const libraries = ["places"];
-// const mapContainerStyle_Home = {
-//   width: "91.6vw",
-//   height: "52vh",
-//   maxWidth: "1024px",
-//   borderRadius: "0.5rem 0.5rem 0rem 0rem",
-//   boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
-
-// };
-// const mapContainerStyle_PillStore = {
-//   width: "50vw",
-//   height: "70vh",
-//   maxWidth: "1024px",
-//   borderRadius: "0.5rem 0.5rem 0rem 0rem",
-//   boxShadow: "5px 10px 10px rgba(0,0,0,0.1)"
-
-// };
 const options = {
   styles: mapStyle,
 };
