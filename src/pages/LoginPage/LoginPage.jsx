@@ -18,7 +18,7 @@ const LoginPage = () => {
         event.preventDefault();
 
         //For Debug
-        //console.log({ identificationNumber: nationalId, _id: serialNumber });
+        console.log({ identificationNumber: nationalId, _id: serialNumber });
         //console.log(API_KEY + API_AUTH)
 
         //get patient receipts user profile data 
@@ -48,15 +48,24 @@ const LoginPage = () => {
                 console.log(data)
                 console.log("Login... Go to HomePage")
 
+                // Store to LocalStorage for nationalId and serialNumber
+                localStorage.setItem('nationalId', JSON.stringify(nationalId))
+                localStorage.setItem('serialNumber', JSON.stringify(serialNumber))
+
+                // localStorage.removeItem('nationalId')
+                // localStorage.removeItem('serialNumber')
+
+
+
             } else {
                 setError(true)
                 console.log("ERROR:" + res.status)
                 
-                //history.push('/home') // THIS IS BY PASS
+                //history.push('/home') // THIS IS BY PASS : PROCEED WITH CAUTION
             }
 
         }
-        fetchUser(nationalId, serialNumber) // set manually from mockup
+        fetchUser(nationalId, serialNumber)
 
         // get locations data
         const fetchLocations = async (prescriptionID) => {

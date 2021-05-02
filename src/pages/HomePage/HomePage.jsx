@@ -10,7 +10,7 @@ import UserContext from '../components/UserContext'
 const HomePage = () => {
 
     const history = useHistory()
-    const {user, selectedPillStore, setIsAuth, center, setCenter, setIsSelect, pillStoreList} = useContext(UserContext);
+    const {user, selectedPillStore, setIsAuth, center, setCenter, setIsSelect, pillStoreList, render} = useContext(UserContext);
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
@@ -28,22 +28,30 @@ const HomePage = () => {
                 สถานที่รับยา
             </h1>
             
-            <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect,pillStoreList}}>
-                <MapPage />
-                <SelectPillStore /> 
-            </MapContext.Provider>
-             
-            <Button 
-            title='เปลี่ยนสถานที่รับยา'
-            className='my-2 mt-5 w-6/12 sm:w-64 '
-            onClick={()=> history.push('/pillstore')}
-            /> 
-        
-            <Button 
-            title='ใบเสร็จออนไลน์'
-            className='my-2 mb-4 w-6/12 sm:w-64 '
-            onClick={()=> history.push('/receipt')}
-            />
+            {render && <>
+
+                <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect,pillStoreList}}>
+                    <MapPage />
+                    <SelectPillStore /> 
+                </MapContext.Provider>
+
+                <Button 
+                title='เปลี่ยนสถานที่รับยา'
+                className='my-2 mt-5 w-6/12 sm:w-64 '
+                onClick={()=> history.push('/pillstore')}
+                /> 
+
+                <Button 
+                title='ใบเสร็จออนไลน์'
+                className='my-2 mb-4 w-6/12 sm:w-64 '
+                onClick={()=> history.push('/receipt')}
+                />
+                
+                </>
+
+            }
+
+
   
         </div>
     )
