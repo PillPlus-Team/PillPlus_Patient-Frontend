@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
 import Button from '../components/Button'
 import UserContext from '../components/UserContext'
@@ -10,7 +10,7 @@ const LoginPage = () => {
     const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
     const [serialNumber, setSerialNumber] = useState('608d6dfd49214f8256c26efb')    //Bill Serial Numbers 
 
-    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, API_KEY, API_AUTH, setPillStoreList, setRender, API_PILLSTORES, user} = useContext(UserContext)
+    const {user, setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES } = useContext(UserContext)
 
     const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
 
@@ -58,8 +58,7 @@ const LoginPage = () => {
         }
         fetchUser(nationalId, serialNumber) // set manually from mockup
 
-    }
-    useEffect(() => {
+        // get locations data
         const fetchLocations = async (prescriptionID) => {
             const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
                 method: 'GET',
@@ -74,15 +73,15 @@ const LoginPage = () => {
                 const data = await res.json()
                 setPillStoreList(data)
                 setRender(true)
-                console.log({PillStores : data})
+                //console.log({PillStores : data})
             }else{
                 console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
             }
 
         }
-  
         fetchLocations(user.prescriptionID)
-    },[API_KEY, API_PILLSTORES, user.prescriptionID])
+
+    }
 
     return (
         

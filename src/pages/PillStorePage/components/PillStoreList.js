@@ -16,7 +16,7 @@ const PillStoreList = ({ pillStoreList, filter, access, onChange }) => {
 
         .map((pillStore) => {
           //Debug
-          //console.log(pillStore.ID)
+          //console.log(index)
           return <PillStore key={pillStore.ID} pillStore={pillStore} />
         })
       }
