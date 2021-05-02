@@ -35,6 +35,12 @@ module.exports = {
       '8': 8,
       '9': 9,
       '10': 10,
+    },
+    flex: {
+      '1': '1 1 0%',
+      'left': '6 0 0%',
+      'left2': '4 0 0%',
+      'right': '10 0 0%'
     }
 
   },
@@ -42,8 +48,9 @@ module.exports = {
     extend: {
       opacity: ['disabled'],
       backgroundColor: ['group-focus'],
-      textColor: ['group-focus']
+      textColor: ['group-focus'],
     }
+    
   },
   plugins: [
     require('@tailwindcss/line-clamp')

@@ -18,7 +18,7 @@ const SelectPillStore = () => {
       <h1 className="text-lg sm:text-xl p-2 text-black group-focus:text-gray-800 duration-300">
         ชื่อร้าน : {selectedPillStore.pharmacy}
       </h1>
-      <h1 className="text-sm sm:text-md p-2 text-gray-400 group-hover:text-gray-600 group-focus:text-gray-500 duration-300">
+      <h1 className="text-sm sm:text-md p-2 text-gray-500 group-hover:text-gray-600 group-focus:text-gray-500 duration-300">
         {selectedPillStore.location}
       </h1>
     </button>

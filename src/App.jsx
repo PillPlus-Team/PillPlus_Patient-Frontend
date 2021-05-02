@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { useState, useMemo } from 'react'
-import { LoginPage, HomePage, PillStorePage, PillPage} from './pages'
+import { LoginPage, HomePage, PillStorePage, ReceiptPage} from './pages'
 import UserContext from './pages/components/UserContext'
 
 const App = () => {
@@ -66,7 +66,7 @@ const App = () => {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/home" component={HomePage} />
             <Route exact path="/pillstore" component={PillStorePage} />
-            <Route exact path="/pill" component={PillPage} />
+            <Route exact path="/receipt" component={ReceiptPage} />
             <Redirect to="/login"/>
 
         </Switch>
