@@ -3,12 +3,14 @@ import MapContext from "../../components/MapContext";
 import React, { useContext } from "react";
 
 const PillStore = ({ pillStore }) => {
-  const { setIsSelect, setSelectedPillStore, setCenter, center } = useContext(MapContext);
+  const { setIsSelect, setTempSelected, setCenter, center } = useContext(
+    MapContext
+  );
 
   return (
     <button
       onClick={() => {
-        setSelectedPillStore(pillStore);
+        setTempSelected(pillStore);
         setIsSelect(true);
         center !== pillStore.coordinate
           ? setCenter(pillStore.coordinate)

@@ -13,9 +13,9 @@ const PillStorePage = () => {
     const history = useHistory() 
     const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, pillStoreList, render} = useContext(UserContext);
 
-    
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
+    const [tempSelected, setTempSelected] = useState(selectedPillStore)
 
     //************** FOR ALL LOCATIONS END **************
 
@@ -38,7 +38,7 @@ const PillStorePage = () => {
             <div className='flex flex-col xl:flex-row justify-start items-center xl:items-start w-full h-full'>
 
 
-                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect, setSelectedPillStore, access, pillStoreList}}>
+                    <MapContext.Provider value={{selectedPillStore, setCenter, center, setIsSelect, setSelectedPillStore, access, pillStoreList, tempSelected, setTempSelected}}>
                         <MapPage />
                     </MapContext.Provider>
     
@@ -63,7 +63,7 @@ const PillStorePage = () => {
                         />
                     }
                     
-                    <MapContext.Provider value={{setIsSelect,setSelectedPillStore,setCenter,center}}>
+                    <MapContext.Provider value={{setIsSelect, setSelectedPillStore, setCenter, center, tempSelected, setTempSelected}}>
                         <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-44 sm:max-h-128 divide-y border-l-0 border-r-0 bg-gray-200 z-30 ">
                             <PillStoreList 
                                 pillStoreList={pillStoreList}
@@ -77,7 +77,7 @@ const PillStorePage = () => {
                         <Button 
                             title='ยืนยัน'
                             className={`rounded-t-none rounded-sm  w-full h-11 disabled:opacity-50 ${!isSelect ? "pointer-events-none":" " }`}
-                            onClick={()=> history.push('/home')}
+                            onClick={()=> {setSelectedPillStore(tempSelected); history.push('/home');}}
                             disabled={!isSelect} // make it true for default (disable = true at first time)
                         />
                     }
