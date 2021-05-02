@@ -21,8 +21,8 @@ const App = () => {
   const API_PILLSTORES = process.env.REACT_APP_GET_PILLSTORES
 
   // aware of unnecessary change
-  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES,pillStoreList, setPillStoreList, render, setRender}), 
-                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES,pillStoreList, setPillStoreList, render, setRender]) //( (valueHere), [if here has changed.. it gonna change valueHere])
+  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender}), 
+                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender]) //( (valueHere), [if here has changed.. it gonna change valueHere])
 
   //get patient receipts user profile data  // NEED TO DELETE THIS SOON ... 
   //   useEffect(() => {

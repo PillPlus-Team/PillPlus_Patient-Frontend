@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import PillList from './components/PillList'

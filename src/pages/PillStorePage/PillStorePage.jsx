@@ -13,11 +13,6 @@ const PillStorePage = () => {
     const history = useHistory() 
     const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, pillStoreList, render} = useContext(UserContext);
 
-    //for fetch locations
-    
-     // check if list already load and display bottom part (2 buttons) 
-                                                // don't make it load before locations
-    //get all pillStores locations 
     
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox

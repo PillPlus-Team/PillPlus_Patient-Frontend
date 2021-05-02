@@ -4,17 +4,10 @@ const PillList = ({pillList}) => {
     
     return (
         <>
-            {
-                pillList.map( (pill, index) => {
-                    
-                    //Debug
-                    // console.log(pill.sn)       
-                    return  <Pill 
-                        index={index}
-                        key={pill.sn} 
-                        pill={pill} 
-                    />
-                })
+            {pillList
+                .map( (pill, index) => (
+                    <Pill key={pill.sn} pill={pill} index={index} />
+                ))
             }
         </>
     )
