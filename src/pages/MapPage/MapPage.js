@@ -45,6 +45,8 @@ export default function MapPage() {
     setSelectedPillStore,
     access,
     pillStoreList,
+    tempSelected,
+    setTempSelected,
   } = useContext(MapContext);
   const [selected, setSelected] = useState(null);
   const onMapClick = useCallback(
@@ -102,10 +104,6 @@ export default function MapPage() {
                   }}
                   onClick={() => {
                     setSelected(pillStore);
-                    if (!isHomePath) {
-                      setSelectedPillStore(pillStore);
-                      setIsSelect(true);
-                    }
                   }}
                 />
               ) : (
@@ -125,6 +123,7 @@ export default function MapPage() {
               ))
             : //----------For PillStorePage--------------------
               pillStore.ID !== selectedPillStore.ID &&
+              pillStore.ID !== tempSelected.ID &&
               (pillStore.status ? (
                 <Marker
                   key={pillStore.ID}
@@ -137,10 +136,8 @@ export default function MapPage() {
                   }}
                   onClick={() => {
                     setSelected(pillStore);
-                    if (!isHomePath) {
-                      setSelectedPillStore(pillStore);
-                      setIsSelect(true);
-                    }
+                    setTempSelected(pillStore);
+                    setIsSelect(true);
                   }}
                 />
               ) : (
@@ -173,8 +170,30 @@ export default function MapPage() {
           }}
           onClick={() => {
             setSelected(selectedPillStore);
+            if (!isHomePath) {
+              setTempSelected(selectedPillStore);
+              setIsSelect(true);
+            }
           }}
         />
+        {!isHomePath
+          ? tempSelected.ID !== selectedPillStore.ID && (
+              <Marker
+                //---------------temp PillStore--------------
+                key={tempSelected.ID}
+                position={tempSelected.coordinate}
+                icon={{
+                  url: "https://i.imgur.com/AKxj5NZ.png", //blue selected
+                  scaledSize: new window.google.maps.Size(40, 40),
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                }}
+                onClick={() => {
+                  setSelected(tempSelected);
+                }}
+              />
+            )
+          : () => null}
         {selected ? (
           <InfoWindow
             position={selected.coordinate}
