@@ -9,8 +9,7 @@ import UserContext from '../components/UserContext'
 
 const HomePage = () => {
 
-    const history = useHistory()
-    const {selectedPillStore, center, setCenter, setIsSelect, pillStoreList, render, logout} = useContext(UserContext);
+    const {selectedPillStore, center, setCenter, setIsSelect, pillStoreList, render, logout, history} = useContext(UserContext);
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>

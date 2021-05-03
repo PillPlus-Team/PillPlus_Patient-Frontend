@@ -5,12 +5,10 @@ import UserContext from '../components/UserContext'
 
 const LoginPage = () => {
 
-    const history = useHistory()
-
     const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
     const [serialNumber, setSerialNumber] = useState('1620018064317')    //Bill Serial Numbers 
 
-    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES } = useContext(UserContext)
+    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES, history} = useContext(UserContext)
 
     const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
 
@@ -35,7 +33,7 @@ const LoginPage = () => {
                     _id: serialNumber,
                 }),
             });
-            
+
             if (res.status === 200){
                 const data = await res.json()
                 setUser(data)

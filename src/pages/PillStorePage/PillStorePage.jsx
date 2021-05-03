@@ -10,14 +10,47 @@ import UserContext from '../components/UserContext'
 
 const PillStorePage = () => {
 
-    const history = useHistory() 
-    const {selectedPillStore, setSelectedPillStore, center, setCenter, isSelect, setIsSelect, pillStoreList, render, logout} = useContext(UserContext);
+    const {setUser, setPillList, selectedPillStore, setSelectedPillStore, center, setCenter, isSelect, setIsSelect, pillStoreList, render, logout, API_KEY, API_UPDATE, history} = useContext(UserContext);
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
     const [tempSelected, setTempSelected] = useState(selectedPillStore)
 
-    //************** FOR ALL LOCATIONS END **************
+
+    const changePillStore = async ( pillStoreID ) => {
+        const res = await fetch(API_KEY + API_UPDATE, { 
+            method: 'PUT',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                pillStoreID: pillStoreID, //invoice
+            }),
+        });
+
+        if (res.status === 200) {
+            // return new User Data with new SelectedPillStore
+            const data = await res.json();
+            setUser(data)
+            setPillList(data.pills)
+            setSelectedPillStore(data.pillStore)
+            setCenter(data.pillStore.coordinate)
+
+            console.log({newUserDataWithNewSelectedPillStore:data})
+            history.push('/home')
+            console.log("Completed Change PillStore")
+            console.log("back to HomePage")
+            //title: 'ดำเนินการสำเร็จ', icon: 'success' 
+        } else {
+            //title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' 
+            console.log("ERROR:" + res.status + " Cannot Change PillStore")
+        }
+        
+    };
+
+
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
@@ -74,7 +107,11 @@ const PillStorePage = () => {
                             <Button 
                                 title='ยืนยัน'
                                 className={`rounded-t-none rounded-sm  w-full h-11 disabled:opacity-50 ${!isSelect ? "pointer-events-none":" " }`}
-                                onClick={()=> history.push('/home')}
+                                onClick={()=> {
+                                    console.log({tempSelected:tempSelected})
+                                    console.log({ID: tempSelected.ID})
+                                    changePillStore(tempSelected.ID)
+                                }}
                                 disabled={!isSelect} // make it true for default (disable = true at first time)
                             />
             
