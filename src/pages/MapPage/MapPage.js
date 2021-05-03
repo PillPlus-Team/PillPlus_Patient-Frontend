@@ -198,7 +198,7 @@ export default function MapPage() {
 
 //---------------------Find My Location-------------------
 function Locate({ panTo }) {
-  const { myLocation, setMyLocation } = useState(null);
+  const [myLocation, setMyLocation] = useState(null);
   const { setSelected, setCenter } = useContext(MapContext);
   return (
     <div>
