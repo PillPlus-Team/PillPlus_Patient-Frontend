@@ -154,6 +154,7 @@ export default function MapPage() {
                   }}
                   onClick={() => {
                     setSelected(pillStore);
+                    setTempSelected(pillStore);
                     setIsSelect(false);
                   }}
                 />
