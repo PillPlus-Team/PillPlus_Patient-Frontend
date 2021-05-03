@@ -123,17 +123,25 @@ export default function MapPage() {
               ))
             : //----------For PillStorePage--------------------
               pillStore.ID !== selectedPillStore.ID &&
-              pillStore.ID !== tempSelected.ID &&
               (pillStore.status ? (
                 <Marker
                   key={pillStore.ID}
                   position={pillStore.coordinate}
-                  icon={{
-                    url: "https://i.imgur.com/Ist6wBW.png", // blue
-                    scaledSize: new window.google.maps.Size(40, 40),
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15),
-                  }}
+                  icon={
+                    pillStore.ID !== tempSelected.ID
+                      ? {
+                          url: "https://i.imgur.com/Ist6wBW.png", // blue
+                          scaledSize: new window.google.maps.Size(40, 40),
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(15, 15),
+                        }
+                      : {
+                          url: "https://i.imgur.com/AKxj5NZ.png", //blue selected
+                          scaledSize: new window.google.maps.Size(43, 43),
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(15, 15),
+                        }
+                  }
                   onClick={() => {
                     setSelected(pillStore);
                     setTempSelected(pillStore);
@@ -176,24 +184,6 @@ export default function MapPage() {
             }
           }}
         />
-        {!isHomePath
-          ? tempSelected.ID !== selectedPillStore.ID && (
-              <Marker
-                //---------------temp PillStore--------------
-                key={tempSelected.ID}
-                position={tempSelected.coordinate}
-                icon={{
-                  url: "https://i.imgur.com/AKxj5NZ.png", //blue selected
-                  scaledSize: new window.google.maps.Size(40, 40),
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                }}
-                onClick={() => {
-                  setSelected(tempSelected);
-                }}
-              />
-            )
-          : () => null}
         {selected ? (
           <InfoWindow
             position={selected.coordinate}
@@ -214,7 +204,7 @@ export default function MapPage() {
 
 //---------------------Find My Location-------------------
 function Locate({ panTo }) {
-  const [myLocation, setMyLocation] = useState(null);
+  const { myLocation, setMyLocation } = useState(null);
   const { setSelected, setCenter } = useContext(MapContext);
   return (
     <div>
