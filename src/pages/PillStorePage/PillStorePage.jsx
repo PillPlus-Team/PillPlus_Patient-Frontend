@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage';
@@ -16,7 +15,7 @@ const PillStorePage = () => {
     const [access, setAccess] = useState(true) //checkbox
     const [tempSelected, setTempSelected] = useState(selectedPillStore)
 
-
+    console.log(isSelect)
     const changePillStore = async ( pillStoreID ) => {
         const res = await fetch(API_KEY + API_UPDATE, { 
             method: 'PUT',
@@ -93,7 +92,7 @@ const PillStorePage = () => {
                             />
                         
                         
-                            <MapContext.Provider value={{setIsSelect,setSelectedPillStore,setCenter,center, tempSelected, setTempSelected}}>
+                            <MapContext.Provider value={{setIsSelect, selectedPillStore, setSelectedPillStore, setCenter, center, tempSelected, setTempSelected}}>
                                 <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-44 sm:max-h-128 divide-y border-l-0 border-r-0 bg-gray-200 z-30 ">
                                     <PillStoreList 
                                         pillStoreList={pillStoreList}
