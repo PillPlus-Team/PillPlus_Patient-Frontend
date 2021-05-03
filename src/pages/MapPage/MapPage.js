@@ -11,7 +11,7 @@ import {
 import { mapStyle } from "./Style/mapStyle.js";
 import "./Style/map.css";
 
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 //------------map style--------------------
 const libraries = ["places"];
@@ -63,7 +63,7 @@ export default function MapPage() {
   //----------check path------------
   const location = useLocation();
   const isHomePath = location.pathname === "/home";
-  const [st, setSt] = useState("https://www.google.com/maps/dir//");
+  const [directionURL, setDirectionURL] = useState("");
 
   //--------check loading-----------
   if (loadError) return "Error loading maps";
@@ -113,6 +113,12 @@ export default function MapPage() {
                 }
                 onClick={() => {
                   setSelected(pillStore);
+                  setDirectionURL(
+                    "https://www.google.com/maps/dir//" +
+                      pillStore.coordinate.lat.toString() +
+                      "," +
+                      pillStore.coordinate.lng.toString()
+                  );
                 }}
               />
             ) : //----------For PillStorePage--------------------
@@ -140,6 +146,12 @@ export default function MapPage() {
                   setSelected(pillStore);
                   setTempSelected(pillStore);
                   setIsSelect(true);
+                  setDirectionURL(
+                    "https://www.google.com/maps/dir//" +
+                      pillStore.coordinate.lat.toString() +
+                      "," +
+                      pillStore.coordinate.lng.toString()
+                  );
                 }}
               />
             ) : (
@@ -157,6 +169,12 @@ export default function MapPage() {
                     setSelected(pillStore);
                     setTempSelected(pillStore);
                     setIsSelect(false);
+                    setDirectionURL(
+                      "https://www.google.com/maps/dir//" +
+                        pillStore.coordinate.lat.toString() +
+                        "," +
+                        pillStore.coordinate.lng.toString()
+                    );
                   }}
                 />
               )
@@ -178,8 +196,8 @@ export default function MapPage() {
               setTempSelected(selectedPillStore);
               setIsSelect(true);
             }
-            setSt(
-              st +
+            setDirectionURL(
+              "https://www.google.com/maps/dir//" +
                 selectedPillStore.coordinate.lat.toString() +
                 "," +
                 selectedPillStore.coordinate.lng.toString()
@@ -198,7 +216,7 @@ export default function MapPage() {
               <p className="font-sans">{selected.location}</p>
               <a
                 className="font-sans flex flex-row justify-center items-center text-blue-500 underline"
-                href={st}
+                href={directionURL}
                 target="_blank"
               >
                 ค้นหาเส้นทาง
