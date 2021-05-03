@@ -1,9 +1,13 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { useState, useMemo } from 'react'
+import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-dom'
+import { useState, useMemo, useEffect } from 'react'
 import { LoginPage, HomePage, PillStorePage, ReceiptPage} from './pages'
 import UserContext from './pages/components/UserContext'
 
 const App = () => {
+  //----------check path------------
+  const location = useLocation()
+  const isHomePath = location.pathname === "/home"
+  const isPillStorePath  = location.pathname === "/pillstore"
 
   // this is global state that use useContext to pass all value to it's destination
   const [user, setUser] = useState({})  
@@ -20,9 +24,121 @@ const App = () => {
   const API_UPDATE = process.env.REACT_APP_UPDATE_RECEIPT
   const API_PILLSTORES = process.env.REACT_APP_GET_PILLSTORES
 
+  const history = useHistory()
+
+  const logout = () => {
+    console.log('Loging out...')
+
+    localStorage.removeItem('nationalId')
+    localStorage.removeItem('serialNumber')
+    console.log('Remove from LocalStorage Completed')
+    
+    setIsAuth(false)
+    console.log('Logout Completed')
+    history.push('/login')
+  }
+
   // aware of unnecessary change
-  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender}), 
-                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender]) //( (valueHere), [if here has changed.. it gonna change valueHere])
+  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout}), 
+                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout]) //( (valueHere), [if here has changed.. it gonna change valueHere])
+
+  // Refresh page (At first time of press Refreshing in anypage or run the first time when login)
+  useEffect(() => {
+
+    // Other Functions 
+    const fetchUser = async (nationalId, serialNumber) => {
+        const res = await fetch(API_KEY + API_AUTH, {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                identificationNumber: nationalId,
+                _id: serialNumber,
+            }),
+        });
+    
+        if (res.status === 200){
+            const data = await res.json()
+            setUser(data)
+            setPillList(data.pills)
+            setSelectedPillStore(data.pillStore)
+            setCenter(data.pillStore.coordinate)
+    
+            setIsAuth(true)
+            console.log({receipt:data})
+            console.log("Refreshing Page...")
+            if (!(isHomePath || isPillStorePath)){
+              setRender(true)
+            }
+            console.log("Fetch User Completed")
+            return data.prescriptionID
+        } else {
+            console.log("ERROR:" + res.status + " Refreshing Page...")
+            //history.push('/home') // THIS IS BY PASS : PROCEED WITH CAUTION
+        }
+    }
+     // get locations data
+    const fetchLocations = async (prescriptionID) => {
+        const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        
+        if (res.status === 200){
+            const data = await res.json()
+            setPillStoreList(data)
+            
+            console.log({PillStores : data})
+            console.log("Fetch Location Completed")
+        }else{
+            console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
+        }
+    
+    } 
+
+    // Begin useEffect Function 
+
+    var localNationalId = localStorage.getItem("nationalId")
+    var localSerialNumber = localStorage.getItem("serialNumber")
+
+    setRender(false)  // always set to default false
+
+    if (localNationalId !== null && localSerialNumber !== null) {
+      localNationalId = JSON.parse(localNationalId)
+      localSerialNumber = JSON.parse(localSerialNumber)
+      
+      setIsAuth(true)
+      
+      //Debug
+      console.log("localNationalId is "+  localNationalId)
+      console.log("localSerialNumber is "+ localSerialNumber)
+      // console.log({ identificationNumber: localNationalId, _id: localSerialNumber });
+      fetchUser(localNationalId, localSerialNumber)
+      .then((prescriptionID) => {
+          console.log(prescriptionID)
+          if (isHomePath || isPillStorePath){
+            fetchLocations(prescriptionID) // if error use user.prescriptionID instead of x
+          }
+      })
+      .then(()=> {
+        setRender(true)
+      })
+
+    }
+    else{
+      setIsAuth(false)
+      console.log("Not Found localStorage")
+    }
+
+  },[API_AUTH, API_KEY, API_PILLSTORES, isHomePath, isPillStorePath])
+  
 
   //get patient receipts user profile data  // NEED TO DELETE THIS SOON ... 
   //   useEffect(() => {
@@ -42,15 +158,14 @@ const App = () => {
 
   return (
     
-    <Router>
       <UserContext.Provider value={passValue}>
-      {/* 
+      
       {isAuth?       
         <Switch>
-        {/* pass in user and setUser to all pages * /}
+        {/* pass in user and setUser to all pages */}
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/pillstore" component={PillStorePage} />
-          <Route exact path="/pill" component={PillPage} />
+          <Route exact path="/receipt" component={ReceiptPage} />
           <Redirect to="/home" />
         </Switch>
       : 
@@ -59,9 +174,9 @@ const App = () => {
           <Redirect to="/login" />
         </Switch>
       }
-      */}
+     
 
-        <Switch>
+        {/* <Switch>
           
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/home" component={HomePage} />
@@ -69,10 +184,9 @@ const App = () => {
             <Route exact path="/receipt" component={ReceiptPage} />
             <Redirect to="/login"/>
 
-        </Switch>
+        </Switch> */}
 
       </UserContext.Provider>
-    </Router>
     
   );
 };

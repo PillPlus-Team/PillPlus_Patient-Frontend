@@ -8,9 +8,9 @@ const LoginPage = () => {
     const history = useHistory()
 
     const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
-    const [serialNumber, setSerialNumber] = useState('608d6dfd49214f8256c26efb')    //Bill Serial Numbers 
+    const [serialNumber, setSerialNumber] = useState('1620018064317')    //Bill Serial Numbers 
 
-    const {user, setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES } = useContext(UserContext)
+    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES } = useContext(UserContext)
 
     const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
 
@@ -18,7 +18,7 @@ const LoginPage = () => {
         event.preventDefault();
 
         //For Debug
-        //console.log({ identificationNumber: nationalId, _id: serialNumber });
+        console.log({ identificationNumber: nationalId, _id: serialNumber });
         //console.log(API_KEY + API_AUTH)
 
         //get patient receipts user profile data 
@@ -35,31 +35,38 @@ const LoginPage = () => {
                     _id: serialNumber,
                 }),
             });
-
+            
             if (res.status === 200){
                 const data = await res.json()
                 setUser(data)
                 setPillList(data.pills)
                 setSelectedPillStore(data.pillStore)
                 setCenter(data.pillStore.coordinate)
-
                 setIsAuth(true)
-                history.push('/home')
-                console.log(data)
-                console.log("Login... Go to HomePage")
+
+                console.log({receipt:data})
+                
+                // Store to LocalStorage for nationalId and serialNumber
+                localStorage.setItem('nationalId', JSON.stringify(nationalId))
+                localStorage.setItem('serialNumber', JSON.stringify(serialNumber))
+                
+                console.log("Stored to LocalStorage Completed")
+                
+                console.log("Fetch User Completed")
+                return data.prescriptionID
+
 
             } else {
                 setError(true)
                 console.log("ERROR:" + res.status)
                 
-                //history.push('/home') // THIS IS BY PASS
+                //history.push('/home') // THIS IS BY PASS : PROCEED WITH CAUTION
             }
 
         }
-        fetchUser(nationalId, serialNumber) // set manually from mockup
-
         // get locations data
         const fetchLocations = async (prescriptionID) => {
+            // console.log(API_KEY + API_PILLSTORES + prescriptionID)
             const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
                 method: 'GET',
                 mode: 'cors',
@@ -70,16 +77,25 @@ const LoginPage = () => {
             });
             
             if (res.status === 200){
+                // console.log(res.status)
+                // console.log('load LOCATIONS HERE')
+                // console.log(prescriptionID)
                 const data = await res.json()
+                // console.log(data)
                 setPillStoreList(data)
-                setRender(true)
-                //console.log({PillStores : data})
+                console.log({PillStores : data})
+                console.log("Fetch Location Completed")
+                history.push('/home')
+                console.log("Going to HomePage, Welcome! :)")
             }else{
                 console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
             }
 
         }
-        fetchLocations(user.prescriptionID)
+       
+        fetchUser(nationalId, serialNumber)
+        .then((prescriptionID) => fetchLocations(prescriptionID))
+        .then(() => setRender(true))
 
     }
 

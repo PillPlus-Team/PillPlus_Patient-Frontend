@@ -8,7 +8,7 @@ import UserContext from '../components/UserContext'
 const ReceiptPage = () => {
 
     const history = useHistory()
-    const {user, selectedPillStore, pillList, setIsAuth} = useContext(UserContext);
+    const {user, selectedPillStore, pillList, render, logout} = useContext(UserContext);
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
@@ -16,8 +16,7 @@ const ReceiptPage = () => {
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
                 onClick={() => {
-                    setIsAuth(false)        //logout 
-                    history.push('/login')
+                    logout()
                 }}
                 onBackpage= {() => {
                     history.push('/home')
@@ -26,6 +25,8 @@ const ReceiptPage = () => {
 
             <h1 className='text-lg sm:text-2xl mb-2 text-gray-900'> ใบเสร็จออนไลน์ </h1>
             
+            {render && 
+              
             <div className='flex flex-col divide-y w-11/12 sm:w-160 h-160 mb-4 bg-white rounded-lg filter drop-shadow-xl p-3 overflow-y-auto'>
                 {/* row 1 */}
                 <div className='flex flex-row items-center w-full h-full'>
@@ -93,6 +94,7 @@ const ReceiptPage = () => {
 
             </div>
 
+            }
 
 
             {/* <PillList 
