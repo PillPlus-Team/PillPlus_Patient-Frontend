@@ -14,7 +14,7 @@ const PillStore = ({ pillStore }) => {
     <button
       onClick={() => {
         setTempSelected(pillStore);
-        setIsSelect(true);
+        pillStore.status ? setIsSelect(true) : setIsSelect(false);
         center !== pillStore.coordinate
           ? setCenter(pillStore.coordinate)
           : setCenter({
