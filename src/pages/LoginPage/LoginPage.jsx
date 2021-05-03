@@ -7,8 +7,8 @@ const LoginPage = () => {
 
     const history = useHistory()
 
-    const [nationalId, setNationalId] = useState('1101402227560')    //Thai National ID 13 numbers   
-    const [serialNumber, setSerialNumber] = useState('1619983082776')    //Bill Serial Numbers 
+    const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
+    const [serialNumber, setSerialNumber] = useState('1620018064317')    //Bill Serial Numbers 
 
     const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES } = useContext(UserContext)
 
@@ -43,7 +43,7 @@ const LoginPage = () => {
                 setSelectedPillStore(data.pillStore)
                 setCenter(data.pillStore.coordinate)
                 setIsAuth(true)
-                console.log(data)
+                console.log({receipt:data})
                 
 
                 // Store to LocalStorage for nationalId and serialNumber
@@ -66,7 +66,7 @@ const LoginPage = () => {
         }
         // get locations data
         const fetchLocations = async (prescriptionID) => {
-            console.log(API_KEY + API_PILLSTORES + prescriptionID)
+            // console.log(API_KEY + API_PILLSTORES + prescriptionID)
             const res = await fetch(API_KEY + API_PILLSTORES + prescriptionID, {
                 method: 'GET',
                 mode: 'cors',
@@ -83,7 +83,6 @@ const LoginPage = () => {
                 const data = await res.json()
                 // console.log(data)
                 setPillStoreList(data)
-                setRender(true)
                 console.log({PillStores : data})
                 console.log("Fetch Location Completed")
                 history.push('/home')
@@ -96,6 +95,7 @@ const LoginPage = () => {
        
         fetchUser(nationalId, serialNumber)
         .then((prescriptionID) => fetchLocations(prescriptionID))
+        .then(() => setRender(true))
 
     }
 

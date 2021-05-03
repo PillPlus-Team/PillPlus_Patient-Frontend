@@ -54,7 +54,7 @@ const App = () => {
             setCenter(data.pillStore.coordinate)
     
             setIsAuth(true)
-            console.log(data)
+            console.log({receipt:data})
             console.log("Refreshing Page...")
             if (!(isHomePath || isPillStorePath)){
               setRender(true)

@@ -9,12 +9,12 @@ const Pill = ({pill, index}) => {
             <div className='flex flex-col w-full h-full'>
                 <h1>{pill.name}</h1>
                 <h1 className='text-sm text-gray-400 '>
-                    {pill.description.split('\n').map((subString) => {
+                    {pill.description.split('\n').map((subString,index) => {
                         return (
-                            <>
+                            <div className='w-full h-full' key={index}>
                                 {subString}
                                 <br />
-                            </>
+                            </div>
                         );
                     })}
                 </h1>
