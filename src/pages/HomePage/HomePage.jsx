@@ -10,17 +10,15 @@ import UserContext from '../components/UserContext'
 const HomePage = () => {
 
     const history = useHistory()
-    const {user, selectedPillStore, setIsAuth, center, setCenter, setIsSelect, pillStoreList, render} = useContext(UserContext);
+    const {selectedPillStore, center, setCenter, setIsSelect, pillStoreList, render, logout} = useContext(UserContext);
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
             <Header 
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
-                name= {user.name}
                 onClick={() => {
-                    setIsAuth(false)
-                    history.push('/login')
+                    logout()
                 }}
             />
 
@@ -30,7 +28,7 @@ const HomePage = () => {
             
             {render && <>
 
-                <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect,pillStoreList}}>
+                <MapContext.Provider value={{selectedPillStore, center, setCenter, setIsSelect, pillStoreList}}>
                     <MapPage />
                     <SelectPillStore /> 
                 </MapContext.Provider>

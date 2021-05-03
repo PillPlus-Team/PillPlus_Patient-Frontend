@@ -8,7 +8,7 @@ import UserContext from '../components/UserContext'
 const ReceiptPage = () => {
 
     const history = useHistory()
-    const {user, selectedPillStore, pillList, setIsAuth, render} = useContext(UserContext);
+    const {user, selectedPillStore, pillList, render, logout} = useContext(UserContext);
 
     return (
         <div className='flex flex-col justify-start items-center w-screen h-screen'>
@@ -16,8 +16,7 @@ const ReceiptPage = () => {
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
                 onClick={() => {
-                    setIsAuth(false)        //logout 
-                    history.push('/login')
+                    logout()
                 }}
                 onBackpage= {() => {
                     history.push('/home')

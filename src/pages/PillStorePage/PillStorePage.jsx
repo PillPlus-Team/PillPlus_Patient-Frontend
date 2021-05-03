@@ -11,7 +11,7 @@ import UserContext from '../components/UserContext'
 const PillStorePage = () => {
 
     const history = useHistory() 
-    const {user, selectedPillStore, setSelectedPillStore, setIsAuth, center, setCenter, isSelect, setIsSelect, pillStoreList, render} = useContext(UserContext);
+    const {selectedPillStore, setSelectedPillStore, center, setCenter, isSelect, setIsSelect, pillStoreList, render, logout} = useContext(UserContext);
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
@@ -24,10 +24,8 @@ const PillStorePage = () => {
             <Header 
                 title='PILLPLUS+'
                 className='py-2 sm:py-4'
-                name= {user.name}
                 onClick={() => {
-                    setIsAuth(false)        //logout 
-                    history.push('/login')  
+                    logout()
                 }}
                 onBackpage= {() => {
                     history.push('/home')

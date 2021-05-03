@@ -35,7 +35,7 @@ const LoginPage = () => {
                     _id: serialNumber,
                 }),
             });
-            console.log("test")
+            
             if (res.status === 200){
                 const data = await res.json()
                 setUser(data)
@@ -43,15 +43,15 @@ const LoginPage = () => {
                 setSelectedPillStore(data.pillStore)
                 setCenter(data.pillStore.coordinate)
                 setIsAuth(true)
+
                 console.log({receipt:data})
                 
-
                 // Store to LocalStorage for nationalId and serialNumber
                 localStorage.setItem('nationalId', JSON.stringify(nationalId))
                 localStorage.setItem('serialNumber', JSON.stringify(serialNumber))
-
-                // localStorage.removeItem('nationalId')
-                // localStorage.removeItem('serialNumber')
+                
+                console.log("Stored to LocalStorage Completed")
+                
                 console.log("Fetch User Completed")
                 return data.prescriptionID
 
