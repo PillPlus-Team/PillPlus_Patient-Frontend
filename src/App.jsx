@@ -39,8 +39,8 @@ const App = () => {
   }
 
   // aware of unnecessary change
-  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout}), 
-                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout]) //( (valueHere), [if here has changed.. it gonna change valueHere])
+  const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout, history}), 
+                                  [user, setUser, pillList, setPillList,selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout, history]) //( (valueHere), [if here has changed.. it gonna change valueHere])
 
   // Refresh page (At first time of press Refreshing in anypage or run the first time when login)
   useEffect(() => {
@@ -77,7 +77,6 @@ const App = () => {
             return data.prescriptionID
         } else {
             console.log("ERROR:" + res.status + " Refreshing Page...")
-            //history.push('/home') // THIS IS BY PASS : PROCEED WITH CAUTION
         }
     }
      // get locations data
@@ -104,7 +103,7 @@ const App = () => {
     } 
 
     // Begin useEffect Function 
-
+    console.log({Fucking:history})
     var localNationalId = localStorage.getItem("nationalId")
     var localSerialNumber = localStorage.getItem("serialNumber")
 
@@ -160,9 +159,8 @@ const App = () => {
     
       <UserContext.Provider value={passValue}>
       
-      {isAuth?       
+      {isAuth?    
         <Switch>
-        {/* pass in user and setUser to all pages */}
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/pillstore" component={PillStorePage} />
           <Route exact path="/receipt" component={ReceiptPage} />
@@ -174,7 +172,7 @@ const App = () => {
           <Redirect to="/login" />
         </Switch>
       }
-     
+        
 
         {/* <Switch>
           
