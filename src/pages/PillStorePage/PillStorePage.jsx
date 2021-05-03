@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import Header from '../components/Header'
 import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage';
@@ -46,7 +46,7 @@ const PillStorePage = () => {
             console.log("ERROR:" + res.status + " Cannot Change PillStore")
         }
         
-    });
+    },[API_KEY, API_UPDATE, history, setCenter, setPillList, setSelectedPillStore, setUser]);
 
 
 

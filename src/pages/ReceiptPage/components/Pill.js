@@ -11,7 +11,7 @@ const Pill = ({pill, index}) => {
                 <h1 className='text-sm text-gray-400 '>
                     {pill.description.split('\n').map((subString,index) => {
                         return (
-                            <div className='w-full h-full' key={index}>
+                            <div className='w-full h-auto' key={index}>
                                 {subString}
                                 <br />
                             </div>

@@ -26,10 +26,10 @@ const PillStore = ({ pillStore }) => {
               lng: pillStore.coordinate.lng + 0.000001,
             });
       }}
-      className= {`disabled:opacity-50 ${checkIsOnFocus()? "bg-blue-500 focus:bg-blue-500 hover:bg-blue-500 pointer-events-none " : " bg-white hover:bg-gray-200 "} ${checkIfSelected() ? "pointer-events-none ":" " } group flex flex-row flex-wrap lg:flex-nowrap items-center justify-center  focus:outline-none outline-none p-5 w-full h-full  duration-300`}
+      className= {`disabled:opacity-50 ${checkIsOnFocus()? "bg-blue-500 focus:bg-blue-500 hover:bg-blue-500 pointer-events-none " : " bg-white hover:bg-gray-200 "} ${checkIfSelected() ? "pointer-events-none ":" " } group flex flex-row flex-wrap lg:flex-nowrap items-center justify-center  focus:outline-none outline-none p-5 w-full h-full max-h-48 duration-300`}
       disabled={checkIfSelected()}
     >
-      <div className="flex flex-col w-80 mx-2 flex-grow-8">
+      <div className="flex flex-col w-80 mx-2 flex-grow-8 ">
         <h2 className={`${checkIsOnFocus()? "group-focus:text-white text-white group-hover:text-white" : " text-gray-800 group-hover:text-black"}  text-lg sm:text-xl duration-200`}> 
           {pillStore.pharmacy}
         </h2>
