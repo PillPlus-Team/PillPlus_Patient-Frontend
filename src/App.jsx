@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-dom'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { LoginPage, HomePage, PillStorePage, ReceiptPage} from './pages'
 import UserContext from './pages/components/UserContext'
 
@@ -26,7 +26,7 @@ const App = () => {
 
   const history = useHistory()
 
-  const logout = () => {
+  const logout = useCallback(() => {
     console.log('Loging out...')
 
     localStorage.removeItem('nationalId')
@@ -36,7 +36,7 @@ const App = () => {
     setIsAuth(false)
     console.log('Logout Completed')
     history.push('/login')
-  }
+  },[history])
 
   // aware of unnecessary change
   const passValue = useMemo(() => ({user, setUser, pillList, setPillList, selectedPillStore, setSelectedPillStore, isAuth, setIsAuth, center, setCenter, isSelect, setIsSelect, API_KEY, API_AUTH, API_UPDATE, API_PILLSTORES, pillStoreList, setPillStoreList, render, setRender, logout, history}), 

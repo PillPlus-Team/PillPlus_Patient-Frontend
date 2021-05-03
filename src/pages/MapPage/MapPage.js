@@ -42,7 +42,7 @@ export default function MapPage() {
     center,
     setCenter,
     setIsSelect,
-    setSelectedPillStore,
+  
     access,
     pillStoreList,
     tempSelected,

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import Header from '../components/Header'
 import Button from '../components/Button'
 import MapPage from '../MapPage/MapPage';
@@ -15,8 +15,7 @@ const PillStorePage = () => {
     const [access, setAccess] = useState(true) //checkbox
     const [tempSelected, setTempSelected] = useState(selectedPillStore)
 
-    console.log(isSelect)
-    const changePillStore = async ( pillStoreID ) => {
+    const changePillStore = useCallback(async ( pillStoreID ) => {
         const res = await fetch(API_KEY + API_UPDATE, { 
             method: 'PUT',
             mode: 'cors',
@@ -47,7 +46,7 @@ const PillStorePage = () => {
             console.log("ERROR:" + res.status + " Cannot Change PillStore")
         }
         
-    };
+    });
 
 
 
@@ -110,6 +109,7 @@ const PillStorePage = () => {
                                     console.log({tempSelected:tempSelected})
                                     console.log({ID: tempSelected.ID})
                                     changePillStore(tempSelected.ID)
+                                    setIsSelect(false)
                                 }}
                                 disabled={!isSelect} // make it true for default (disable = true at first time)
                             />
