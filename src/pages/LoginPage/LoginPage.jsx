@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext} from 'react';
 import Button from '../components/Button'
 import UserContext from '../components/UserContext'
 
@@ -7,7 +7,7 @@ const LoginPage = () => {
     const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
     const [serialNumber, setSerialNumber] = useState('1620059481392')    //Bill Serial Numbers 
 
-    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES, history} = useContext(UserContext)
+    const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES} = useContext(UserContext)
 
     const [error, setError] = useState(false) // default is false (* when error you need to setError for error to display on screen)
 
@@ -39,14 +39,12 @@ const LoginPage = () => {
                 setPillList(data.pills)
                 setSelectedPillStore(data.pillStore)
                 setCenter(data.pillStore.coordinate)
-                setIsAuth(true)
 
                 console.log({receipt:data})
                 
                 // Store to LocalStorage for nationalId and serialNumber
                 localStorage.setItem('nationalId', JSON.stringify(nationalId))
                 localStorage.setItem('serialNumber', JSON.stringify(serialNumber))
-                
                 console.log("Stored to LocalStorage Completed")
                 
                 console.log("Fetch User Completed")
@@ -82,8 +80,6 @@ const LoginPage = () => {
                 setPillStoreList(data)
                 console.log({PillStores : data})
                 console.log("Fetch Location Completed")
-                history.push('/home')
-                console.log("Going to HomePage, Welcome! :)")
             }else{
                 console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
             }
@@ -93,6 +89,13 @@ const LoginPage = () => {
         fetchUser(nationalId, serialNumber)
         .then((prescriptionID) => fetchLocations(prescriptionID))
         .then(() => setRender(true))
+        .then(() => {
+            //history.push('/home')
+            console.log('set auth true')
+            setIsAuth(true)
+            //Automatic Redirect to HomePage
+            console.log("Going to HomePage, Welcome! :)")
+        })
 
     }
 

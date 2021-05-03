@@ -13,7 +13,10 @@ const App = () => {
   const [user, setUser] = useState({})  
   const [pillList, setPillList] = useState([])
   const [selectedPillStore, setSelectedPillStore] = useState({})
-  const [isAuth, setIsAuth] = useState(false)  // Authentication mockup
+  const [isAuth, setIsAuth] = useState(()=>{
+    let localAuth = localStorage.getItem("auth")
+    return localAuth? JSON.parse(localAuth) : false
+  })  // Authentication mockup
   const [center, setCenter] = useState({"lat": 15.039960, "lng": 100.178123}) // default lat,lng
   const [isSelect, setIsSelect] = useState(false)
   const [pillStoreList, setPillStoreList] = useState([])
@@ -31,8 +34,10 @@ const App = () => {
 
     localStorage.removeItem('nationalId')
     localStorage.removeItem('serialNumber')
+    localStorage.removeItem('auth')
     console.log('Remove from LocalStorage Completed')
     
+    console.log('set Auth false')
     setIsAuth(false)
     console.log('Logout Completed')
     history.push('/login')
@@ -44,7 +49,6 @@ const App = () => {
 
   // Refresh page (At first time of press Refreshing in anypage or run the first time when login)
   useEffect(() => {
-
     // Other Functions 
     const fetchUser = async (nationalId, serialNumber) => {
         const res = await fetch(API_KEY + API_AUTH, {
@@ -67,7 +71,6 @@ const App = () => {
             setSelectedPillStore(data.pillStore)
             setCenter(data.pillStore.coordinate)
     
-            setIsAuth(true)
             console.log({receipt:data})
             console.log("Refreshing Page...")
             if (!(isHomePath || isPillStorePath)){
@@ -103,17 +106,16 @@ const App = () => {
     } 
 
     // Begin useEffect Function 
-    console.log({Fucking:history})
     var localNationalId = localStorage.getItem("nationalId")
     var localSerialNumber = localStorage.getItem("serialNumber")
+
+    localStorage.setItem('auth', JSON.stringify(isAuth))
 
     setRender(false)  // always set to default false
 
     if (localNationalId !== null && localSerialNumber !== null) {
       localNationalId = JSON.parse(localNationalId)
       localSerialNumber = JSON.parse(localSerialNumber)
-      
-      setIsAuth(true)
       
       //Debug
       console.log("localNationalId is "+  localNationalId)
@@ -132,11 +134,10 @@ const App = () => {
 
     }
     else{
-      setIsAuth(false)
       console.log("Not Found localStorage")
     }
 
-  },[API_AUTH, API_KEY, API_PILLSTORES, isHomePath, isPillStorePath])
+  },[API_AUTH, API_KEY, API_PILLSTORES, isHomePath, isPillStorePath, isAuth])
   
 
   //get patient receipts user profile data  // NEED TO DELETE THIS SOON ... 
