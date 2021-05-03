@@ -1,11 +1,14 @@
-// import Button from "../../components/Button";
 import MapContext from "../../components/MapContext";
 import React, { useContext } from "react";
 
 const PillStore = ({ pillStore }) => {
-  const { setIsSelect, setTempSelected, setCenter, center } = useContext(
-    MapContext
-  );
+  
+  const { setIsSelect, selectedPillStore, setTempSelected, setCenter, center } = useContext(MapContext);
+
+  const checkIfSelected = () => {
+    // UserSelectPillStore === pillStoreID now? 
+    return selectedPillStore.ID === pillStore.ID
+  }
 
   return (
     <button
@@ -19,7 +22,8 @@ const PillStore = ({ pillStore }) => {
               lng: pillStore.coordinate.lng + 0.000001,
             });
       }}
-      className="group flex flex-row flex-wrap lg:flex-nowrap items-center justify-center bg-white hover:bg-gray-200 focus:bg-blue-500 focus:outline-none outline-none p-5 w-full h-full focus:ring-blue-500 duration-300"
+      className= {`disabled:opacity-50 ${checkIfSelected() ? "pointer-events-none":" " } group flex flex-row flex-wrap lg:flex-nowrap items-center justify-center bg-white hover:bg-gray-200 focus:bg-blue-500 focus:outline-none outline-none p-5 w-full h-full focus:ring-blue-500 duration-300`}
+      disabled={checkIfSelected()}
     >
       <div className="flex flex-col w-80 mx-2 flex-grow-8">
         <h2 className="duration-200 text-lg sm:text-xl text-gray-800 group-hover:text-black group-focus:text-white">

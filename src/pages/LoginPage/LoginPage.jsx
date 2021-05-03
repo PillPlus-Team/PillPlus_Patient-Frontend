@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'; // May add Link in the future for footer ? or hospital link ? ... 
 import Button from '../components/Button'
 import UserContext from '../components/UserContext'
 
