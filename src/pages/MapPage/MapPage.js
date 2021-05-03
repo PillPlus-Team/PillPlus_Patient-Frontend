@@ -11,7 +11,7 @@ import {
 import { mapStyle } from "./Style/mapStyle.js";
 import "./Style/map.css";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 //------------map style--------------------
 const libraries = ["places"];
@@ -63,6 +63,7 @@ export default function MapPage() {
   //----------check path------------
   const location = useLocation();
   const isHomePath = location.pathname === "/home";
+  const [st, setSt] = useState("https://www.google.com/maps/dir//");
 
   //--------check loading-----------
   if (loadError) return "Error loading maps";
@@ -177,6 +178,12 @@ export default function MapPage() {
               setTempSelected(selectedPillStore);
               setIsSelect(true);
             }
+            setSt(
+              st +
+                selectedPillStore.coordinate.lat.toString() +
+                "," +
+                selectedPillStore.coordinate.lng.toString()
+            );
           }}
         />
         {selected ? (
@@ -187,8 +194,21 @@ export default function MapPage() {
             }}
           >
             <div>
-              <h2>{selected.pharmacy}</h2>
-              <p>{selected.location}</p>
+              <h2 className="font-sans text-md">{selected.pharmacy}</h2>
+              <p className="font-sans">{selected.location}</p>
+              <a
+                className="font-sans flex flex-row justify-center items-center text-blue-500 underline"
+                href={st}
+                target="_blank"
+              >
+                ค้นหาเส้นทาง
+                <img
+                  className="ml-1.5"
+                  src="https://i.imgur.com/9UtqOGg.png"
+                  width="25"
+                  alt="Directions"
+                />
+              </a>
             </div>
           </InfoWindow>
         ) : null}
