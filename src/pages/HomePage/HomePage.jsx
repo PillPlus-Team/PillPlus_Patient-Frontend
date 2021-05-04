@@ -6,8 +6,6 @@ import SelectPillStore from './components/SelectPillStore'
 import MapContext from '../components/MapContext';
 import UserContext from '../components/UserContext'
 
-import { LoadingModal, ConfirmDialog, Toast, SwalDefault } from '../components/SweetAlert2';
-
 const HomePage = () => {
 
     const {selectedPillStore, center, setCenter, setIsSelect, pillStoreList, render, logout, history} = useContext(UserContext);
@@ -45,22 +43,7 @@ const HomePage = () => {
                 onClick={()=> history.push('/receipt')}
                 />
                 
-
-                <button 
-                    className= "w-32 h-16 bg-blue-500 text-white"
-                    onClick={()=> {
-                        LoadingModal.fire({ 
-                            title: 'กำลังดำเนินการ ...' 
-                        })
-                        LoadingModal.showLoading();
-                        
-
-                    }}
-                >
-                    Test fire swal
-                </button>
-                
-                </>
+            </>
 
             }
 

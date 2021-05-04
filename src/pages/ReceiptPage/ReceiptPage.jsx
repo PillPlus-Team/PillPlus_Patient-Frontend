@@ -91,6 +91,36 @@ const ReceiptPage = () => {
                     })}
                     </h1>
                 </div>
+                {/*  */}
+                <div className='flex flex-row items-center w-full h-full'>
+                    <h1 className='flex-left sm:flex-left2 h-3' ></h1>
+                    <h1 className='flex-right' > </h1>
+                </div>
+                {/* row 10 */}
+                <div className='flex flex-row items-center w-full h-full'>
+                    {/* left */}
+                    <div className='flex-left sm:flex-left2 flex-col w-full h-full'> 
+                        <h1 className='font-bold'>
+                            เวลาทำการ
+                        </h1>
+                        <h1 className='text-gray-600'>
+                            {selectedPillStore.pharmacy}
+                        </h1>
+                    </div>
+                    {/* right */}
+                    <div className='flex-right w-full h-full'>
+                        {selectedPillStore.openingData.map((value) => {
+                            return (
+                                <p className={`${value.opening ? 'text-gray-400' : 'text-red-500'} text-right`}>
+                                    {value.day} :{' '}
+                                    {value.opening ? `${value.openHour}:${value.openMinute} - ${value.closeHour}:${value.closeMinute}` : 'ปิด'}
+                                </p>
+                            );
+                        })}
+                    </div>
+
+
+                </div>
 
             </div>
 

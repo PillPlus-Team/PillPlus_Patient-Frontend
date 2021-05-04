@@ -3,6 +3,8 @@ import { useState, useMemo, useEffect, useCallback } from 'react'
 import { LoginPage, HomePage, PillStorePage, ReceiptPage} from './pages'
 import UserContext from './pages/components/UserContext'
 
+import { LoadingModal, ConfirmDialog, Toast} from './pages/components/SweetAlert2';
+
 const App = () => {
   //----------check path------------
   const location = useLocation()
@@ -129,6 +131,7 @@ const App = () => {
           }
       })
       .then(()=> {
+
         setRender(true)
       })
 

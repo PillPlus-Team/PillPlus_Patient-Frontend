@@ -1,13 +1,13 @@
 import PillStore from "./PillStore";
 
-const PillStoreList = ({ pillStoreList, filter, access, onChange }) => {
+const PillStoreList = ({ pillStoreList, filter, access, selectedPillStore}) => {
   const lowerCaseFilter = filter.toLowerCase();
 
   const passRequirement = (pillStore) =>
     (filter === "" ||
       pillStore.pharmacy.toLowerCase().includes(lowerCaseFilter) ||
       pillStore.location.toLowerCase().includes(lowerCaseFilter)) &&
-    (pillStore.status === access || !access); //check box filter
+    (pillStore.status === access || !access || (selectedPillStore.ID === pillStore.ID)); //check box filter
 
   return (
     <>
