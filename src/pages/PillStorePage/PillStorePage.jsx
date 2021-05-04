@@ -7,6 +7,8 @@ import FilterBarPillStore from './components/FilterBarPillStore'
 import MapContext from '../components/MapContext'
 import UserContext from '../components/UserContext'
 
+import { LoadingModal, ConfirmDialog, Toast, SwalDefault } from '../components/SweetAlert2';
+
 const PillStorePage = () => {
 
     const {setUser, setPillList, selectedPillStore, setSelectedPillStore, center, setCenter, isSelect, setIsSelect, pillStoreList, render, logout, API_KEY, API_UPDATE, history} = useContext(UserContext);
@@ -16,6 +18,10 @@ const PillStorePage = () => {
     const [tempSelected, setTempSelected] = useState(selectedPillStore)
 
     const changePillStore = useCallback(async ( pillStoreID ) => {
+        
+        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+        LoadingModal.showLoading();
+        
         const res = await fetch(API_KEY + API_UPDATE, { 
             method: 'PUT',
             mode: 'cors',
@@ -27,6 +33,8 @@ const PillStorePage = () => {
                 pillStoreID: pillStoreID, //invoice
             }),
         });
+
+        LoadingModal.close()
 
         if (res.status === 200) {
             // return new User Data with new SelectedPillStore
@@ -40,7 +48,7 @@ const PillStorePage = () => {
             history.push('/home')
             console.log("Completed Change PillStore")
             console.log("back to HomePage")
-            //title: 'ดำเนินการสำเร็จ', icon: 'success' 
+            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
         } else {
             //title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' 
             console.log("ERROR:" + res.status + " Cannot Change PillStore")
