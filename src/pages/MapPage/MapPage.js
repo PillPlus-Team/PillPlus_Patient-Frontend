@@ -100,7 +100,7 @@ export default function MapPage() {
                     icon={
                       pillStore.status
                         ? {
-                            url: "https://i.imgur.com/Ist6wBW.png", // blue
+                            url: "https://i.imgur.com/Ei2X1hR.png", // green
                             scaledSize: new window.google.maps.Size(40, 40),
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
@@ -131,14 +131,14 @@ export default function MapPage() {
                     icon={
                       pillStore.ID !== tempSelected.ID
                         ? {
-                            url: "https://i.imgur.com/Ist6wBW.png", // blue
+                            url: "https://i.imgur.com/Ei2X1hR.png", // green
                             scaledSize: new window.google.maps.Size(40, 40),
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
                           }
                         : {
-                            url: "https://i.imgur.com/AKxj5NZ.png", //blue selected
-                            scaledSize: new window.google.maps.Size(43, 43),
+                            url: "https://i.imgur.com/Ei2X1hR.png", // green selected
+                            scaledSize: new window.google.maps.Size(45, 45),
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
                           }
@@ -188,7 +188,7 @@ export default function MapPage() {
           key={selectedPillStore.ID}
           position={selectedPillStore.coordinate}
           icon={{
-            url: "https://i.imgur.com/Ei2X1hR.png", //green
+            url: "https://i.imgur.com/Ist6wBW.png", //blue
             scaledSize: new window.google.maps.Size(40, 40),
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(15, 15),
