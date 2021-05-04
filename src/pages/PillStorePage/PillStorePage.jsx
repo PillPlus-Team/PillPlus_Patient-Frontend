@@ -20,15 +20,23 @@ const PillStorePage = () => {
 
     const stringDataOpening = () => {
 
-        // return tempSelected.openingData.map((value) => {
-            
-        //     return <p>
-        //         {value.day} :{' '}
-        //         {value.opening ? `${value.openHour}:${value.openMinute} - ${value.closeHour}:${value.closeMinute}` : 'ปิด'}
-        //     </p>
-            
-        // })
-        // .join()
+        return tempSelected.openingData
+            .map((value) => {
+                let string = '';
+
+                string += '<p><b>';
+                string += String(value.day) + ': ';
+                if (value.opening) {
+                    string +=
+                        String(value.openHour) + ':' + String(value.openMinute) + '-' + String(value.closeHour) + ':' + String(value.closeMinute);
+                } else {
+                    string += 'ปิด';
+                }
+                string += '</b></p>';
+
+                return string;
+            })
+            .join('');
     }
 
 
@@ -144,8 +152,8 @@ const PillStorePage = () => {
                                                                                         
                                             `รับยาที่ <b>${tempSelected.pharmacy}</b> <br>` +
                                             `ที่อยู่ <b>${tempSelected.location}</b> <br><br>` +
-                                            `เบอร์โทรศัพท์ <b>${tempSelected.phone}</b> <br> `
-                                            ,
+                                            `เบอร์โทรศัพท์ <b>${tempSelected.phone}</b> <br><br>` +
+                                             stringDataOpening() ,
                                         icon: 'warning',
 
                                     }).then(async (result) => {
