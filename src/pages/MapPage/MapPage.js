@@ -88,98 +88,101 @@ export default function MapPage() {
           <Locate panTo={panTo} />
         </MapContext.Provider>
 
-        {pillStoreList.map(
-          (pillStore) =>
-            pillStore.ID !== selectedPillStore.ID &&
-            (isHomePath ? (
-              //--------For HomePage--------------
-              <Marker
-                key={pillStore.ID}
-                position={pillStore.coordinate}
-                icon={
-                  pillStore.status
-                    ? {
-                        url: "https://i.imgur.com/Ist6wBW.png", // blue
-                        scaledSize: new window.google.maps.Size(40, 40),
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                      }
-                    : {
+        {pillStoreList !== []
+          ? pillStoreList.map(
+              (pillStore) =>
+                pillStore.ID !== selectedPillStore.ID &&
+                (isHomePath ? (
+                  //--------For HomePage--------------
+                  <Marker
+                    key={pillStore.ID}
+                    position={pillStore.coordinate}
+                    icon={
+                      pillStore.status
+                        ? {
+                            url: "https://i.imgur.com/Ist6wBW.png", // blue
+                            scaledSize: new window.google.maps.Size(40, 40),
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                          }
+                        : {
+                            url: "https://i.imgur.com/v4dw84y.png", //red
+                            scaledSize: new window.google.maps.Size(40, 40),
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                          }
+                    }
+                    onClick={() => {
+                      setSelected(pillStore);
+                      setDirectionURL(
+                        "https://www.google.com/maps/dir//" +
+                          pillStore.coordinate.lat.toString() +
+                          "," +
+                          pillStore.coordinate.lng.toString()
+                      );
+                    }}
+                  />
+                ) : //----------For PillStorePage--------------------
+
+                pillStore.status ? (
+                  <Marker
+                    key={pillStore.ID}
+                    position={pillStore.coordinate}
+                    icon={
+                      pillStore.ID !== tempSelected.ID
+                        ? {
+                            url: "https://i.imgur.com/Ist6wBW.png", // blue
+                            scaledSize: new window.google.maps.Size(40, 40),
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                          }
+                        : {
+                            url: "https://i.imgur.com/AKxj5NZ.png", //blue selected
+                            scaledSize: new window.google.maps.Size(43, 43),
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                          }
+                    }
+                    onClick={() => {
+                      setSelected(pillStore);
+                      setTempSelected(pillStore);
+                      setIsSelect(true);
+                      setDirectionURL(
+                        "https://www.google.com/maps/dir//" +
+                          pillStore.coordinate.lat.toString() +
+                          "," +
+                          pillStore.coordinate.lng.toString()
+                      );
+                    }}
+                  />
+                ) : (
+                  !access && (
+                    <Marker
+                      key={pillStore.ID}
+                      position={pillStore.coordinate}
+                      icon={{
                         url: "https://i.imgur.com/v4dw84y.png", //red
                         scaledSize: new window.google.maps.Size(40, 40),
                         origin: new window.google.maps.Point(0, 0),
                         anchor: new window.google.maps.Point(15, 15),
-                      }
-                }
-                onClick={() => {
-                  setSelected(pillStore);
-                  setDirectionURL(
-                    "https://www.google.com/maps/dir//" +
-                      pillStore.coordinate.lat.toString() +
-                      "," +
-                      pillStore.coordinate.lng.toString()
-                  );
-                }}
-              />
-            ) : //----------For PillStorePage--------------------
+                      }}
+                      onClick={() => {
+                        setSelected(pillStore);
+                        setTempSelected(pillStore);
+                        setIsSelect(false);
+                        setDirectionURL(
+                          "https://www.google.com/maps/dir//" +
+                            pillStore.coordinate.lat.toString() +
+                            "," +
+                            pillStore.coordinate.lng.toString()
+                        );
+                      }}
+                    />
+                  )
+                ))
+            )
+          : () => null}
 
-            pillStore.status ? (
-              <Marker
-                key={pillStore.ID}
-                position={pillStore.coordinate}
-                icon={
-                  pillStore.ID !== tempSelected.ID
-                    ? {
-                        url: "https://i.imgur.com/Ist6wBW.png", // blue
-                        scaledSize: new window.google.maps.Size(40, 40),
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                      }
-                    : {
-                        url: "https://i.imgur.com/AKxj5NZ.png", //blue selected
-                        scaledSize: new window.google.maps.Size(43, 43),
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                      }
-                }
-                onClick={() => {
-                  setSelected(pillStore);
-                  setTempSelected(pillStore);
-                  setIsSelect(true);
-                  setDirectionURL(
-                    "https://www.google.com/maps/dir//" +
-                      pillStore.coordinate.lat.toString() +
-                      "," +
-                      pillStore.coordinate.lng.toString()
-                  );
-                }}
-              />
-            ) : (
-              !access && (
-                <Marker
-                  key={pillStore.ID}
-                  position={pillStore.coordinate}
-                  icon={{
-                    url: "https://i.imgur.com/v4dw84y.png", //red
-                    scaledSize: new window.google.maps.Size(40, 40),
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15),
-                  }}
-                  onClick={() => {
-                    setSelected(pillStore);
-                    setTempSelected(pillStore);
-                    setIsSelect(false);
-                    setDirectionURL(
-                      "https://www.google.com/maps/dir//" +
-                        pillStore.coordinate.lat.toString() +
-                        "," +
-                        pillStore.coordinate.lng.toString()
-                    );
-                  }}
-                />
-              )
-            ))
-        )}
         <Marker
           //---------------Selected PillStore--------------
           key={selectedPillStore.ID}
@@ -204,6 +207,7 @@ export default function MapPage() {
             );
           }}
         />
+
         {selected ? (
           <InfoWindow
             position={selected.coordinate}
@@ -212,12 +216,17 @@ export default function MapPage() {
             }}
           >
             <div>
-              <h2 className="font-sans text-md">{selected.pharmacy}</h2>
-              <p className="font-sans">{selected.location}</p>
+              <h2 className="font-sans text-md">
+                ชื่อร้าน : {selected.pharmacy}
+              </h2>
+              <p className="font-sans">ที่อยู่ : {selected.location}</p>
+              <p className="font-sans">ติดต่อ : {selected.phone}</p>
+
               <a
                 className="font-sans flex flex-row justify-center items-center text-blue-500 underline"
                 href={directionURL}
                 target="_blank"
+                rel="noreferrer"
               >
                 ค้นหาเส้นทาง
                 <img
