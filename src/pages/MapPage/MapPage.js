@@ -219,8 +219,8 @@ export default function MapPage() {
               <h2 className="font-sans text-md">
                 ชื่อร้าน : {selected.pharmacy}
               </h2>
-              <p className="font-sans">ที่อยู่ : {selected.location}</p>
-              <p className="font-sans">ติดต่อ : {selected.phone}</p>
+              <p className="font-sans ">ที่อยู่ : {selected.location}</p>
+              <p className="font-sans mt-1 text-gray-900">โทร : {selected.phone}</p>
 
               <a
                 className="font-sans flex flex-row justify-center items-center text-blue-500 underline"

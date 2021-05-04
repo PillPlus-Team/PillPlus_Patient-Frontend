@@ -7,15 +7,36 @@ import FilterBarPillStore from './components/FilterBarPillStore'
 import MapContext from '../components/MapContext'
 import UserContext from '../components/UserContext'
 
+import { LoadingModal, ConfirmDialog, Toast} from '../components/SweetAlert2';
+
 const PillStorePage = () => {
 
-    const {setUser, setPillList, selectedPillStore, setSelectedPillStore, center, setCenter, isSelect, setIsSelect, pillStoreList, render, logout, API_KEY, API_UPDATE, history} = useContext(UserContext);
+    const {user, setUser, setPillList, selectedPillStore, setSelectedPillStore, center, setCenter, isSelect, setIsSelect, pillStoreList, render, logout, API_KEY, API_UPDATE, history} = useContext(UserContext);
 
     const [filter, setFilter] = useState("")    //filter string
     const [access, setAccess] = useState(true) //checkbox
     const [tempSelected, setTempSelected] = useState(selectedPillStore)
 
+
+    const stringDataOpening = () => {
+
+        // return tempSelected.openingData.map((value) => {
+            
+        //     return <p>
+        //         {value.day} :{' '}
+        //         {value.opening ? `${value.openHour}:${value.openMinute} - ${value.closeHour}:${value.closeMinute}` : 'ปิด'}
+        //     </p>
+            
+        // })
+        // .join()
+    }
+
+
     const changePillStore = useCallback(async ( pillStoreID ) => {
+        
+        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+        LoadingModal.showLoading();
+
         const res = await fetch(API_KEY + API_UPDATE, { 
             method: 'PUT',
             mode: 'cors',
@@ -28,6 +49,8 @@ const PillStorePage = () => {
             }),
         });
 
+        LoadingModal.close()
+
         if (res.status === 200) {
             // return new User Data with new SelectedPillStore
             const data = await res.json();
@@ -37,14 +60,16 @@ const PillStorePage = () => {
             setCenter(data.pillStore.coordinate)
 
             console.log({newUserDataWithNewSelectedPillStore:data})
-            history.push('/home')
             console.log("Completed Change PillStore")
+            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            history.push('/home')
             console.log("back to HomePage")
-            //title: 'ดำเนินการสำเร็จ', icon: 'success' 
+
         } else {
-            //title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' 
             console.log("ERROR:" + res.status + " Cannot Change PillStore")
+            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
         }
+        
         
     },[API_KEY, API_UPDATE, history, setCenter, setPillList, setSelectedPillStore, setUser]);
 
@@ -95,6 +120,7 @@ const PillStorePage = () => {
                                 <div className="flex flex-col justify-start items-center overflow-y-auto h-full w-full max-h-44 sm:max-h-128 divide-y border-l-0 border-r-0 bg-gray-200 z-30 ">
                                     <PillStoreList 
                                         pillStoreList={pillStoreList}
+                                        selectedPillStore={selectedPillStore}
                                         filter={filter} //filter string
                                         access={access} //checkbox
                                     />
@@ -108,8 +134,28 @@ const PillStorePage = () => {
                                 onClick={()=> {
                                     console.log({tempSelected:tempSelected})
                                     console.log({ID: tempSelected.ID})
-                                    changePillStore(tempSelected.ID)
-                                    setIsSelect(false)
+
+                                    ConfirmDialog.fire({ 
+
+                                        title: 'ยืนยันสถานที่รับยา',
+                                        html:
+                                            `<br> คุณ ${user.name} ` +
+                                            `<br> HN ${user.hn} <br><br>`+
+                                                                                        
+                                            `รับยาที่ <b>${tempSelected.pharmacy}</b> <br>` +
+                                            `ที่อยู่ <b>${tempSelected.location}</b> <br><br>` +
+                                            `เบอร์โทรศัพท์ <b>${tempSelected.phone}</b> <br> `
+                                            ,
+                                        icon: 'warning',
+
+                                    }).then(async (result) => {
+                                        if(result.isConfirmed){
+                                            await changePillStore(tempSelected.ID)
+                                            setIsSelect(false)
+                                        }
+                                    })
+
+
                                 }}
                                 disabled={!isSelect} // make it true for default (disable = true at first time)
                             />

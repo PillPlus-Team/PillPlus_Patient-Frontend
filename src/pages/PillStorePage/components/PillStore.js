@@ -38,16 +38,25 @@ const PillStore = ({ pillStore }) => {
         </h3>
       </div>
 
-      <h3
-        className={`duration-300 text-md sm:text-base 
-        ${(!checkIsOnFocus() && pillStore.status)? "bg-green-100 text-green-500 ": " "} 
-        ${(!checkIsOnFocus() && !pillStore.status)? "bg-red-200 text-red-500 ": " "}   
-        ${(checkIsOnFocus() && pillStore.status)? "group-focus:bg-green-500 group-focus:text-white bg-green-500 text-white " : " "}  
-        ${(checkIsOnFocus() && !pillStore.status)? "group-focus:bg-red-300 group-focus:text-red-500 bg-red-300 text-red-500 ":" "}                   
-                                                p-3 mx-2 mt-3 md:mt-0 w-40 text-center flex-grow`}
-      >
-        {pillStore.status ? "สามารถไปรับยาได้" : "ไม่สามารถไปรับยาได้"}
-      </h3>
+      {!checkIfSelected() ?
+        <h3
+          className={`duration-300 text-md sm:text-base 
+          ${(!checkIsOnFocus() && pillStore.status)? "bg-green-100 text-green-500 ": " "} 
+          ${(!checkIsOnFocus() && !pillStore.status)? "bg-red-200 text-red-500 ": " "}   
+          ${(checkIsOnFocus() && pillStore.status)? "group-focus:bg-green-500 group-focus:text-white bg-green-500 text-white " : " "}  
+          ${(checkIsOnFocus() && !pillStore.status)? "group-focus:bg-red-300 group-focus:text-red-500 bg-red-300 text-red-500 ":" "}                   
+                                                  p-3 mx-2 mt-3 md:mt-0 w-40 text-center flex-grow`}
+        >
+          {pillStore.status ? "สามารถไปรับยาได้" : "ไม่สามารถไปรับยาได้"}
+        </h3>
+        :
+        <h3 
+          className="bg-blue-200 text-blue-700 duration-300 text-md sm:text-base p-3 mx-2 mt-3 md:mt-0 w-40 text-center flex-grow"
+        >
+          สถานที่เลือกรับยา
+        </h3>
+      
+      }
 
       {/* <Button
         title="map"

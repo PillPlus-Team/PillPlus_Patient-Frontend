@@ -43,7 +43,7 @@ const HomePage = () => {
                 onClick={()=> history.push('/receipt')}
                 />
                 
-                </>
+            </>
 
             }
 

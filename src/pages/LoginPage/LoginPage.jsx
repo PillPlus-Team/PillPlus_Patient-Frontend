@@ -79,6 +79,7 @@ const LoginPage = () => {
                 // console.log(data)
                 setPillStoreList(data)
                 console.log({PillStores : data})
+                console.log({openingData : data.openingData})
                 console.log("Fetch Location Completed")
             }else{
                 console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
