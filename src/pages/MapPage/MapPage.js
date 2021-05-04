@@ -197,7 +197,7 @@ export default function MapPage() {
             setSelected(selectedPillStore);
             if (!isHomePath) {
               setTempSelected(selectedPillStore);
-              setIsSelect(true);
+              setIsSelect(false);
             }
             setDirectionURL(
               "https://www.google.com/maps/dir//" +
