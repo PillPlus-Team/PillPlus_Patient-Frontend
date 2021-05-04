@@ -81,7 +81,10 @@ const LoginPage = () => {
                 console.log({PillStores : data})
                 console.log({openingData : data.openingData})
                 console.log("Fetch Location Completed")
+                console.log('set auth true')
+                setIsAuth(true)
             }else{
+                setIsAuth(false)
                 console.log("ERROR:" + res.status + " Cannot get Avaliable pillStores")
             }
 
@@ -92,8 +95,7 @@ const LoginPage = () => {
         .then(() => setRender(true))
         .then(() => {
             //history.push('/home')
-            console.log('set auth true')
-            setIsAuth(true)
+
             //Automatic Redirect to HomePage
             console.log("Going to HomePage, Welcome! :)")
         })
