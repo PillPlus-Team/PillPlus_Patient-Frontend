@@ -4,8 +4,8 @@ import UserContext from '../components/UserContext'
 
 const LoginPage = () => {
 
-    const [nationalId, setNationalId] = useState('6311148983216')    //Thai National ID 13 numbers   
-    const [serialNumber, setSerialNumber] = useState('1620059481392')    //Bill Serial Numbers 
+    const [nationalId, setNationalId] = useState('')    //Thai National ID 13 numbers   
+    const [serialNumber, setSerialNumber] = useState('')    //Bill Serial Numbers 
 
     const {setUser, setPillList, setSelectedPillStore, setCenter, setIsAuth, setPillStoreList, setRender, API_KEY, API_AUTH, API_PILLSTORES} = useContext(UserContext)
 
@@ -133,7 +133,7 @@ const LoginPage = () => {
                         onChange={(event) => {
                             setSerialNumber(event.target.value);
                         }}
-                        placeholder="หมายเลขใบสั่งยา"
+                        placeholder="หมายเลขใบเสร็จ"
                         required
                     />
                     
