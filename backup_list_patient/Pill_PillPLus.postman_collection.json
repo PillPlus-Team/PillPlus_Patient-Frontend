@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "56f5b95e-ac0f-4648-9f14-e87da643e65e",
+		"name": "Pill_PillPLus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"sutthiratphutho@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Radsadorn",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/auth/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Radsadorn\",\r\n    \"surname\": \"Phutho\",\r\n    \"email\": \"sutthiratphutho@gmail.com\",\r\n    \"phone\": \"0973512423\",\r\n    \"avatarUri\": \"https://static.wikia.nocookie.net/kimetsu-no-yaiba/images/e/e0/Zenitsu_anime_design.png/revision/latest?cb=20181128204231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/auth/updateProfile",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"updateProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"0987654321\",\r\n    \"newPassword\": \"123456\",\r\n    \"reNewPassword\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/auth/resetPassword",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"resetPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all pills",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/pill/all",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pill",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add pill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sn\": \"62010111\",\r\n    \"name\": \"Test 5\",\r\n    \"description\": \"for testing 5\",\r\n    \"price\": 10,\r\n    \"unit\": \"grum\",\r\n    \"type\": \"NED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pill/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pill",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pill",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sn\": \"12345543khj21\",\r\n    \"name\": \"Updateeeeeeeeeegut\",\r\n    \"description\": \"for testing10\",\r\n    \"price\": 10,\r\n    \"unit\": \"grum\",\r\n    \"type\": \"NED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/pill/6084f138bba12b4728877fcf",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pill",
+						"6084f138bba12b4728877fcf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete pill",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pill/6084f0f8a31f3a4420d5ae42",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pill",
+						"6084f0f8a31f3a4420d5ae42"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all pill stores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pillStore/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pillStore",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add pill stores",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test\",\r\n    \"pharmacy\": \"Phutho\",\r\n    \"location\": \"Warinchamrab\",\r\n    \"lat\": \"123\",\r\n    \"lng\": \"456\",\r\n    \"phone\": \"0853094952\",\r\n    \"email\": \"62010966@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pillStore",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pillStore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pill store",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test\",\r\n    \"pharmacy\": \"Basssssss\",\r\n    \"location\": \"121 Phoe Yai Warin Ubon 34190\",\r\n    \"phone\": \"0973512528\",\r\n    \"email\": \"sutthirat@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pillStore/6084d7b46a5e354fa862e6e9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pillStore",
+						"6084d7b46a5e354fa862e6e9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete pill store",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/pillStore/6084f40cc377f71f505348e6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pillStore",
+						"6084f40cc377f71f505348e6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"6082b2703c6b0f85c0829cbd\",\r\n    \"name\": \"Radsadorn\",\r\n    \"surname\": \"Phutho\",\r\n    \"email\": \"sutthiratphutho@gmail.com\",\r\n    \"phone\": \"0973512529\",\r\n    \"avatarUri\": \"https://static.wikia.nocookie.net/kimetsu-no-yaiba/images/e/e0/Zenitsu_anime_design.png/revision/latest?cb=20181128204231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/account/all",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"sdffsd\",\r\n    \"surname\": \"sdhfsdklf\",\r\n    \"email\": \"aaaassssdd@gmail.com\",\r\n    \"phone\": \"0988123456\",\r\n    \"role\": \"Staff\",\r\n    \"password\": \"111111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/account",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update account",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Radsadorn\",\r\n    \"surname\": \"Phutho\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"phone\": \"0123456789\",\r\n    \"role\": \"Administrator\",\r\n    \"avatatUri\": \"https://static.wikia.nocookie.net/kimetsu-no-yaiba/images/e/e0/Zenitsu_anime_design.png/revision/latest?cb=20181128204231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/account/60832220f9b7fd28ccf572bd",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"60832220f9b7fd28ccf572bd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete account",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sutthirat\",\r\n    \"surname\": \"Phutho\",\r\n    \"email\": \"sutthiratphutho@gmail.com\",\r\n    \"phone\": \"0987654321\",\r\n    \"avatarUri\": \"https://static.wikia.nocookie.net/kimetsu-no-yaiba/images/e/e0/Zenitsu_anime_design.png/revision/latest?cb=20181128204231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/account/6084f7d3c377f71f505348f0",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"6084f7d3c377f71f505348f0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get available prescriptions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/prescription/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"prescription",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New prescription",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hn\": \"1234567890\",\r\n    \"identificationNumber\": \"1341501382234\",\r\n    \"name\": \"Aloha Thailand\",\r\n    \"doctor\": \"Thailand\",\r\n    \"pills\": [{\r\n        \"sn\": \"834734857\",\r\n        \"name\": \"gfgjhdfkfd\",\r\n        \"description\": \"gjhdfkjghdgkdf\",\r\n        \"amount\": 100,\r\n        \"unit\": \"gram\"\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/prescription",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"prescription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New invoice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"6085a53610779f6c888fb12b\",\r\n    \"pillStoreID\": \"PS10000008\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/invoice/selectPillStore",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"invoice",
+						"selectPillStore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get available invoices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/invoice/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"invoice",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invoice paid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/invoice/6085a5d510779f6c888fb12c",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"invoice",
+						"6085a5d510779f6c888fb12c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Available pill stores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/pillStore/3457823465234978529",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"pillStore",
+						"3457823465234978529"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change pill store",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"6085a5d510779f6c888fb12c\",\r\n    \"pillStoreID\": \"PS10000009\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/invoice/update",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"invoice",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patient Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"6085a5d510779f6c888fb12c\",\r\n    \"identificationNumber\": \"1341501382468\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/auth//patient/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"",
+						"patient",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
